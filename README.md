@@ -227,6 +227,7 @@ The `docs` folder is intended to be committed to GitHub. It contains launch, rel
 - [Link Shelf 1.0.0 release notes](docs/release-notes-v1.0.0.md)
 - [Repository profile](docs/repository-profile.md)
 - [Screenshot checklist](docs/screenshots.md)
+- [Session handoff](docs/session-handoff.md)
 
 ## Good Fit
 

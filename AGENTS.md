@@ -2,6 +2,8 @@
 
 This file is for AI coding agents that work on this repository. Human-facing product documentation belongs in `README.md`.
 
+Before changing the project, also read `docs/session-handoff.md`. It records the current local setup, GitHub release state, automation behavior, and important lessons from the setup conversation.
+
 ## Product Goal
 
 Link Shelf is a Windows utility that moves selected files or directories into the executable's own folder, then creates symbolic links at the original locations.
