@@ -41,7 +41,7 @@ jobs:
           -o .\dist
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: LinkShelf-win-x64
           path: .\dist\LinkShelf.exe
