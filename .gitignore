@@ -1,0 +1,12 @@
+bin/
+obj/
+.vs/
+dist/
+*.user
+*.suo
+*.log
+*.tmp
+*.bak
+.link-shelf-logs/
+.link-shelf-backups/
+link-shelf.config.json

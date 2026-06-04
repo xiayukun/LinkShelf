@@ -1,0 +1,60 @@
+<Window x:Class="LinkShelf.ConflictChoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="780"
+        Height="560"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock x:Name="HeadingText"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,8" />
+            <TextBlock x:Name="ReasonText"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,6" />
+            <TextBlock x:Name="TargetText"
+                       TextWrapping="Wrap"
+                       Foreground="#555555"
+                       Margin="0,0,0,2" />
+            <TextBlock x:Name="CacheText"
+                       TextWrapping="Wrap"
+                       Foreground="#555555" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Margin="0,18,0,18">
+            <Button x:Name="UseCacheButton"
+                    Height="48"
+                    Margin="0,0,0,8"
+                    Click="UseCacheButton_Click" />
+            <Button x:Name="ImportButton"
+                    Height="48"
+                    Margin="0,0,0,8"
+                    Click="ImportButton_Click" />
+            <Button x:Name="MergeButton"
+                    Height="68"
+                    Margin="0,0,0,8"
+                    Click="MergeButton_Click" />
+            <Button x:Name="SkipButton"
+                    Height="52"
+                    Click="SkipButton_Click" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button x:Name="CancelButton"
+                    Width="96"
+                    Height="34"
+                    Click="CancelButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
