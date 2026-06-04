@@ -224,6 +224,7 @@ The `docs` folder is intended to be committed to GitHub. It contains launch, rel
 - [GitHub launch checklist](docs/github-launch-checklist.md)
 - [Release checklist](docs/release-checklist.md)
 - [Release notes template](docs/release-notes-template.md)
+- [Link Shelf 1.0.0 release notes](docs/release-notes-v1.0.0.md)
 - [Repository profile](docs/repository-profile.md)
 - [Screenshot checklist](docs/screenshots.md)
 

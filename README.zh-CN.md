@@ -131,6 +131,7 @@ Link Shelf 以整个文件或整个目录为最小管理单位。
 - [GitHub 上线清单](docs/github-launch-checklist.md)
 - [发布清单](docs/release-checklist.md)
 - [发布说明模板](docs/release-notes-template.md)
+- [Link Shelf 1.0.0 发布说明](docs/release-notes-v1.0.0.md)
 - [仓库介绍资料](docs/repository-profile.md)
 - [截图检查清单](docs/screenshots.md)
 

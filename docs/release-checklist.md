@@ -43,5 +43,8 @@ Expected result:
 - Tag: `v1.0.0`
 - Title: `Link Shelf 1.0.0`
 - Artifact: `LinkShelf.exe`
-- Include the first release notes from `docs/github-launch-checklist.md`.
+- Prefer the `release` GitHub Actions workflow.
+- For the first release, open Actions, choose `release`, click `Run workflow`, keep branch `main`, and set tag to `v1.0.0`.
+- For later releases, push a new `v*` tag and let the workflow run automatically.
+- Use release notes from `docs/release-notes-v1.0.0.md`.
 - Update `CHANGELOG.md` before publishing another release.

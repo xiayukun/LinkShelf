@@ -51,4 +51,4 @@ git push -u origin main
 - Confirm screenshots render near the top of the README.
 - Confirm the build workflow starts under GitHub Actions.
 - Add the repository topics listed in `docs/github-launch-checklist.md`.
-- Create the first release from `docs/release-notes-template.md`.
+- Create the first release with the `release` GitHub Actions workflow. Use branch `main` and tag `v1.0.0`.
