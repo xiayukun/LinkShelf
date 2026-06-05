@@ -134,19 +134,9 @@ Link Shelf 是本地工具。它不会把文件、路径、日志、配置或机
 
 Link Shelf 以整个文件或整个目录为最小管理单位。
 
-## 维护文档
+## 维护者入口
 
-`docs` 目录建议一起提交到 GitHub。它不是程序运行必需文件，而是给维护者使用的发布清单、仓库介绍资料、截图检查清单和上线准备说明。
-
-- [首次推送清单](docs/first-push.zh-CN.md)
-- [GitHub 上线清单](docs/github-launch-checklist.zh-CN.md)
-- [发布清单](docs/release-checklist.zh-CN.md)
-- [发布说明模板](docs/release-notes-template.zh-CN.md)
-- [Link Shelf 1.0.1 发布说明](docs/release-notes-v1.0.1.zh-CN.md)
-- [Link Shelf 1.0.0 发布说明](docs/release-notes-v1.0.0.zh-CN.md)
-- [仓库介绍资料](docs/repository-profile.zh-CN.md)
-- [截图检查清单](docs/screenshots.zh-CN.md)
-- [会话交接文档](docs/session-handoff.md)
+发布、截图、交接等维护资料放在 [docs](docs)。普通用户可以忽略这一部分。
 
 ## 许可证
 

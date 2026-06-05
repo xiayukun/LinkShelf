@@ -39,9 +39,9 @@ On another machine, put `LinkShelf.exe` in the synced or restored cache root and
 - [Recommended With Syncthing](#recommended-with-syncthing)
 - [Build From Source](#build-from-source)
 - [Privacy](#privacy)
-- [Maintenance Docs](#maintenance-docs)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
+- [Maintainer Docs](#maintainer-docs)
 - [Acknowledgements](#acknowledgements)
 
 ## Why It Exists
@@ -228,28 +228,6 @@ Publish a single-file Windows executable:
 dotnet publish .\LinkShelf.csproj -t:Rebuild -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -p:DebugSymbols=false -o .\dist
 ```
 
-## Maintenance Docs
-
-The `docs` folder is intended to be committed to GitHub. It contains launch, release, repository-profile, and screenshot checklists for maintainers:
-
-- [First push checklist](docs/first-push.md)
-- [First push checklist, Chinese](docs/first-push.zh-CN.md)
-- [GitHub launch checklist](docs/github-launch-checklist.md)
-- [GitHub launch checklist, Chinese](docs/github-launch-checklist.zh-CN.md)
-- [Release checklist](docs/release-checklist.md)
-- [Release checklist, Chinese](docs/release-checklist.zh-CN.md)
-- [Release notes template](docs/release-notes-template.md)
-- [Release notes template, Chinese](docs/release-notes-template.zh-CN.md)
-- [Link Shelf 1.0.1 release notes](docs/release-notes-v1.0.1.md)
-- [Link Shelf 1.0.1 release notes, Chinese](docs/release-notes-v1.0.1.zh-CN.md)
-- [Link Shelf 1.0.0 release notes](docs/release-notes-v1.0.0.md)
-- [Link Shelf 1.0.0 release notes, Chinese](docs/release-notes-v1.0.0.zh-CN.md)
-- [Repository profile](docs/repository-profile.md)
-- [Repository profile, Chinese](docs/repository-profile.zh-CN.md)
-- [Screenshot checklist](docs/screenshots.md)
-- [Screenshot checklist, Chinese](docs/screenshots.zh-CN.md)
-- [Session handoff](docs/session-handoff.md)
-
 ## Good Fit
 
 Link Shelf is a good fit for:
@@ -295,7 +273,7 @@ For release planning and GitHub launch notes, see [docs/github-launch-checklist.
 
 ## Maintainer Docs
 
-The `docs` folder is meant to be committed. It contains launch notes, release steps, and repository profile copy for maintainers.
+Maintainer-only launch, release, screenshot, and handoff notes live in [docs](docs). Most users can ignore them.
 
 ## Acknowledgements
 
