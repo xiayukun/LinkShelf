@@ -1,5 +1,7 @@
 # 安全策略
 
+English: [SECURITY.md](SECURITY.md)
+
 Link Shelf 会管理路径、备份和符号链接，所以即使项目还很小，也欢迎安全报告。
 
 ## 支持版本

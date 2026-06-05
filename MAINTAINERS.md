@@ -1,5 +1,7 @@
 # Maintainers
 
+中文：[MAINTAINERS.zh-CN.md](MAINTAINERS.zh-CN.md)
+
 Primary maintainer:
 
 - xiayukun

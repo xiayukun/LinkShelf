@@ -1,5 +1,7 @@
 # 首次推送清单
 
+English: [first-push.md](first-push.md)
+
 创建名为 `LinkShelf` 的空 GitHub 仓库后，使用这份清单。
 
 ## GitHub 仓库设置

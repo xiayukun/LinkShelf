@@ -1,5 +1,7 @@
 # Screenshots
 
+中文：[screenshots.zh-CN.md](screenshots.zh-CN.md)
+
 Use this page as the checklist for screenshots shown in the README, release notes, and repository profile.
 
 ## Required Images

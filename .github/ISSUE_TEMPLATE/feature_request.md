@@ -6,6 +6,8 @@ labels: enhancement
 assignees: ""
 ---
 
+中文模板：[feature_request.zh-CN.md](feature_request.zh-CN.md)
+
 ## Problem
 
 

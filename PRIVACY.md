@@ -1,5 +1,7 @@
 # Privacy
 
+中文：[PRIVACY.zh-CN.md](PRIVACY.zh-CN.md)
+
 Link Shelf is designed as a local Windows utility.
 
 ## Data It Reads

@@ -1,5 +1,7 @@
 # 截图
 
+English: [screenshots.md](screenshots.md)
+
 这份清单用于检查 README、发布说明和仓库资料中展示的截图。
 
 ## 必需图片

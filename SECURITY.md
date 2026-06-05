@@ -1,5 +1,7 @@
 # Security Policy
 
+中文：[SECURITY.zh-CN.md](SECURITY.zh-CN.md)
+
 Link Shelf manages paths, backups, and symbolic links, so security reports are welcome even while the project is small.
 
 ## Supported Versions

@@ -1,5 +1,7 @@
 # 仓库资料
 
+English: [repository-profile.md](repository-profile.md)
+
 建议 GitHub 仓库名：
 
 ```text

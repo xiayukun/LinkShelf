@@ -1,5 +1,7 @@
 # Release Checklist
 
+中文：[release-checklist.zh-CN.md](release-checklist.zh-CN.md)
+
 ## Build
 
 ```powershell

@@ -1,5 +1,7 @@
 # Third-party notices
 
+中文：[THIRD-PARTY-NOTICES.zh-CN.md](THIRD-PARTY-NOTICES.zh-CN.md)
+
 ## ShowWhatProcessLocksFile
 
 Parts of the lock inspection implementation are adapted from `ShowWhatProcessLocksFile` by PolarGoose.

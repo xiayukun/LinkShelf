@@ -1,5 +1,7 @@
 # 参与贡献
 
+English: [CONTRIBUTING.md](CONTRIBUTING.md)
+
 感谢你关注 Link Shelf。
 
 ## 开发环境

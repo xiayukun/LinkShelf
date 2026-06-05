@@ -1,5 +1,7 @@
 # Repository Profile
 
+中文：[repository-profile.zh-CN.md](repository-profile.zh-CN.md)
+
 Suggested GitHub repository name:
 
 ```text

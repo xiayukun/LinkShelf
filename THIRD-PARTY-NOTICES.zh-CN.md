@@ -1,5 +1,7 @@
 # 第三方来源声明
 
+English: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
+
 ## ShowWhatProcessLocksFile
 
 本项目的占用检测实现参考并改写了 PolarGoose 的 `ShowWhatProcessLocksFile`。

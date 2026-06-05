@@ -6,6 +6,8 @@ labels: enhancement
 assignees: ""
 ---
 
+English template: [feature_request.md](feature_request.md)
+
 ## 问题
 
 

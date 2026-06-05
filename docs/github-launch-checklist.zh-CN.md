@@ -1,5 +1,7 @@
 # GitHub 上线清单
 
+English: [github-launch-checklist.md](github-launch-checklist.md)
+
 这份清单用于把 Link Shelf 从本地工具整理成更容易信任、试用和收藏的仓库。
 
 ## 定位

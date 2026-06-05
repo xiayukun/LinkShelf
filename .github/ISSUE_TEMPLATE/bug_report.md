@@ -6,6 +6,8 @@ labels: bug
 assignees: ""
 ---
 
+中文模板：[bug_report.zh-CN.md](bug_report.zh-CN.md)
+
 ## What happened?
 
 

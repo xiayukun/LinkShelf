@@ -1,5 +1,7 @@
 # Windows Code Signing
 
+中文：[windows-code-signing.zh-CN.md](windows-code-signing.zh-CN.md)
+
 Code signing means attaching a trusted digital signature to `LinkShelf.exe` or to an installer. Windows can then show a verified publisher instead of an unknown publisher, and Microsoft Defender SmartScreen can build reputation for the signed publisher and file.
 
 ## Options

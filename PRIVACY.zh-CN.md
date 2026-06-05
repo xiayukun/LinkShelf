@@ -1,5 +1,7 @@
 # 隐私
 
+English: [PRIVACY.md](PRIVACY.md)
+
 Link Shelf 被设计为本地 Windows 工具。
 
 ## 读取的数据

@@ -1,5 +1,7 @@
 # First Push Checklist
 
+中文：[first-push.zh-CN.md](first-push.zh-CN.md)
+
 Use this checklist after creating an empty GitHub repository named `LinkShelf`.
 
 ## GitHub Repository Settings

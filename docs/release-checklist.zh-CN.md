@@ -1,5 +1,7 @@
 # 发布清单
 
+English: [release-checklist.md](release-checklist.md)
+
 ## 构建
 
 ```powershell

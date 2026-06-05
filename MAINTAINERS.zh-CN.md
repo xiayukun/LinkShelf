@@ -1,5 +1,7 @@
 # 维护者
 
+English: [MAINTAINERS.md](MAINTAINERS.md)
+
 主要维护者：
 
 - xiayukun

@@ -6,6 +6,8 @@ labels: bug
 assignees: ""
 ---
 
+English template: [bug_report.md](bug_report.md)
+
 ## 发生了什么
 
 

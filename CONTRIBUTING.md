@@ -1,5 +1,7 @@
 # Contributing
 
+中文：[CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md)
+
 Thanks for taking a look at Link Shelf.
 
 ## Development Setup

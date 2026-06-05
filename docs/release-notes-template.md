@@ -1,5 +1,7 @@
 # Release Notes Template
 
+中文模板：[release-notes-template.zh-CN.md](release-notes-template.zh-CN.md)
+
 Copy this template into a GitHub release and edit it for the version being published.
 
 ## Link Shelf vX.Y.Z

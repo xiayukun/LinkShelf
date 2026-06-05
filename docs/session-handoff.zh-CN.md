@@ -1,5 +1,7 @@
 # 会话交接文档
 
+English: [session-handoff.md](session-handoff.md)
+
 这个文档用于把本次会话里沉淀出的高价值上下文交给后续会话。新的 Codex 会话接手本项目时，应该先读取 `AGENTS.md`，再读取本文件。
 
 ## 当前项目

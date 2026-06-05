@@ -1,5 +1,6 @@
 ## 摘要
 
+English template: [pull_request_template.md](pull_request_template.md)
 
 ## 变更
 

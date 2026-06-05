@@ -1,5 +1,6 @@
 ## Summary
 
+中文模板：[pull_request_template.zh-CN.md](pull_request_template.zh-CN.md)
 
 ## Changes
 

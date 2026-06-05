@@ -1,5 +1,7 @@
 # Windows 程序签名
 
+English: [windows-code-signing.md](windows-code-signing.md)
+
 程序签名指的是给 `LinkShelf.exe` 或安装包附加可信数字签名。这样 Windows 可以显示经过验证的发布者，而不是未知发布者；Microsoft Defender SmartScreen 也可以基于签名发布者和文件下载情况逐步积累信誉。
 
 ## 可选方式

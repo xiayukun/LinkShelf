@@ -1,5 +1,7 @@
 # GitHub Launch Checklist
 
+中文：[github-launch-checklist.zh-CN.md](github-launch-checklist.zh-CN.md)
+
 This checklist turns Link Shelf from a local utility into a repository that is easier to trust, try, and star.
 
 ## Positioning

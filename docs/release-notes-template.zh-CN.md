@@ -1,5 +1,7 @@
 # 发布说明模板
 
+English template: [release-notes-template.md](release-notes-template.md)
+
 把这个模板复制到 GitHub Release，然后按实际版本编辑。
 
 ## Link Shelf vX.Y.Z
