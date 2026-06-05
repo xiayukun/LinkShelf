@@ -12,6 +12,8 @@ This release turns Link Shelf more clearly into a portable app-state shelf for W
 - The main button order is now `Add item`, `Check status`, `Restore links`, `Move back / Undo`.
 - The add menu opens on click instead of hover, avoiding tooltip/menu overlap.
 
+![Recommended items window](https://raw.githubusercontent.com/xiayukun/LinkShelf/v1.1.0/Assets/recommended-items-window-cn.png)
+
 ## Download
 
 - `LinkShelf.exe`

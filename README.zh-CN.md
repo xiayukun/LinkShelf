@@ -102,6 +102,8 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 
 部分推荐路径可能包含账号名、令牌、本地历史或其他私有状态。用 Syncthing、云盘或其他工具同步前，请先检查对应文件夹内容。
 
+![推荐项目窗口](Assets/recommended-items-window-cn.png)
+
 在第二台电脑上：
 
 1. 把 `LinkShelf.exe` 放到已同步的缓存根目录。

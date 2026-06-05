@@ -107,6 +107,8 @@ Recommended items only show paths that exist on the current machine and are not 
 
 Some recommended paths can contain account names, tokens, local history, or other private state. Review the folder before syncing it with Syncthing, a cloud drive, or another tool.
 
+![Recommended items window](Assets/recommended-items-window-cn.png)
+
 On a second machine:
 
 1. Put `LinkShelf.exe` in the synced cache root.

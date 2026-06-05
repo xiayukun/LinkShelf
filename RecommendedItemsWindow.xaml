@@ -40,7 +40,9 @@
                   HeadersVisibility="Column"
                   Background="#FFFFFF"
                   BorderBrush="#D9DEE7"
-                  BorderThickness="1">
+                  BorderThickness="1"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn x:Name="SelectColumn"
                                         Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
@@ -57,10 +59,20 @@
                                     Binding="{Binding ItemType}"
                                     IsReadOnly="True"
                                     Width="90" />
-                <DataGridTextColumn x:Name="ReasonColumn"
-                                    Binding="{Binding Reason}"
-                                    IsReadOnly="True"
-                                    Width="*" />
+                <DataGridTemplateColumn x:Name="ReasonColumn"
+                                        IsReadOnly="True"
+                                        MinWidth="260"
+                                        Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Reason}"
+                                       TextWrapping="Wrap"
+                                       TextTrimming="None"
+                                       Padding="4,2"
+                                       VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

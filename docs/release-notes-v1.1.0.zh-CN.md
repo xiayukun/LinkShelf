@@ -12,6 +12,8 @@
 - 主按钮顺序调整为：`添加项目`、`检查状态`、`恢复链接`、`搬回原位/撤销`。
 - 添加菜单改为点击展开，不再鼠标悬停自动展开，避免提示或菜单遮挡下拉区域。
 
+![推荐项目窗口](https://raw.githubusercontent.com/xiayukun/LinkShelf/v1.1.0/Assets/recommended-items-window-cn.png)
+
 ## 下载
 
 - `LinkShelf.exe`
