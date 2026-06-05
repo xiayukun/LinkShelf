@@ -7,10 +7,10 @@
 - 项目名：`Link Shelf`
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
-- 最新 GitHub Release：`v1.0.1`
-- 当前源码和本地运行程序版本：`1.1.0`，尚未打 `v1.1.0` 发布标签。
-- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.0.1`
-- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.0.1/LinkShelf.exe`
+- 最新 GitHub Release：`v1.1.0`
+- 当前源码和本地运行程序版本：`1.1.0`
+- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.0`
+- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.0/LinkShelf.exe`
 - 主分支：`main`
 
 ## 本地结构
@@ -56,7 +56,7 @@ GitHub 上已经有自动构建和自动发布能力：
 - 构建工作流：`.github/workflows/build.yml`
 - 发布工作流：`.github/workflows/release.yml`
 - 首版发布说明：`docs/release-notes-v1.0.0.md`
-- 最新发布说明：`docs/release-notes-v1.0.1.md`
+- 最新发布说明：`docs/release-notes-v1.1.0.md`
 
 `release` 工作流可以创建或更新 GitHub Release，并上传 `LinkShelf.exe`。
 

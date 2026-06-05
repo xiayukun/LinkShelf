@@ -4,7 +4,7 @@ All notable changes to Link Shelf will be documented in this file.
 
 The project follows semantic versioning for public releases.
 
-## 1.1.0 - 2026-06-05
+## 1.1.0 - 2026-06-06
 
 ### Added
 
