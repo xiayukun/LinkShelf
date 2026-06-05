@@ -6,11 +6,13 @@ Link Shelf 是一个 Windows 桌面和命令行工具。它可以把分散在本
 
 它适合用来管理开发工具配置、应用状态、小型工作目录、命令行工具资料等。Syncthing 是推荐搭配方式，但不是唯一用途；你也可以把缓存根目录交给云盘、备份工具、移动硬盘或网络共享来管理。
 
+**下载：** [LinkShelf.exe](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) | [最新发布页](https://github.com/xiayukun/LinkShelf/releases/latest)
+
 ![Link Shelf preview](Assets/app-preview-cn.png)
 
 ## 快速开始
 
-1. 从发布页下载 `LinkShelf.exe`。
+1. 从发布页下载 [`LinkShelf.exe`](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe)。
 2. 把它放到你想作为缓存根目录的文件夹里。
 3. 双击 `LinkShelf.exe`。
 4. 点击 `添加项目`。

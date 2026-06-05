@@ -11,11 +11,13 @@ Move scattered local files and folders into one portable cache root, then keep a
 
 Link Shelf is a Windows desktop and command-line tool for relocating application state, developer settings, tool profiles, and small working directories into a folder you can back up, sync, or move between machines.
 
+**Download:** [LinkShelf.exe](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) | [Latest release](https://github.com/xiayukun/LinkShelf/releases/latest)
+
 ![Link Shelf preview](Assets/app-preview.png)
 
 ## Quick Start
 
-1. Download `LinkShelf.exe` from the release page.
+1. Download [`LinkShelf.exe`](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) from the release page.
 2. Put it inside the folder you want to use as your cache root.
 3. Double-click `LinkShelf.exe`.
 4. Click `Add item`.
@@ -71,7 +73,7 @@ Syncthing is the recommended companion, but not a requirement. You can also use 
 
 ## Install
 
-Download the latest `LinkShelf.exe` from the release page and place it inside the folder you want to manage as your cache root.
+Download the latest [`LinkShelf.exe`](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) from the release page and place it inside the folder you want to manage as your cache root.
 
 Example:
 

@@ -71,6 +71,18 @@ Add item:
 4. The app creates a symbolic link at the original path.
 5. The app saves a config record.
 
+Locked-path handling during add item:
+
+- Always try the normal move first. Do not scan for locking processes before the first move attempt fails.
+- If Windows reports access denied for the selected path, open `LockingProcessesWindow`.
+- The lock window scans on a background task so the main UI does not freeze.
+- Lock inspection is adapted from `ShowWhatProcessLocksFile` and lives under `ThirdParty/ShowWhatProcessLocksFile`.
+- The lock window lists process name, process ID, user, executable path, and locked files under the selected file or directory.
+- The user can refresh the scan, cancel, terminate selected processes from the context menu, or use "terminate all and continue".
+- "Terminate all and continue" terminates the listed processes, waits briefly, closes the lock window with `Continue`, reloads config/grid state, and retries the original add-item move.
+- If the retry still fails with access denied, show the lock window again instead of silently giving up.
+- Detection or termination errors should be shown in the lock window and should not crash the main window.
+
 Restore links:
 
 1. Read config.
@@ -134,9 +146,11 @@ Rules:
 ## Important Files
 
 - `MainWindow.xaml`: main GUI layout.
-- `MainWindow.xaml.cs`: GUI behavior, language switching, multi-select operations.
+- `MainWindow.xaml.cs`: GUI behavior, language switching, multi-select operations, add-item retry after locked-path handling.
 - `ConflictChoiceWindow.xaml`: conflict dialog layout.
 - `ConflictChoiceWindow.xaml.cs`: conflict decision mapping.
+- `LockingProcessesWindow.xaml`: locked-path recovery window layout.
+- `LockingProcessesWindow.xaml.cs`: locked-path scan, process list, process termination, and continue/cancel decision mapping.
 - `Models/SyncModels.cs`: config models, constants, row view model, enums.
 - `Services/AppPaths.cs`: cache root, config path, log path, backup path.
 - `Services/ConfigStore.cs`: config load, normalization, save.
@@ -144,7 +158,10 @@ Rules:
 - `Services/StatusCheckService.cs`: read-only health checks.
 - `Services/PathTools.cs`: path normalization, `~` expansion, unique cache names.
 - `Services/LocalizationService.cs`: English and Chinese UI strings.
+- `Services/LogService.cs`: operation logs and diagnostic logs for add-item troubleshooting.
 - `CommandLineMode.cs`: CLI entry points and machine-readable status output.
+- `ThirdParty/ShowWhatProcessLocksFile`: adapted lock inspection and process termination code.
+- `THIRD-PARTY-NOTICES.md`: third-party notices for copied or adapted code and workflow references.
 
 ## Build
 
@@ -167,6 +184,7 @@ The published executable is `dist\LinkShelf.exe`.
 Before publishing, prefer:
 
 - `README.md` with screenshot, install, quick start, CLI examples, and limitations
+- a direct latest download link in `README.md`, preferably `https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe`
 - `CONTRIBUTING.md`
 - a real license file
 - a clean release artifact named `LinkShelf.exe`
