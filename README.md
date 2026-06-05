@@ -281,6 +281,8 @@ The locked-path detection code is adapted from [ShowWhatProcessLocksFile](https:
 
 The user workflow is also inspired by Microsoft PowerToys [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith), an open-source PowerToys utility. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for details.
 
+Thanks to [Syncthing](https://github.com/syncthing/syncthing) for providing a reliable open-source sync tool. It is the recommended sync companion for Link Shelf.
+
 ## License
 
 MIT.

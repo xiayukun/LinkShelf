@@ -1,0 +1,18 @@
+---
+name: 功能建议
+about: "建议一个改进"
+title: "[Feature]: "
+labels: enhancement
+assignees: ""
+---
+
+## 问题
+
+
+## 建议方案
+
+
+## 考虑过的替代方案
+
+
+## 其他信息

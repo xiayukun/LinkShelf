@@ -143,6 +143,20 @@ Rules:
 - Internal status codes and config values stay English.
 - Data grid rows should display localized labels through `SyncItemRow`.
 
+## Documentation Pairing
+
+When changing Markdown documentation, keep English and Chinese documents paired.
+
+Rules:
+
+- If an English user-facing Markdown file has a Chinese companion, update both files in the same change.
+- If a new English user-facing Markdown file is added, add a `.zh-CN.md` companion unless the file is explicitly agent-only, machine-only, or intentionally internal.
+- Keep paired documents structurally aligned: matching purpose, section order, examples, release links, screenshots, warnings, and acknowledgements.
+- For `README.md` and `README.zh-CN.md`, verify the table of contents, major sections, download links, screenshots, feature descriptions, and acknowledgements stay equivalent.
+- For release notes and changelogs, add the same version entries to both languages.
+- For GitHub issue and pull request templates, provide Chinese companions when practical.
+- Before committing Markdown changes, list all `.md` files and check that paired English/Chinese documents still correspond.
+
 ## Important Files
 
 - `MainWindow.xaml`: main GUI layout.
