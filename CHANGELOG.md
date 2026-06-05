@@ -4,6 +4,21 @@ All notable changes to Link Shelf will be documented in this file.
 
 The project follows semantic versioning for public releases.
 
+## 1.0.1 - 2026-06-05
+
+### Added
+
+- Locked-path recovery window for add operations that fail because Windows reports access denied.
+- Process detection adapted from `ShowWhatProcessLocksFile`, including locked file details for selected directories.
+- One-click terminate-all-and-continue flow that waits briefly, then retries the original move operation.
+- Screenshot and user documentation for the locked-path recovery workflow.
+- English and Chinese documentation companions for maintainer docs and release notes.
+
+### Changed
+
+- Link Shelf now tries the normal move first and scans for locking processes only after the move fails, avoiding unnecessary scans for healthy paths.
+- The add-item flow reports blocking processes in a dedicated window instead of freezing or showing only the raw Windows error.
+
 ## 1.0.0 - 2026-06-04
 
 Initial public-ready release.

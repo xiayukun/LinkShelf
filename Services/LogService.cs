@@ -3,6 +3,7 @@ namespace LinkShelf.Services;
 public sealed class LogService
 {
     private readonly AppPaths paths;
+    private readonly object fileLock = new();
 
     public LogService(AppPaths paths)
     {
@@ -14,9 +15,24 @@ public sealed class LogService
 
     public void Write(string message)
     {
-        var line = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}";
-        File.AppendAllText(CurrentLogPath(), line + Environment.NewLine);
+        var line = WriteLine(message);
         MessageAdded?.Invoke(line);
+    }
+
+    public void WriteDiagnostic(string message)
+    {
+        WriteLine("DIAGNOSTIC " + message);
+    }
+
+    private string WriteLine(string message)
+    {
+        var line = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {message}";
+        lock (fileLock)
+        {
+            File.AppendAllText(CurrentLogPath(), line + Environment.NewLine);
+        }
+
+        return line;
     }
 
     private string CurrentLogPath()

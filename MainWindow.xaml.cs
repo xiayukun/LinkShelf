@@ -108,7 +108,7 @@ public partial class MainWindow : Window
         ReloadGrid();
     }
 
-    private void AddDirectoryButton_Click(object sender, RoutedEventArgs e)
+    private async void AddDirectoryButton_Click(object sender, RoutedEventArgs e)
     {
         using var dialog = new Forms.FolderBrowserDialog
         {
@@ -122,12 +122,8 @@ public partial class MainWindow : Window
             return;
         }
 
-        RunOperation(text.T("op.addDirectory"), () =>
-        {
-            var operations = CreateOperations();
-            operations.AddSyncItem(dialog.SelectedPath, SyncItemKind.Directory);
-            operations.CheckAll();
-        });
+        log.WriteDiagnostic($"add-directory selected path={dialog.SelectedPath}");
+        await RunAddOperationAsync(text.T("op.addDirectory"), dialog.SelectedPath, SyncItemKind.Directory);
     }
 
     private void AddSyncButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -152,7 +148,7 @@ public partial class MainWindow : Window
         AddFileButton_Click(sender, e);
     }
 
-    private void AddFileButton_Click(object sender, RoutedEventArgs e)
+    private async void AddFileButton_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -166,12 +162,8 @@ public partial class MainWindow : Window
             return;
         }
 
-        RunOperation(text.T("op.addFile"), () =>
-        {
-            var operations = CreateOperations();
-            operations.AddSyncItem(dialog.FileName, SyncItemKind.File);
-            operations.CheckAll();
-        });
+        log.WriteDiagnostic($"add-file selected path={dialog.FileName}");
+        await RunAddOperationAsync(text.T("op.addFile"), dialog.FileName, SyncItemKind.File);
     }
 
     private void RestoreButton_Click(object sender, RoutedEventArgs e)
@@ -264,12 +256,98 @@ public partial class MainWindow : Window
 
     private ConflictDecision ResolveConflict(SyncItem item, string targetPath, string cachePath, string reason)
     {
+        if (!Dispatcher.CheckAccess())
+        {
+            return Dispatcher.Invoke(() => ResolveConflict(item, targetPath, cachePath, reason));
+        }
+
         var window = new ConflictChoiceWindow(text, reason, targetPath, cachePath)
         {
             Owner = this
         };
 
         return window.ShowDialog() == true ? window.Decision : ConflictDecision.Cancel;
+    }
+
+    private async Task RunAddOperationAsync(string name, string sourcePath, SyncItemKind kind)
+    {
+        var attempt = 0;
+        while (true)
+        {
+            attempt++;
+            try
+            {
+                log.WriteDiagnostic($"add attempt={attempt} stage=begin name={name} kind={kind} source={sourcePath}");
+                AppendLog(text.F("log.begin", name));
+                log.WriteDiagnostic($"add attempt={attempt} stage=operation-task-start");
+                await Task.Run(() =>
+                {
+                    log.WriteDiagnostic($"add attempt={attempt} stage=create-operations");
+                    var operations = CreateOperations();
+                    log.WriteDiagnostic($"add attempt={attempt} stage=add-sync-item-start");
+                    operations.AddSyncItem(sourcePath, kind);
+                    log.WriteDiagnostic($"add attempt={attempt} stage=check-all-start");
+                    operations.CheckAll();
+                    log.WriteDiagnostic($"add attempt={attempt} stage=operation-task-finished");
+                });
+                log.WriteDiagnostic($"add attempt={attempt} stage=reload-config-start");
+                config = store.Load();
+                log.WriteDiagnostic($"add attempt={attempt} stage=reload-grid-start");
+                ReloadGrid();
+                log.WriteDiagnostic($"add attempt={attempt} stage=done");
+                AppendLog(text.F("log.done", name));
+                return;
+            }
+            catch (Exception ex)
+            {
+                log.WriteDiagnostic($"add attempt={attempt} stage=exception type={ex.GetType().FullName} message={ex.Message} stack={ex}");
+                if (IsAccessDenied(ex))
+                {
+                    log.WriteDiagnostic($"add attempt={attempt} stage=access-denied-lock-window-show");
+                    var decision = ShowLockingProcessesWindow(sourcePath, ex.Message);
+                    log.WriteDiagnostic($"add attempt={attempt} stage=access-denied-lock-window-closed decision={decision}");
+                    config = store.Load();
+                    ReloadGrid();
+
+                    if (decision == LockingProcessesDecision.Continue)
+                    {
+                        AppendLog(text.F("log.retryLockedPath", sourcePath));
+                        continue;
+                    }
+
+                    AppendLog(text.F("log.lockedPathCanceled", sourcePath));
+                    return;
+                }
+
+                AppendLog(text.F("log.failed", name, ex.Message));
+                System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+                config = store.Load();
+                ReloadGrid();
+                return;
+            }
+        }
+    }
+
+    private static bool IsAccessDenied(Exception ex)
+    {
+        if (ex is UnauthorizedAccessException)
+        {
+            return true;
+        }
+
+        return ex.HResult == unchecked((int)0x80070005) ||
+               ex.Message.Contains("access to the path", StringComparison.OrdinalIgnoreCase) &&
+               ex.Message.Contains("denied", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private LockingProcessesDecision ShowLockingProcessesWindow(string sourcePath, string errorMessage)
+    {
+        var window = new LockingProcessesWindow(text, sourcePath, errorMessage)
+        {
+            Owner = this
+        };
+
+        return window.ShowDialog() == true ? window.Decision : LockingProcessesDecision.Cancel;
     }
 
     private void RunOperation(string name, Action action)

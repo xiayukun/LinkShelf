@@ -1,0 +1,36 @@
+namespace ShowWhatProcessLocksFile.LockFinding.Utils;
+
+internal sealed class Watchdog : IDisposable
+{
+    private readonly Action onTriggered;
+    private System.Threading.Timer? timer;
+    private readonly TimeSpan timeout;
+
+    public Watchdog(Action onTriggered, TimeSpan timeout)
+    {
+        this.onTriggered = onTriggered;
+        this.timeout = timeout;
+    }
+
+    public void Arm()
+    {
+        timer = new System.Threading.Timer(OnTimerElapsed, null, timeout, Timeout.InfiniteTimeSpan);
+    }
+
+    public void Disarm()
+    {
+        timer?.Dispose();
+        timer = null;
+    }
+
+    private void OnTimerElapsed(object? state)
+    {
+        onTriggered();
+    }
+
+    void IDisposable.Dispose()
+    {
+        timer?.Dispose();
+        timer = null;
+    }
+}

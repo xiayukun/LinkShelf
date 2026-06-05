@@ -40,6 +40,7 @@ On another machine, put `LinkShelf.exe` in the synced or restored cache root and
 - [Maintenance Docs](#maintenance-docs)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
 
 ## Why It Exists
 
@@ -62,6 +63,7 @@ Syncthing is the recommended companion, but not a requirement. You can also use 
 - Restore all configured links on another Windows machine.
 - Detect broken links, missing cache items, wrong link targets, and target-path conflicts.
 - Resolve conflicts interactively, one item at a time.
+- When Windows blocks a move with `Access denied`, detect processes that are using the selected path and offer to terminate them before retrying.
 - Use the same executable as a GUI app or a CLI checker.
 - Store portable paths with `~` so user-profile folders work across machines.
 - Use English config, logs, executable names, and folders.
@@ -100,6 +102,14 @@ On a second machine:
 2. Double-click it.
 3. Click `Restore links`.
 4. Resolve any target-path conflicts.
+
+### Locked Paths
+
+When adding a file or directory, Link Shelf first tries the normal move. If Windows reports `Access denied`, Link Shelf opens a locked-path recovery window and scans the selected path for running programs that are using it.
+
+From that window, you can review the processes, terminate selected processes from the context menu, or click `Terminate all and continue`. Link Shelf then waits briefly and retries the same move operation. If the path is still blocked, the same recovery window appears again.
+
+![Locked path recovery window](Assets/lock-resolution-window-cn.png)
 
 ## CLI Usage
 
@@ -221,12 +231,21 @@ dotnet publish .\LinkShelf.csproj -t:Rebuild -c Release -r win-x64 --self-contai
 The `docs` folder is intended to be committed to GitHub. It contains launch, release, repository-profile, and screenshot checklists for maintainers:
 
 - [First push checklist](docs/first-push.md)
+- [First push checklist, Chinese](docs/first-push.zh-CN.md)
 - [GitHub launch checklist](docs/github-launch-checklist.md)
+- [GitHub launch checklist, Chinese](docs/github-launch-checklist.zh-CN.md)
 - [Release checklist](docs/release-checklist.md)
+- [Release checklist, Chinese](docs/release-checklist.zh-CN.md)
 - [Release notes template](docs/release-notes-template.md)
+- [Release notes template, Chinese](docs/release-notes-template.zh-CN.md)
+- [Link Shelf 1.0.1 release notes](docs/release-notes-v1.0.1.md)
+- [Link Shelf 1.0.1 release notes, Chinese](docs/release-notes-v1.0.1.zh-CN.md)
 - [Link Shelf 1.0.0 release notes](docs/release-notes-v1.0.0.md)
+- [Link Shelf 1.0.0 release notes, Chinese](docs/release-notes-v1.0.0.zh-CN.md)
 - [Repository profile](docs/repository-profile.md)
+- [Repository profile, Chinese](docs/repository-profile.zh-CN.md)
 - [Screenshot checklist](docs/screenshots.md)
+- [Screenshot checklist, Chinese](docs/screenshots.zh-CN.md)
 - [Session handoff](docs/session-handoff.md)
 
 ## Good Fit
@@ -275,6 +294,12 @@ For release planning and GitHub launch notes, see [docs/github-launch-checklist.
 ## Maintainer Docs
 
 The `docs` folder is meant to be committed. It contains launch notes, release steps, and repository profile copy for maintainers.
+
+## Acknowledgements
+
+The locked-path detection code is adapted from [ShowWhatProcessLocksFile](https://github.com/PolarGoose/ShowWhatProcessLocksFile) by PolarGoose.
+
+The user workflow is also inspired by Microsoft PowerToys [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith), an open-source PowerToys utility. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for details.
 
 ## License
 

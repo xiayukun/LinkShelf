@@ -26,10 +26,19 @@ Link Shelf 是一个 Windows 桌面和命令行工具。它可以把分散在本
 - 在另一台 Windows 电脑上按配置恢复链接。
 - 检查缓存项缺失、链接缺失、链接指向错误、目标位置冲突等问题。
 - 遇到冲突时逐项确认，不静默覆盖。
+- 当 Windows 因为文件占用返回拒绝访问时，检测正在使用该路径的进程，并可结束进程后继续移动。
 - 同一个程序既可以双击打开界面，也可以作为命令行检查工具。
 - 使用 `~` 保存用户目录下的路径，方便跨电脑使用。
 - 配置、日志、备份目录、程序名都使用英文。
 - 界面支持中英文切换，并可按系统语言自动选择。
+
+## 文件占用处理
+
+添加文件或目录时，Link Shelf 会先尝试正常移动。只有 Windows 返回拒绝访问时，才会打开文件占用处理窗口并扫描选中路径，找出正在占用它的进程。
+
+在这个窗口里，你可以查看占用进程，右键结束选中的进程，也可以点击“结束全部并继续”。程序会在结束进程后短暂等待，然后重新执行刚才的移动操作。如果路径仍然被占用，会再次打开同一个处理窗口。
+
+![文件占用处理窗口](Assets/lock-resolution-window-cn.png)
 
 ## 命令行
 
@@ -95,7 +104,7 @@ link-shelf.config.json
 
 Link Shelf 是本地工具。它不会把文件、路径、日志、配置或机器名上传到远程服务。如果缓存根目录由 Syncthing、云盘或其他工具同步，网络传输由那些外部工具负责。
 
-更多细节见 [PRIVACY.md](PRIVACY.md)。
+更多细节见 [隐私说明](PRIVACY.zh-CN.md)。
 
 ## 适合场景
 
@@ -127,15 +136,22 @@ Link Shelf 以整个文件或整个目录为最小管理单位。
 
 `docs` 目录建议一起提交到 GitHub。它不是程序运行必需文件，而是给维护者使用的发布清单、仓库介绍资料、截图检查清单和上线准备说明。
 
-- [首次推送清单](docs/first-push.md)
-- [GitHub 上线清单](docs/github-launch-checklist.md)
-- [发布清单](docs/release-checklist.md)
-- [发布说明模板](docs/release-notes-template.md)
-- [Link Shelf 1.0.0 发布说明](docs/release-notes-v1.0.0.md)
-- [仓库介绍资料](docs/repository-profile.md)
-- [截图检查清单](docs/screenshots.md)
+- [首次推送清单](docs/first-push.zh-CN.md)
+- [GitHub 上线清单](docs/github-launch-checklist.zh-CN.md)
+- [发布清单](docs/release-checklist.zh-CN.md)
+- [发布说明模板](docs/release-notes-template.zh-CN.md)
+- [Link Shelf 1.0.1 发布说明](docs/release-notes-v1.0.1.zh-CN.md)
+- [Link Shelf 1.0.0 发布说明](docs/release-notes-v1.0.0.zh-CN.md)
+- [仓库介绍资料](docs/repository-profile.zh-CN.md)
+- [截图检查清单](docs/screenshots.zh-CN.md)
 - [会话交接文档](docs/session-handoff.md)
 
 ## 许可证
 
 MIT。
+
+## 鸣谢
+
+文件占用检测代码改写自 PolarGoose 的 [ShowWhatProcessLocksFile](https://github.com/PolarGoose/ShowWhatProcessLocksFile)。
+
+文件占用处理流程也参考了微软开源项目 PowerToys 的 [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith)。详细来源见 [THIRD-PARTY-NOTICES.zh-CN.md](THIRD-PARTY-NOTICES.zh-CN.md)。
