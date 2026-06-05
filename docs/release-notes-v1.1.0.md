@@ -5,7 +5,8 @@ This release turns Link Shelf more clearly into a portable app-state shelf for W
 ## Highlights
 
 - Add recommended items from detected local paths. Paths already in the config and paths missing on the current machine are hidden.
-- Recommended presets include Cursor, VS Code, Git, npm, Codex, Claude, JetBrains, Clash, Ditto, Wiz, LX Music, PowerShell, Windows Terminal, and related configuration files.
+- Recommended presets are curated from the author's daily Windows setup and AI-assisted web research into common developer, AI coding, editor, terminal, and package-manager configuration paths.
+- Presets include paths for Cursor, VS Code, VS Code Insiders, VSCodium, Codex, Claude, Claude Desktop, Gemini, Continue, aider, Windsurf, Cline, Roo Code, GitHub Copilot, Git, npm, Yarn, pnpm, pip, uv, NuGet, Maven, Gradle, Cargo, Bun, PowerShell, Windows Terminal, Neovim, Vim, Starship, Alacritty, WezTerm, Nushell, JetBrains, and Clash Verge.
 - Move selected items back to their original paths and remove their config records.
 - The undo flow refuses to overwrite real content at the original path.
 - The main button order is now `Add item`, `Check status`, `Restore links`, `Move back / Undo`.
@@ -33,3 +34,4 @@ This release turns Link Shelf more clearly into a portable app-state shelf for W
 - Move back / undo only proceeds when the original path is missing or is still the expected link to the cache item.
 - If real content exists at the original path, Link Shelf stops instead of overwriting it.
 - Recommended items are only shortcuts into the same add-item workflow; they do not bypass conflict or locked-path handling.
+- Some recommended paths can contain private state such as account names, tokens, local history, or provider settings. Review them before syncing the cache root with another tool.

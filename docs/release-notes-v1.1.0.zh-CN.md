@@ -5,7 +5,8 @@
 ## 亮点
 
 - 可以从本机检测到的路径中添加推荐项目。已经在配置中的路径、本机不存在的路径会被隐藏。
-- 推荐预设包括 Cursor、VS Code、Git、npm、Codex、Claude、JetBrains、Clash、Ditto、Wiz、LX Music、PowerShell、Windows Terminal 以及相关配置文件。
+- 推荐预设来自作者本人日常 Windows 环境，以及 AI 联网调研后认为很多人会使用的开发工具、AI 编程工具、编辑器、终端和包管理器配置路径。
+- 推荐预设包括 Cursor、VS Code、VS Code Insiders、VSCodium、Codex、Claude、Claude Desktop、Gemini、Continue、aider、Windsurf、Cline、Roo Code、GitHub Copilot、Git、npm、Yarn、pnpm、pip、uv、NuGet、Maven、Gradle、Cargo、Bun、PowerShell、Windows Terminal、Neovim、Vim、Starship、Alacritty、WezTerm、Nushell、JetBrains、Clash Verge。
 - 可以把选中的项目搬回原始路径，并删除配置记录。
 - 撤销流程不会覆盖原始路径上的真实内容。
 - 主按钮顺序调整为：`添加项目`、`检查状态`、`恢复链接`、`搬回原位/撤销`。
@@ -33,3 +34,4 @@
 - 搬回原位/撤销只会在原始路径不存在，或仍然是指向该缓存项的正确链接时执行。
 - 如果原始路径已经有真实内容，Link Shelf 会停止而不是覆盖它。
 - 推荐项目只是同一个添加流程的快捷入口，不会绕过冲突处理或文件占用处理。
+- 部分推荐路径可能包含账号名、令牌、本地历史或服务商设置等私有状态。把缓存根目录交给其他工具同步前，请先检查这些内容。

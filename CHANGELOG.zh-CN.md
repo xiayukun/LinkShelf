@@ -8,8 +8,8 @@ Link Shelf 的重要变更会记录在这里。
 
 ### 新增
 
-- 增加推荐项目流程，可添加本机检测到的常见配置和状态路径。
-- 内置 Cursor、VS Code、Git、npm、Codex、Claude、JetBrains、Clash、Ditto、Wiz、LX Music 等常见开发工具和应用状态路径预设。
+- 增加推荐项目流程，可添加本机检测到的常见配置、状态和小型缓存路径。
+- 内置推荐预设来自作者本人日常 Windows 环境，以及 AI 联网调研后认为很多人会使用的目录，覆盖常见开发工具、AI 编程工具、编辑器、终端和包管理器配置路径，例如 Cursor、VS Code、VS Code Insiders、VSCodium、Codex、Claude、Claude Desktop、Gemini、Continue、aider、Windsurf、Cline、Roo Code、GitHub Copilot、Git、npm、Yarn、pnpm、pip、uv、NuGet、Maven、Gradle、Cargo、Bun、PowerShell、Windows Terminal、Neovim、Vim、Starship、Alacritty、WezTerm、Nushell、JetBrains、Clash Verge。
 - 增加“搬回原位/撤销”操作，可把选中的缓存项搬回原始路径，移除原路径链接，删除缓存项，并删除配置记录。
 - 补充 Windows 签名发布说明和新的产品定位文档。
 
@@ -18,6 +18,7 @@ Link Shelf 的重要变更会记录在这里。
 - 项目定位调整为“Windows 上的便携应用状态收纳工具”，不再强调成普通符号链接工具。
 - 主按钮顺序调整为：添加项目、检查状态、恢复链接、搬回原位/撤销。
 - 添加项目不再鼠标悬停自动展开菜单，避免提示或菜单遮挡下拉区域。
+- 推荐项目过滤现在会隐藏父子路径重复项；如果配置中已有更大的父目录，就不会再显示它下面的子目录预设。
 
 ## 1.0.1 - 2026-06-05
 

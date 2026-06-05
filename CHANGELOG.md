@@ -8,8 +8,8 @@ The project follows semantic versioning for public releases.
 
 ### Added
 
-- Recommended items flow for detected local configuration and state paths.
-- Built-in recommended presets for common developer and app state paths such as Cursor, VS Code, Git, npm, Codex, Claude, JetBrains, Clash, Ditto, Wiz, and LX Music.
+- Recommended items flow for detected local configuration, state, and small cache paths.
+- Built-in recommended presets curated from the author's daily Windows setup and AI-assisted web research, covering common developer tools, AI coding tools, editors, terminals, and package-manager configuration paths such as Cursor, VS Code, VS Code Insiders, VSCodium, Codex, Claude, Claude Desktop, Gemini, Continue, aider, Windsurf, Cline, Roo Code, GitHub Copilot, Git, npm, Yarn, pnpm, pip, uv, NuGet, Maven, Gradle, Cargo, Bun, PowerShell, Windows Terminal, Neovim, Vim, Starship, Alacritty, WezTerm, Nushell, JetBrains, and Clash Verge.
 - Move back / undo action that moves selected cache items back to their original paths, removes original links, deletes the cache entries, and removes config records.
 - Documentation for Windows code signing options and the updated product positioning.
 
@@ -18,6 +18,7 @@ The project follows semantic versioning for public releases.
 - Repository positioning now describes Link Shelf as a portable app-state shelf for Windows instead of a generic symbolic-link helper.
 - Main button order is now Add item, Check status, Restore links, Move back / Undo.
 - Add item no longer opens its menu on hover, avoiding tooltip/menu overlap.
+- Recommended item filtering now hides parent/child duplicates when a broader configured path already covers a preset path.
 
 ## 1.0.1 - 2026-06-05
 

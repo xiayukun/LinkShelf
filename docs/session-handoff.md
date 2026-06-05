@@ -7,7 +7,8 @@
 - 项目名：`Link Shelf`
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
-- 最新版本：`v1.0.1`
+- 最新 GitHub Release：`v1.0.1`
+- 当前源码和本地运行程序版本：`1.1.0`，尚未打 `v1.1.0` 发布标签。
 - 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.0.1`
 - 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.0.1/LinkShelf.exe`
 - 主分支：`main`

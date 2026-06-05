@@ -103,7 +103,9 @@ Common workflow:
 5. Link Shelf creates a symbolic link at the original path.
 6. Sync, back up, or move the cache root with your preferred tool.
 
-Recommended items only show paths that exist on the current machine and are not already in `link-shelf.config.json`. Selecting a recommended item runs the same add flow as choosing that path manually.
+Recommended items only show paths that exist on the current machine and are not already in `link-shelf.config.json`. The built-in list is curated from the author's daily Windows setup and AI-assisted web research into common developer, AI coding, editor, terminal, and package-manager configuration paths. Selecting a recommended item runs the same add flow as choosing that path manually.
+
+Some recommended paths can contain account names, tokens, local history, or other private state. Review the folder before syncing it with Syncthing, a cloud drive, or another tool.
 
 On a second machine:
 

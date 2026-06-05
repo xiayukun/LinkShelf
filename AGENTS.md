@@ -74,8 +74,11 @@ Add item:
 Recommended add item:
 
 - `RecommendedSyncItems` defines built-in presets with English keys, portable paths, expected item kind, and reason keys.
+- Presets should favor broadly useful developer, AI coding, editor, terminal, package-manager, and small app-state paths. Avoid adding purely personal application choices unless they are also broadly common.
+- When preset coverage changes, update README, changelog, release notes, and Chinese companions to describe the source and scope of the recommendation list.
 - Recommended UI text and reasons must stay in `LocalizationService`.
 - The recommendation window must only show paths that exist on the current machine and are not already present in enabled config records.
+- If an enabled config record already covers a preset path as a parent or child path, hide the preset to avoid duplicate management.
 - Selecting recommended items runs the same add-item workflow as manually selecting those paths. It must not bypass conflict handling, locked-path handling, or safety checks.
 
 Locked-path handling during add item:
