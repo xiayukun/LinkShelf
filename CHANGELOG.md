@@ -4,6 +4,21 @@ All notable changes to Link Shelf will be documented in this file.
 
 The project follows semantic versioning for public releases.
 
+## 1.1.0 - 2026-06-05
+
+### Added
+
+- Recommended items flow for detected local configuration and state paths.
+- Built-in recommended presets for common developer and app state paths such as Cursor, VS Code, Git, npm, Codex, Claude, JetBrains, Clash, Ditto, Wiz, and LX Music.
+- Move back / undo action that moves selected cache items back to their original paths, removes original links, deletes the cache entries, and removes config records.
+- Documentation for Windows code signing options and the updated product positioning.
+
+### Changed
+
+- Repository positioning now describes Link Shelf as a portable app-state shelf for Windows instead of a generic symbolic-link helper.
+- Main button order is now Add item, Check status, Restore links, Move back / Undo.
+- Add item no longer opens its menu on hover, avoiding tooltip/menu overlap.
+
 ## 1.0.1 - 2026-06-05
 
 ### Added

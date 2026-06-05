@@ -7,7 +7,7 @@
 
 [中文说明](README.zh-CN.md)
 
-Move scattered local files and folders into one portable cache root, then keep apps working through symbolic links.
+Portable app-state shelf for Windows: collect scattered configuration and small state paths into one syncable root, while apps keep using their original paths.
 
 Link Shelf is a Windows desktop and command-line tool for relocating application state, developer settings, tool profiles, and small working directories into a folder you can back up, sync, or move between machines.
 
@@ -35,14 +35,17 @@ On another machine, put `LinkShelf.exe` in the synced or restored cache root and
 - [CLI Usage](#cli-usage)
 - [AI and Automation](#ai-and-automation)
 - [Configuration](#configuration)
-- [Good Fit](#good-fit)
-- [Recommended With Syncthing](#recommended-with-syncthing)
-- [Build From Source](#build-from-source)
+- [Runtime Folders](#runtime-folders)
 - [Privacy](#privacy)
+- [Build From Source](#build-from-source)
+- [Good Fit](#good-fit)
+- [Not a Good Fit](#not-a-good-fit)
+- [Recommended With Syncthing](#recommended-with-syncthing)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Maintainer Docs](#maintainer-docs)
 - [Acknowledgements](#acknowledgements)
+- [License](#license)
 
 ## Why It Exists
 
@@ -65,7 +68,9 @@ Syncthing is the recommended companion, but not a requirement. You can also use 
 - Restore all configured links on another Windows machine.
 - Detect broken links, missing cache items, wrong link targets, and target-path conflicts.
 - Resolve conflicts interactively, one item at a time.
+- Add detected recommended paths such as Cursor, VS Code, Git, npm, Codex, Claude, JetBrains, and Clash state.
 - When Windows blocks a move with `Access denied`, detect processes that are using the selected path and offer to terminate them before retrying.
+- Move selected items back to their original paths and remove their cache/config records.
 - Use the same executable as a GUI app or a CLI checker.
 - Store portable paths with `~` so user-profile folders work across machines.
 - Use English config, logs, executable names, and folders.
@@ -92,11 +97,13 @@ The GUI asks for administrator permission because Windows symbolic links usually
 Common workflow:
 
 1. Click `Add item`.
-2. Choose `Add directory` or `Add file`.
+2. Choose `Add recommended items`, `Add directory`, or `Add file`.
 3. Pick the original path.
 4. Link Shelf moves it into the cache root.
 5. Link Shelf creates a symbolic link at the original path.
 6. Sync, back up, or move the cache root with your preferred tool.
+
+Recommended items only show paths that exist on the current machine and are not already in `link-shelf.config.json`. Selecting a recommended item runs the same add flow as choosing that path manually.
 
 On a second machine:
 
@@ -112,6 +119,10 @@ When adding a file or directory, Link Shelf first tries the normal move. If Wind
 From that window, you can review the processes, terminate selected processes from the context menu, or click `Terminate all and continue`. Link Shelf then waits briefly and retries the same move operation. If the path is still blocked, the same recovery window appears again.
 
 ![Locked path recovery window](Assets/lock-resolution-window-cn.png)
+
+### Move Back / Undo
+
+Select one or more rows and click `Move back / Undo` to remove the original link, move the cached content back to its original path, and remove the config record. Link Shelf only does this when the original path is missing or is still the expected link to the cache item. If real content exists at the original path, the undo is skipped to avoid overwriting user data.
 
 ## CLI Usage
 
@@ -273,7 +284,7 @@ For release planning and GitHub launch notes, see [docs/github-launch-checklist.
 
 ## Maintainer Docs
 
-Maintainer-only launch, release, screenshot, and handoff notes live in [docs](docs). Most users can ignore them.
+Maintainer-only launch, release, screenshot, signing, and handoff notes live in [docs](docs). Most users can ignore them. For signing options, see [Windows code signing](docs/windows-code-signing.md).
 
 ## Acknowledgements
 

@@ -144,6 +144,42 @@ public sealed class FileOperations
         log.Write($"Restored link: {targetPath} -> {cachePath}");
     }
 
+    public void RevertItem(SyncItem item)
+    {
+        var cachePath = Path.Combine(paths.CacheRoot, item.CacheName);
+        var targetPath = PathTools.ExpandPortablePath(item.OriginalPath, paths.UserHome);
+        var kind = PathTools.KindFromText(item.ItemType);
+
+        if (!PathExists(cachePath))
+        {
+            throw new InvalidOperationException($"Cache item missing: {cachePath}");
+        }
+
+        EnsureCanUsePath(targetPath);
+        Directory.CreateDirectory(Path.GetDirectoryName(targetPath) ?? paths.CacheRoot);
+
+        var linkTarget = TryGetLinkTarget(targetPath);
+        if (linkTarget is not null)
+        {
+            if (!PathTools.IsSamePath(linkTarget, cachePath))
+            {
+                throw new InvalidOperationException($"The original path is a link to another location: {targetPath}");
+            }
+
+            DeletePath(targetPath);
+            log.Write($"Removed original link before revert: {targetPath}");
+        }
+        else if (PathExists(targetPath))
+        {
+            throw new InvalidOperationException($"The original path has real content. Revert skipped to avoid overwriting it: {targetPath}");
+        }
+
+        MovePath(cachePath, targetPath, kind);
+        config.Items.Remove(item);
+        store.Save(config);
+        log.Write($"Reverted item to original path and removed config record: {cachePath} -> {targetPath}");
+    }
+
     public void CheckAll()
     {
         var checker = new StatusCheckService(paths, config);

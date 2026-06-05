@@ -71,6 +71,13 @@ Add item:
 4. The app creates a symbolic link at the original path.
 5. The app saves a config record.
 
+Recommended add item:
+
+- `RecommendedSyncItems` defines built-in presets with English keys, portable paths, expected item kind, and reason keys.
+- Recommended UI text and reasons must stay in `LocalizationService`.
+- The recommendation window must only show paths that exist on the current machine and are not already present in enabled config records.
+- Selecting recommended items runs the same add-item workflow as manually selecting those paths. It must not bypass conflict handling, locked-path handling, or safety checks.
+
 Locked-path handling during add item:
 
 - Always try the normal move first. Do not scan for locking processes before the first move attempt fails.
@@ -99,11 +106,14 @@ Check status:
 - checks whether target path is a link
 - checks whether the link points to the expected cache item
 
-Remove records:
+Move back / undo:
 
-- removes selected records from config only
-- does not move files
-- does not delete existing links
+- processes selected rows only
+- removes the original-path link only when it points to the expected cache item
+- moves the cache item back to the original path
+- removes the config record after the move succeeds
+- must not overwrite real content at the original path
+- must stop with a clear error if the original path has real content or points to another link target
 
 CLI mode:
 
@@ -165,10 +175,14 @@ Rules:
 - `ConflictChoiceWindow.xaml.cs`: conflict decision mapping.
 - `LockingProcessesWindow.xaml`: locked-path recovery window layout.
 - `LockingProcessesWindow.xaml.cs`: locked-path scan, process list, process termination, and continue/cancel decision mapping.
+- `RecommendedItemsWindow.xaml`: recommended item picker layout.
+- `RecommendedItemsWindow.xaml.cs`: recommended item selection and add/cancel decision mapping.
 - `Models/SyncModels.cs`: config models, constants, row view model, enums.
+- `Models/RecommendedSyncItem.cs`: recommended item models and grid row model.
 - `Services/AppPaths.cs`: cache root, config path, log path, backup path.
 - `Services/ConfigStore.cs`: config load, normalization, save.
 - `Services/FileOperations.cs`: moving, copying, linking, backups, restore, conflict application.
+- `Services/RecommendedSyncItems.cs`: built-in recommended paths and local/config filtering.
 - `Services/StatusCheckService.cs`: read-only health checks.
 - `Services/PathTools.cs`: path normalization, `~` expansion, unique cache names.
 - `Services/LocalizationService.cs`: English and Chinese UI strings.

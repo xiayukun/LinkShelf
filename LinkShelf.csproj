@@ -11,9 +11,9 @@
     <AssemblyName>LinkShelf</AssemblyName>
     <RootNamespace>LinkShelf</RootNamespace>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
     <Company>Link Shelf Contributors</Company>
     <Product>Link Shelf</Product>
     <Description>Move scattered local paths into one portable cache root, then restore them through symbolic links.</Description>

@@ -57,18 +57,20 @@ public partial class MainWindow : Window
         LanguageLabel.Text = text.T("main.language");
 
         AddSyncButton.Content = text.T("main.add");
+        AddRecommendedMenuItem.Header = text.T("main.addRecommended");
         AddDirectoryMenuItem.Header = text.T("main.addDirectory");
         AddFileMenuItem.Header = text.T("main.addFile");
-        RestoreButton.Content = text.T("main.restore");
         CheckButton.Content = text.T("main.check");
-        UnsyncButton.Content = text.T("main.unsync");
+        RestoreButton.Content = text.T("main.restore");
+        RevertButton.Content = text.T("main.revert");
 
-        SetToolTip(AddSyncButton, "help.add");
+        AddSyncButton.ToolTip = null;
+        SetToolTip(AddRecommendedMenuItem, "help.addRecommended");
         SetToolTip(AddDirectoryMenuItem, "help.addDirectory");
         SetToolTip(AddFileMenuItem, "help.addFile");
-        SetToolTip(RestoreButton, "help.restore");
         SetToolTip(CheckButton, "help.check");
-        SetToolTip(UnsyncButton, "help.unsync");
+        SetToolTip(RestoreButton, "help.restore");
+        SetToolTip(RevertButton, "help.revert");
 
         CacheNameColumn.Header = text.T("grid.cacheName");
         OriginalPathColumn.Header = text.T("grid.originalPath");
@@ -126,16 +128,35 @@ public partial class MainWindow : Window
         await RunAddOperationAsync(text.T("op.addDirectory"), dialog.SelectedPath, SyncItemKind.Directory);
     }
 
-    private void AddSyncButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+    private void AddSyncButton_Click(object sender, RoutedEventArgs e)
     {
         AddSyncButton.ContextMenu.PlacementTarget = AddSyncButton;
         AddSyncButton.ContextMenu.IsOpen = true;
     }
 
-    private void AddSyncButton_Click(object sender, RoutedEventArgs e)
+    private async void AddRecommendedMenuItem_Click(object sender, RoutedEventArgs e)
     {
-        AddSyncButton.ContextMenu.PlacementTarget = AddSyncButton;
-        AddSyncButton.ContextMenu.IsOpen = true;
+        var candidates = RecommendedSyncItems.GetAvailable(paths, config);
+        if (candidates.Count == 0)
+        {
+            System.Windows.MessageBox.Show(this, text.T("recommended.noItems"), text.T("recommended.title"), MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+
+        var window = new RecommendedItemsWindow(text, candidates)
+        {
+            Owner = this
+        };
+
+        if (window.ShowDialog() != true)
+        {
+            return;
+        }
+
+        foreach (var item in window.SelectedItems)
+        {
+            await RunAddOperationAsync(text.F("op.addRecommendedItem", text.T(item.NameKey)), item.ExpandedPath, item.Kind);
+        }
     }
 
     private void AddDirectoryMenuItem_Click(object sender, RoutedEventArgs e)
@@ -215,7 +236,7 @@ public partial class MainWindow : Window
         });
     }
 
-    private void UnsyncButton_Click(object sender, RoutedEventArgs e)
+    private void RevertButton_Click(object sender, RoutedEventArgs e)
     {
         var selectedItems = GetSelectedItems();
         if (selectedItems.Count == 0)
@@ -226,8 +247,8 @@ public partial class MainWindow : Window
 
         var result = System.Windows.MessageBox.Show(
             this,
-            text.F("dialog.unsyncConfirm", selectedItems.Count),
-            text.T("main.unsync"),
+            text.F("dialog.revertConfirm", selectedItems.Count),
+            text.T("main.revert"),
             MessageBoxButton.OKCancel,
             MessageBoxImage.Warning);
 
@@ -236,15 +257,14 @@ public partial class MainWindow : Window
             return;
         }
 
-        RunOperation(text.T("op.removeRecords"), () =>
+        RunOperation(text.T("op.revertItems"), () =>
         {
+            var operations = CreateOperations();
             foreach (var item in selectedItems)
             {
-                config.Items.Remove(item);
-                log.Write($"Removed config record: {item.CacheName}");
+                operations.RevertItem(item);
             }
             store.Save(config);
-            var operations = CreateOperations();
             operations.CheckAll();
         });
     }

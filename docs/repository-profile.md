@@ -9,7 +9,7 @@ link-shelf
 Suggested description:
 
 ```text
-Move scattered local paths into one portable cache root, then restore them through symbolic links.
+Portable app-state shelf for Windows: collect scattered config and small state paths into one syncable root, then restore links on another machine.
 ```
 
 Suggested website:
@@ -42,5 +42,5 @@ Link Shelf turns scattered app data and developer settings into one portable fol
 Short launch post:
 
 ```text
-I built Link Shelf, a small Windows utility that moves selected files or folders into a portable cache root and creates symbolic links back to their original paths. It is useful for syncing developer settings, backing up scattered app state, or restoring links on a new machine. Syncthing works great with it, but any backup or sync workflow can use the same idea.
+I built Link Shelf, a small Windows utility for collecting scattered app state and developer settings into one syncable cache root while apps keep using their original paths through symbolic links. It can add recommended local config paths, restore links on a new machine, check link health from the CLI, and move managed items back when you want to undo them. Syncthing works great with it, but any backup or sync workflow can use the same idea.
 ```

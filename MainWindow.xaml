@@ -66,12 +66,11 @@
                         <Button x:Name="AddSyncButton"
                                 Width="118"
                                 Height="34"
-                                ToolTipService.InitialShowDelay="250"
-                                ToolTipService.ShowDuration="12000"
-                                MouseEnter="AddSyncButton_MouseEnter"
                                 Click="AddSyncButton_Click">
                             <Button.ContextMenu>
                                 <ContextMenu x:Name="AddSyncMenu">
+                                    <MenuItem x:Name="AddRecommendedMenuItem"
+                                              Click="AddRecommendedMenuItem_Click" />
                                     <MenuItem x:Name="AddDirectoryMenuItem"
                                               Click="AddDirectoryMenuItem_Click" />
                                     <MenuItem x:Name="AddFileMenuItem"
@@ -79,14 +78,6 @@
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
-
-                        <Button x:Name="RestoreButton"
-                                Width="120"
-                                Height="34"
-                                Margin="6,0,0,0"
-                                ToolTipService.InitialShowDelay="250"
-                                ToolTipService.ShowDuration="12000"
-                                Click="RestoreButton_Click" />
 
                         <Button x:Name="CheckButton"
                                 Width="110"
@@ -96,13 +87,21 @@
                                 ToolTipService.ShowDuration="12000"
                                 Click="CheckButton_Click" />
 
-                        <Button x:Name="UnsyncButton"
-                                Width="110"
+                        <Button x:Name="RestoreButton"
+                                Width="120"
                                 Height="34"
                                 Margin="6,0,0,0"
                                 ToolTipService.InitialShowDelay="250"
                                 ToolTipService.ShowDuration="12000"
-                                Click="UnsyncButton_Click" />
+                                Click="RestoreButton_Click" />
+
+                        <Button x:Name="RevertButton"
+                                Width="136"
+                                Height="34"
+                                Margin="6,0,0,0"
+                                ToolTipService.InitialShowDelay="250"
+                                ToolTipService.ShowDuration="12000"
+                                Click="RevertButton_Click" />
                     </WrapPanel>
                 </Grid>
             </Grid>
