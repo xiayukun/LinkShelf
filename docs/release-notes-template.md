@@ -4,6 +4,8 @@ Copy this template into a GitHub release and edit it for the version being publi
 
 ## Link Shelf vX.Y.Z
 
+Chinese release notes: [docs/release-notes-vX.Y.Z.zh-CN.md](docs/release-notes-vX.Y.Z.zh-CN.md)
+
 ### Highlights
 
 - Move selected files or directories into a portable cache root.

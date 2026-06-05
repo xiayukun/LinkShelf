@@ -4,6 +4,8 @@
 
 ## Link Shelf vX.Y.Z
 
+英文发布说明：[docs/release-notes-vX.Y.Z.md](docs/release-notes-vX.Y.Z.md)
+
 ### 亮点
 
 - 把选中的文件或目录移动到可携带缓存根目录。

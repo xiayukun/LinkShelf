@@ -4,7 +4,11 @@ All notable changes to Link Shelf will be documented in this file.
 
 The project follows semantic versioning for public releases.
 
+Chinese changelog: [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
+
 ## 1.1.0 - 2026-06-06
+
+中文：[CHANGELOG.zh-CN.md#110---2026-06-06](CHANGELOG.zh-CN.md#110---2026-06-06)
 
 ### Added
 
@@ -22,6 +26,8 @@ The project follows semantic versioning for public releases.
 
 ## 1.0.1 - 2026-06-05
 
+中文：[CHANGELOG.zh-CN.md#101---2026-06-05](CHANGELOG.zh-CN.md#101---2026-06-05)
+
 ### Added
 
 - Locked-path recovery window for add operations that fail because Windows reports access denied.
@@ -36,6 +42,8 @@ The project follows semantic versioning for public releases.
 - The add-item flow reports blocking processes in a dedicated window instead of freezing or showing only the raw Windows error.
 
 ## 1.0.0 - 2026-06-04
+
+中文：[CHANGELOG.zh-CN.md#100---2026-06-04](CHANGELOG.zh-CN.md#100---2026-06-04)
 
 Initial public-ready release.
 
