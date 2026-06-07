@@ -50,3 +50,4 @@ dist\LinkShelf.exe
 - 后续发布版本：推送新的 `v*` 标签，让工作流自动运行。
 - 使用 `docs/release-notes-v1.0.0.zh-CN.md` 和 `docs/release-notes-v1.0.0.md` 准备发布说明。
 - 发布新版本前更新 `CHANGELOG.md` 和 `CHANGELOG.zh-CN.md`。
+- 确认英文更新日志中每个版本都能跳转到对应的中文更新日志条目和中文发布说明文件。

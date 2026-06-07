@@ -187,7 +187,7 @@ public partial class MainWindow : Window
         await RunAddOperationAsync(text.T("op.addFile"), dialog.FileName, SyncItemKind.File);
     }
 
-    private void RestoreButton_Click(object sender, RoutedEventArgs e)
+    private async void RestoreButton_Click(object sender, RoutedEventArgs e)
     {
         var selectedItems = GetSelectedItems();
         var itemsToRestore = selectedItems.Count > 0
@@ -215,16 +215,7 @@ public partial class MainWindow : Window
             return;
         }
 
-        RunOperation(text.T("op.restoreLinks"), () =>
-        {
-            var operations = CreateOperations();
-            foreach (var item in itemsToRestore)
-            {
-                operations.RestoreItem(item);
-            }
-            store.Save(config);
-            operations.CheckAll();
-        });
+        await RunRestoreOperationAsync(text.T("op.restoreLinks"), itemsToRestore);
     }
 
     private void CheckButton_Click(object sender, RoutedEventArgs e)
@@ -346,6 +337,70 @@ public partial class MainWindow : Window
                 return;
             }
         }
+    }
+
+    private async Task RunRestoreOperationAsync(string name, IReadOnlyList<SyncItem> itemsToRestore)
+    {
+        AppendLog(text.F("log.begin", name));
+
+        foreach (var item in itemsToRestore)
+        {
+            var targetPath = PathTools.ExpandPortablePath(item.OriginalPath, paths.UserHome);
+            var attempt = 0;
+
+            while (true)
+            {
+                attempt++;
+                try
+                {
+                    log.WriteDiagnostic($"restore attempt={attempt} stage=begin name={name} target={targetPath} cacheName={item.CacheName}");
+                    await Task.Run(() =>
+                    {
+                        var operations = CreateOperations();
+                        operations.RestoreItem(item);
+                    });
+                    store.Save(config);
+                    log.WriteDiagnostic($"restore attempt={attempt} stage=item-finished target={targetPath}");
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    log.WriteDiagnostic($"restore attempt={attempt} stage=exception target={targetPath} type={ex.GetType().FullName} message={ex.Message} stack={ex}");
+                    if (IsAccessDenied(ex))
+                    {
+                        log.WriteDiagnostic($"restore attempt={attempt} stage=access-denied-lock-window-show target={targetPath}");
+                        var decision = ShowLockingProcessesWindow(targetPath, ex.Message);
+                        log.WriteDiagnostic($"restore attempt={attempt} stage=access-denied-lock-window-closed decision={decision} target={targetPath}");
+
+                        if (decision == LockingProcessesDecision.Continue)
+                        {
+                            AppendLog(text.F("log.retryLockedPath", targetPath));
+                            continue;
+                        }
+
+                        AppendLog(text.F("log.lockedPathCanceled", targetPath));
+                        config = store.Load();
+                        ReloadGrid();
+                        return;
+                    }
+
+                    AppendLog(text.F("log.failed", name, ex.Message));
+                    System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    config = store.Load();
+                    ReloadGrid();
+                    return;
+                }
+            }
+        }
+
+        await Task.Run(() =>
+        {
+            var operations = CreateOperations();
+            operations.CheckAll();
+        });
+        config = store.Load();
+        ReloadGrid();
+        AppendLog(text.F("log.done", name));
     }
 
     private static bool IsAccessDenied(Exception ex)

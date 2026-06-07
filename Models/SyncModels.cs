@@ -8,6 +8,7 @@ public static class SyncConstants
     public const string TypeFile = "file";
     public const string StatusEnabled = "enabled";
     public const string StatusRemoved = "removed";
+    public const string StatusProblem = "problem";
     public const string LinkModeSymbolic = "symbolic-link";
 
     public const string CheckUnknown = "";
@@ -85,7 +86,7 @@ public sealed class SyncItemRow
         CacheName = item.CacheName;
         OriginalPath = item.OriginalPath;
         ItemType = localizeCode(item.ItemType);
-        Status = localizeCode(item.Status);
+        Status = localizeCode(DisplayStatusCode(item));
         CheckResult = localizeCode(item.CheckResult);
         SourceMachine = item.SourceMachine;
         LastOperation = localizeCode(item.LastOperation);
@@ -105,6 +106,21 @@ public sealed class SyncItemRow
     public string UpdatedAt { get; }
     public string CachePath { get; }
     public string ExpandedOriginalPath { get; }
+
+    private static string DisplayStatusCode(SyncItem item)
+    {
+        if (item.Status != SyncConstants.StatusEnabled)
+        {
+            return item.Status;
+        }
+
+        return item.CheckResult is SyncConstants.CheckCacheMissing or
+            SyncConstants.CheckTargetHasContent or
+            SyncConstants.CheckTargetMissingLink or
+            SyncConstants.CheckLinkWrongTarget
+            ? SyncConstants.StatusProblem
+            : item.Status;
+    }
 }
 
 public enum SyncItemKind

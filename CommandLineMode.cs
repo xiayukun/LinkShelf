@@ -7,7 +7,7 @@ namespace LinkShelf;
 
 internal static class CommandLineMode
 {
-    private const string Version = "1.1.0";
+    private const string Version = "1.1.1";
 
     public static bool IsCommand(string[] args)
     {

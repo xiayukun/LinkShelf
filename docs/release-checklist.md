@@ -49,4 +49,5 @@ Expected result:
 - For the first release, open Actions, choose `release`, click `Run workflow`, keep branch `main`, and set tag to `v1.0.0`.
 - For later releases, push a new `v*` tag and let the workflow run automatically.
 - Use release notes from `docs/release-notes-v1.0.0.md`.
-- Update `CHANGELOG.md` before publishing another release.
+- Update `CHANGELOG.md` and `CHANGELOG.zh-CN.md` before publishing another release.
+- Confirm every English changelog entry links to its matching Chinese changelog entry and Chinese release notes file.

@@ -9,10 +9,10 @@
 - 项目名：`Link Shelf`
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
-- 最新 GitHub Release：`v1.1.0`
-- 当前源码和本地运行程序版本：`1.1.0`
-- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.0`
-- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.0/LinkShelf.exe`
+- 最新 GitHub Release：`v1.1.1`
+- 当前源码和本地运行程序版本：`1.1.1`
+- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.1`
+- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.1/LinkShelf.exe`
 - 主分支：`main`
 
 ## 本地结构
@@ -58,7 +58,7 @@ GitHub 上已经有自动构建和自动发布能力：
 - 构建工作流：`.github/workflows/build.yml`
 - 发布工作流：`.github/workflows/release.yml`
 - 首版发布说明：`docs/release-notes-v1.0.0.md`
-- 最新发布说明：`docs/release-notes-v1.1.0.md`
+- 最新发布说明：`docs/release-notes-v1.1.1.md`
 
 `release` 工作流可以创建或更新 GitHub Release，并上传 `LinkShelf.exe`。
 
@@ -107,6 +107,10 @@ GitHub 上已经有自动构建和自动发布能力：
 - `clash-verge`
 - `clash-verge-service`
 - `verge-mihomo`
+
+恢复链接时也可能遇到拒绝访问，尤其是另一台电脑上已有程序正在使用目标路径时。图形界面应打开文件占用处理窗口，用户结束占用进程后继续重试同一个恢复项目。
+
+检查结果异常时，配置里的 `status` 仍然保持 `enabled`，但表格状态列应显示异常，避免用户误以为该项目健康。
 
 用户目录情况比较特殊：账号名是 `xiayukun`，但很多实际路径仍然在 `C:\Users\11467` 下。不要只根据账号名推断用户目录，应以程序和系统接口返回的路径为准。
 

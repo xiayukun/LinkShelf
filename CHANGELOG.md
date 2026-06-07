@@ -6,9 +6,24 @@ The project follows semantic versioning for public releases.
 
 Chinese changelog: [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
+## 1.1.1 - 2026-06-07
+
+中文：[更新日志](CHANGELOG.zh-CN.md#111---2026-06-07) | [发布说明](docs/release-notes-v1.1.1.zh-CN.md)
+
+### Fixed
+
+- Grid status now shows a problem state when an enabled item has an unhealthy check result, instead of continuing to display `Enabled`.
+- The Chinese UI title now uses the product name `Link Shelf` instead of the older Chinese name.
+- Restore links now opens the locked-path recovery window when Windows reports `Access denied`, matching the add-item recovery flow.
+
+### Changed
+
+- Locked-path recovery wording is now operation-neutral so it fits both add and restore operations.
+- Changelog entries now link to the matching Chinese release notes file as well as the Chinese changelog entry.
+
 ## 1.1.0 - 2026-06-06
 
-中文：[CHANGELOG.zh-CN.md#110---2026-06-06](CHANGELOG.zh-CN.md#110---2026-06-06)
+中文：[更新日志](CHANGELOG.zh-CN.md#110---2026-06-06) | [发布说明](docs/release-notes-v1.1.0.zh-CN.md)
 
 ### Added
 
@@ -26,7 +41,7 @@ Chinese changelog: [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
 ## 1.0.1 - 2026-06-05
 
-中文：[CHANGELOG.zh-CN.md#101---2026-06-05](CHANGELOG.zh-CN.md#101---2026-06-05)
+中文：[更新日志](CHANGELOG.zh-CN.md#101---2026-06-05) | [发布说明](docs/release-notes-v1.0.1.zh-CN.md)
 
 ### Added
 
@@ -43,7 +58,7 @@ Chinese changelog: [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
 ## 1.0.0 - 2026-06-04
 
-中文：[CHANGELOG.zh-CN.md#100---2026-06-04](CHANGELOG.zh-CN.md#100---2026-06-04)
+中文：[更新日志](CHANGELOG.zh-CN.md#100---2026-06-04) | [发布说明](docs/release-notes-v1.0.0.zh-CN.md)
 
 Initial public-ready release.
 

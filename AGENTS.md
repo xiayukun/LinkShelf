@@ -102,6 +102,12 @@ Restore links:
 3. Create links from original paths to cache items.
 4. When target content already exists, show the conflict dialog and wait for the user's choice.
 5. Process selected rows one by one; if no rows are selected, process all enabled items.
+6. If restore fails with access denied, open `LockingProcessesWindow` for the target path and let the user terminate blocking processes before retrying the same restore item.
+
+Status display:
+
+- Config status values stay English and should not be changed for display-only problems.
+- When an enabled item has an unhealthy check result, the grid status should display the localized `problem` label instead of `enabled`.
 
 Check status:
 

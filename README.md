@@ -69,7 +69,7 @@ Syncthing is the recommended companion, but not a requirement. You can also use 
 - Detect broken links, missing cache items, wrong link targets, and target-path conflicts.
 - Resolve conflicts interactively, one item at a time.
 - Add detected recommended paths such as Cursor, VS Code, Git, npm, Codex, Claude, JetBrains, and Clash state.
-- When Windows blocks a move with `Access denied`, detect processes that are using the selected path and offer to terminate them before retrying.
+- When Windows blocks an add or restore operation with `Access denied`, detect processes that are using the target path and offer to terminate them before retrying.
 - Move selected items back to their original paths and remove their cache/config records.
 - Use the same executable as a GUI app or a CLI checker.
 - Store portable paths with `~` so user-profile folders work across machines.
@@ -121,6 +121,8 @@ On a second machine:
 When adding a file or directory, Link Shelf first tries the normal move. If Windows reports `Access denied`, Link Shelf opens a locked-path recovery window and scans the selected path for running programs that are using it.
 
 From that window, you can review the processes, terminate selected processes from the context menu, or click `Terminate all and continue`. Link Shelf then waits briefly and retries the same move operation. If the path is still blocked, the same recovery window appears again.
+
+The same recovery window is also used when `Restore links` fails with `Access denied` on another machine, so locked target paths can be handled before retrying the restore.
 
 ![Locked path recovery window](Assets/lock-resolution-window-cn.png)
 

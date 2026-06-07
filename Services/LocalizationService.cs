@@ -126,7 +126,7 @@ public sealed class LocalizationService
         ["dialog.accessDeniedTitle"] = "Access denied",
         ["dialog.accessDeniedMessage"] = "Windows denied access while moving this path.{0}{0}Path:{0}{1}{0}{0}Error:{0}{2}{0}{0}This usually means the directory has protected permissions, a service is guarding it, or Windows refuses to move part of its contents. Close related software and services, or move a smaller subdirectory instead.",
         ["lockWindow.title"] = "Resolve file usage",
-        ["lockWindow.heading"] = "Move failed. Detecting processes that use this path.",
+        ["lockWindow.heading"] = "Operation failed. Detecting processes that use this path.",
         ["lockWindow.path"] = "Path: {0}",
         ["lockWindow.error"] = "Windows error: {0}",
         ["lockWindow.scanning"] = "Getting locking information",
@@ -172,6 +172,7 @@ public sealed class LocalizationService
         ["code.file"] = "File",
         ["code.enabled"] = "Enabled",
         ["code.removed"] = "Removed",
+        ["code.problem"] = "Problem",
         ["code.symbolic-link"] = "Symbolic link",
         ["code.ok"] = "OK",
         ["code.cache-missing"] = "Cache item missing",
@@ -312,7 +313,7 @@ public sealed class LocalizationService
 
     private static readonly Dictionary<string, string> Zh = new()
     {
-        ["app.title"] = "链接缓存架",
+        ["app.title"] = "Link Shelf",
         ["app.startupFailed"] = "程序启动失败，已写入启动错误日志。",
         ["app.cannotLocateSelf"] = "无法定位当前程序，不能自动请求管理员权限。",
         ["app.adminRequired"] = "需要管理员权限才能移动目录和创建链接。",
@@ -376,7 +377,7 @@ public sealed class LocalizationService
         ["dialog.accessDeniedTitle"] = "访问被拒绝",
         ["dialog.accessDeniedMessage"] = "Windows 在移动这个路径时拒绝访问。{0}{0}路径：{0}{1}{0}{0}错误：{0}{2}{0}{0}这通常表示目录有受保护权限、相关服务正在保护它，或 Windows 拒绝移动其中的某些内容。请关闭相关软件和服务，或者改为移动更小的子目录。",
         ["lockWindow.title"] = "处理文件占用",
-        ["lockWindow.heading"] = "移动失败，正在检测占用这个路径的进程。",
+        ["lockWindow.heading"] = "操作失败，正在检测占用这个路径的进程。",
         ["lockWindow.path"] = "路径：{0}",
         ["lockWindow.error"] = "Windows 错误：{0}",
         ["lockWindow.scanning"] = "正在获取占用信息",
@@ -422,6 +423,7 @@ public sealed class LocalizationService
         ["code.file"] = "文件",
         ["code.enabled"] = "启用",
         ["code.removed"] = "已移除",
+        ["code.problem"] = "异常",
         ["code.symbolic-link"] = "符号链接",
         ["code.ok"] = "链接正常",
         ["code.cache-missing"] = "缓存项不存在",
