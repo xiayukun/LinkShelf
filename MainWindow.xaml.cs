@@ -227,7 +227,7 @@ public partial class MainWindow : Window
         });
     }
 
-    private void RevertButton_Click(object sender, RoutedEventArgs e)
+    private async void RevertButton_Click(object sender, RoutedEventArgs e)
     {
         var selectedItems = GetSelectedItems();
         if (selectedItems.Count == 0)
@@ -248,16 +248,7 @@ public partial class MainWindow : Window
             return;
         }
 
-        RunOperation(text.T("op.revertItems"), () =>
-        {
-            var operations = CreateOperations();
-            foreach (var item in selectedItems)
-            {
-                operations.RevertItem(item);
-            }
-            store.Save(config);
-            operations.CheckAll();
-        });
+        await RunRevertOperationAsync(text.T("op.revertItems"), selectedItems);
     }
 
     private FileOperations CreateOperations()
@@ -403,6 +394,72 @@ public partial class MainWindow : Window
         AppendLog(text.F("log.done", name));
     }
 
+    private async Task RunRevertOperationAsync(string name, IReadOnlyList<SyncItem> itemsToRevert)
+    {
+        AppendLog(text.F("log.begin", name));
+
+        foreach (var item in itemsToRevert)
+        {
+            var targetPath = PathTools.ExpandPortablePath(item.OriginalPath, paths.UserHome);
+            var cachePath = Path.Combine(paths.CacheRoot, item.CacheName);
+            var attempt = 0;
+
+            while (true)
+            {
+                attempt++;
+                try
+                {
+                    log.WriteDiagnostic($"revert attempt={attempt} stage=begin name={name} target={targetPath} cache={cachePath} cacheName={item.CacheName}");
+                    await Task.Run(() =>
+                    {
+                        var operations = CreateOperations();
+                        operations.RevertItem(item);
+                    });
+                    store.Save(config);
+                    log.WriteDiagnostic($"revert attempt={attempt} stage=item-finished target={targetPath} cache={cachePath}");
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    log.WriteDiagnostic($"revert attempt={attempt} stage=exception target={targetPath} cache={cachePath} type={ex.GetType().FullName} message={ex.Message} stack={ex}");
+                    if (IsAccessDenied(ex))
+                    {
+                        var scanPath = PathExistsForLockScan(targetPath) ? targetPath : cachePath;
+                        log.WriteDiagnostic($"revert attempt={attempt} stage=access-denied-lock-window-show scanPath={scanPath}");
+                        var decision = ShowLockingProcessesWindow(scanPath, ex.Message);
+                        log.WriteDiagnostic($"revert attempt={attempt} stage=access-denied-lock-window-closed decision={decision} scanPath={scanPath}");
+
+                        if (decision == LockingProcessesDecision.Continue)
+                        {
+                            AppendLog(text.F("log.retryLockedPath", scanPath));
+                            continue;
+                        }
+
+                        AppendLog(text.F("log.lockedPathCanceled", scanPath));
+                        config = store.Load();
+                        ReloadGrid();
+                        return;
+                    }
+
+                    AppendLog(text.F("log.failed", name, ex.Message));
+                    System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    config = store.Load();
+                    ReloadGrid();
+                    return;
+                }
+            }
+        }
+
+        await Task.Run(() =>
+        {
+            var operations = CreateOperations();
+            operations.CheckAll();
+        });
+        config = store.Load();
+        ReloadGrid();
+        AppendLog(text.F("log.done", name));
+    }
+
     private static bool IsAccessDenied(Exception ex)
     {
         if (ex is UnauthorizedAccessException)
@@ -413,6 +470,11 @@ public partial class MainWindow : Window
         return ex.HResult == unchecked((int)0x80070005) ||
                ex.Message.Contains("access to the path", StringComparison.OrdinalIgnoreCase) &&
                ex.Message.Contains("denied", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool PathExistsForLockScan(string path)
+    {
+        return Directory.Exists(path) || File.Exists(path);
     }
 
     private LockingProcessesDecision ShowLockingProcessesWindow(string sourcePath, string errorMessage)

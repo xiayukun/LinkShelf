@@ -125,6 +125,8 @@ Move back / undo:
 - removes the config record after the move succeeds
 - must not overwrite real content at the original path
 - must stop with a clear error if the original path has real content or points to another link target
+- if move back / undo fails with access denied, open `LockingProcessesWindow`, let the user terminate blocking processes, and retry the same item
+- when choosing the lock scan path for move back / undo, scan the original path while it still exists; if the original link has already been removed, scan the cache item path
 
 CLI mode:
 

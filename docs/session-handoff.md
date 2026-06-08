@@ -9,10 +9,10 @@
 - 项目名：`Link Shelf`
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
-- 最新 GitHub Release：`v1.1.1`
-- 当前源码和本地运行程序版本：`1.1.1`
-- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.1`
-- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.1/LinkShelf.exe`
+- 最新 GitHub Release：`v1.1.2`
+- 当前源码和本地运行程序版本：`1.1.2`
+- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.2`
+- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.2/LinkShelf.exe`
 - 主分支：`main`
 
 ## 本地结构
@@ -58,7 +58,7 @@ GitHub 上已经有自动构建和自动发布能力：
 - 构建工作流：`.github/workflows/build.yml`
 - 发布工作流：`.github/workflows/release.yml`
 - 首版发布说明：`docs/release-notes-v1.0.0.md`
-- 最新发布说明：`docs/release-notes-v1.1.1.md`
+- 最新发布说明：`docs/release-notes-v1.1.2.md`
 
 `release` 工作流可以创建或更新 GitHub Release，并上传 `LinkShelf.exe`。
 
@@ -109,6 +109,8 @@ GitHub 上已经有自动构建和自动发布能力：
 - `verge-mihomo`
 
 恢复链接时也可能遇到拒绝访问，尤其是另一台电脑上已有程序正在使用目标路径时。图形界面应打开文件占用处理窗口，用户结束占用进程后继续重试同一个恢复项目。
+
+搬回原位/撤销时也可能遇到拒绝访问。原始链接仍存在时优先扫描原始路径；如果原始链接已移除但缓存项搬回失败，应扫描缓存项路径，然后重试同一个撤销项目。
 
 检查结果异常时，配置里的 `status` 仍然保持 `enabled`，但表格状态列应显示异常，避免用户误以为该项目健康。
 

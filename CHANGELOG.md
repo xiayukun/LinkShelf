@@ -6,6 +6,19 @@ The project follows semantic versioning for public releases.
 
 Chinese changelog: [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
+## 1.1.2 - 2026-06-08
+
+中文：[更新日志](CHANGELOG.zh-CN.md#112---2026-06-08) | [发布说明](docs/release-notes-v1.1.2.zh-CN.md)
+
+### Fixed
+
+- Move back / undo now opens the locked-path recovery window when Windows reports `Access denied`.
+- After the user handles locking processes, move back / undo retries the same item instead of failing immediately.
+
+### Changed
+
+- Locked-path cancellation log text is now operation-neutral because add, restore, and move back / undo all share the same recovery flow.
+
 ## 1.1.1 - 2026-06-07
 
 中文：[更新日志](CHANGELOG.zh-CN.md#111---2026-06-07) | [发布说明](docs/release-notes-v1.1.1.zh-CN.md)
