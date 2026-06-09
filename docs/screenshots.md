@@ -1,28 +1,28 @@
-# Screenshots
+# 截图
 
-中文：[screenshots.zh-CN.md](screenshots.zh-CN.md)
+English: [screenshots.en.md](screenshots.en.md)
 
-Use this page as the checklist for screenshots shown in the README, release notes, and repository profile.
+这份清单用于检查 README、发布说明和仓库资料中展示的截图。
 
-## Required Images
+## 必需图片
 
-- `Assets/app-preview.png`: English main window.
-- `Assets/app-preview-cn.png`: Chinese main window.
-- `Assets/recommended-items-window-cn.png`: Chinese recommended items window.
-- `Assets/lock-resolution-window-cn.png`: Chinese locked-path recovery window.
+- `Assets/app-preview.png`：英文主窗口。
+- `Assets/app-preview-cn.png`：中文主窗口。
+- `Assets/recommended-items-window-cn.png`：中文推荐项目窗口。
+- `Assets/lock-resolution-window-cn.png`：中文文件占用处理窗口。
 
-## Capture Checklist
+## 截图清单
 
-- Start `LinkShelf.exe` from a real cache root.
-- Use a non-empty config so the table, status column, and log panel are visible.
-- Capture the full main window at normal desktop scaling.
-- Capture the recommended items window after opening `Add item` -> `Add recommended items`.
-- Confirm the language selector shows `English` and `中文`.
-- Confirm buttons show tooltips on hover before recording release media.
-- Avoid showing private paths or machine names in public screenshots.
+- 从真实缓存根目录启动 `LinkShelf.exe`。
+- 使用非空配置，让表格、状态列和日志面板可见。
+- 按正常桌面缩放比例截取完整主窗口。
+- 通过 `添加项目` -> `添加推荐项目` 打开推荐项目窗口并截图。
+- 确认语言选择器显示 `English` 和 `中文`。
+- 录制发布媒体前，确认按钮悬停提示正常显示。
+- 避免在公开截图中展示私人路径或机器名。
 
-## Before Release
+## 发布前
 
-- Replace placeholder images with current UI screenshots.
-- Re-check that README image links still render on GitHub.
-- Keep screenshots small enough for quick loading, preferably under 1 MB each.
+- 用当前界面截图替换占位图片。
+- 重新检查 README 图片链接在 GitHub 上是否能渲染。
+- 保持截图体积较小，最好每张小于 1 MB。

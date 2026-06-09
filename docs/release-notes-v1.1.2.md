@@ -1,35 +1,35 @@
-中文发布说明：[docs/release-notes-v1.1.2.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.2/docs/release-notes-v1.1.2.zh-CN.md)
+English release notes: [docs/release-notes-v1.1.2.en.md](https://github.com/xiayukun/LinkShelf/blob/main/docs/release-notes-v1.1.2.en.md)
 
-This release completes the locked-path recovery coverage for the move back / undo workflow.
+这个版本补齐“搬回原位/撤销”的文件占用处理覆盖范围。
 
-## Highlights
+## 亮点
 
-- `Move back / Undo` now opens the locked-path recovery window when Windows reports `Access denied`.
-- After closing or terminating locking processes, Link Shelf retries the same move back / undo item.
-- If the original link still exists, Link Shelf scans the original path for locking processes.
-- If the original link was already removed and the cache item move is blocked, Link Shelf scans the cache item path.
-- Add, restore, and move back / undo now share the same locked-path recovery behavior.
+- `搬回原位/撤销` 遇到 Windows 返回拒绝访问时，现在会打开文件占用处理窗口。
+- 用户关闭或结束占用进程后，Link Shelf 会重试同一个搬回项目。
+- 如果原始链接仍然存在，Link Shelf 会扫描原始路径的占用进程。
+- 如果原始链接已经移除，但缓存项搬回时仍被阻止，Link Shelf 会扫描缓存项路径。
+- 添加、恢复链接和搬回原位/撤销现在共用同一套文件占用恢复行为。
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission, unless Windows Developer Mode allows symbolic link creation for the current user.
+- 管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
 
-## Recommended Workflow
+## 推荐工作流
 
-1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
-2. Click `Add item` and choose `Add recommended items`, `Add directory`, or `Add file`.
-3. Use `Check status` for read-only health checks.
-4. Use `Restore links` on another machine after syncing or restoring the cache root.
-5. Use `Move back / Undo` when an item should leave Link Shelf management.
-6. If a locked-path window appears, close or terminate the listed processes and continue.
+1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
+2. 点击 `添加项目`，选择 `添加推荐项目`、`添加目录` 或 `添加文件`。
+3. 用 `检查状态` 做只读健康检查。
+4. 在另一台电脑同步或恢复缓存根目录后，点击 `恢复链接`。
+5. 当某个项目不再需要由 Link Shelf 管理时，使用 `搬回原位/撤销`。
+6. 如果出现文件占用窗口，关闭或结束列表中的进程后继续。
 
-## Safety Notes
+## 安全说明
 
-- Link Shelf still refuses to overwrite real content at the original path.
-- Move back / undo still removes only links that point to the expected cache item.
-- Locked-path recovery is only opened after Windows reports `Access denied`; Link Shelf still tries the normal operation first.
+- Link Shelf 仍然拒绝覆盖原始路径上的真实内容。
+- 搬回原位/撤销仍然只会移除指向预期缓存项的链接。
+- 文件占用处理只会在 Windows 返回拒绝访问之后打开；Link Shelf 仍然会先尝试正常操作。

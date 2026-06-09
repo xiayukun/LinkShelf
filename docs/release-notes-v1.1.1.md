@@ -1,36 +1,36 @@
-中文发布说明：[docs/release-notes-v1.1.1.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.1/docs/release-notes-v1.1.1.zh-CN.md)
+English release notes: [docs/release-notes-v1.1.1.en.md](https://github.com/xiayukun/LinkShelf/blob/main/docs/release-notes-v1.1.1.en.md)
 
-This release focuses on polishing recovery behavior and status clarity after the 1.1.0 app-state shelf update.
+这个版本主要打磨 1.1.0 之后的恢复流程和状态显示，让异常项目更明显，也让另一台电脑恢复链接时的占用处理更完整。
 
-## Highlights
+## 亮点
 
-- The grid status column now shows a problem state when an enabled item has an unhealthy check result, so broken or conflicting items are easier to notice.
-- The Chinese UI title now uses the product name `Link Shelf`.
-- `Restore links` now reuses the locked-path recovery window when Windows reports `Access denied`.
-- After resolving locked processes, restore retries the same item. If the path is still blocked, the recovery window can appear again.
-- Locked-path recovery text is now operation-neutral for both add and restore flows.
-- Changelog entries now link directly to the matching Chinese changelog entry and Chinese release notes file.
+- 当已启用项目的检查结果异常时，表格状态列现在会显示异常状态，方便发现损坏链接或冲突路径。
+- 中文界面标题现在使用产品名 `Link Shelf`。
+- `恢复链接` 遇到 Windows 返回拒绝访问时，现在会复用文件占用处理窗口。
+- 用户处理占用进程后，恢复流程会重试同一个项目；如果路径仍然被占用，会再次打开处理窗口。
+- 文件占用处理窗口改为通用操作失败文案，同时适配添加和恢复流程。
+- 更新日志条目现在可以直接跳转到对应的中文更新日志条目和中文发布说明文件。
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission, unless Windows Developer Mode allows symbolic link creation for the current user.
+- 管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
 
-## Recommended Workflow
+## 推荐工作流
 
-1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
-2. Click `Add item` and choose `Add recommended items`, `Add directory`, or `Add file`.
-3. Use `Check status` for read-only health checks.
-4. Use `Restore links` on another machine after syncing or restoring the cache root.
-5. If restore reports a locked path, close or terminate the listed processes and continue.
-6. Use `Move back / Undo` when an item should leave Link Shelf management.
+1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
+2. 点击 `添加项目`，选择 `添加推荐项目`、`添加目录` 或 `添加文件`。
+3. 用 `检查状态` 做只读健康检查。
+4. 在另一台电脑同步或恢复缓存根目录后，点击 `恢复链接`。
+5. 如果恢复时提示路径被占用，关闭或结束列表中的进程后继续。
+6. 当某个项目不再需要由 Link Shelf 管理时，使用 `搬回原位/撤销`。
 
-## Safety Notes
+## 安全说明
 
-- Locked-path recovery is only opened after Windows reports `Access denied`; Link Shelf still tries the normal operation first.
-- Restore conflicts are still handled one item at a time.
-- Link Shelf does not silently overwrite real content at the original path.
+- 文件占用处理只会在 Windows 返回拒绝访问之后打开；Link Shelf 仍然会先尝试正常操作。
+- 恢复链接遇到冲突时仍会逐项询问。
+- Link Shelf 不会静默覆盖原始路径上的真实内容。

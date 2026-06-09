@@ -1,25 +1,25 @@
-# Maintainers
+# 维护者
 
-中文：[MAINTAINERS.zh-CN.md](MAINTAINERS.zh-CN.md)
+English: [MAINTAINERS.en.md](MAINTAINERS.en.md)
 
-Primary maintainer:
+主要维护者：
 
 - xiayukun
 
-## Maintenance Principles
+## 维护原则
 
-- Keep the first-run workflow simple.
-- Keep CLI checks safe and read-only.
-- Prefer explicit user confirmation for any operation that moves, replaces, links, or backs up user content.
-- Keep config keys and runtime file names in English.
-- Keep Chinese UI text isolated in `Services/LocalizationService.cs`.
-- Keep Syncthing as a recommended workflow, not the only supported workflow.
+- 保持首次运行流程简单。
+- 保持命令行检查安全且只读。
+- 对任何会移动、替换、链接或备份用户内容的操作，优先使用明确的用户确认。
+- 配置键和运行时文件名保持英文。
+- 中文界面文本集中放在 `Services/LocalizationService.cs`。
+- Syncthing 是推荐工作流，不是唯一支持的工作流。
 
-## Release Rhythm
+## 发布节奏
 
-Small bug-fix releases are preferred over large, risky batches. A release should include:
+优先发布小型修复版本，避免一次合并太多高风险变更。一个发布版本应包含：
 
-- a passing Windows build
-- a fresh `LinkShelf.exe` artifact
-- short release notes
-- any README updates needed for changed behavior
+- 通过的 Windows 构建
+- 新的 `LinkShelf.exe` 产物
+- 简短发布说明
+- 行为变化所需的 README 更新

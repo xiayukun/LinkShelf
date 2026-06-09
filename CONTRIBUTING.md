@@ -1,38 +1,38 @@
-# Contributing
+# 参与贡献
 
-中文：[CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md)
+English: [CONTRIBUTING.en.md](CONTRIBUTING.en.md)
 
-Thanks for taking a look at Link Shelf.
+感谢你关注 Link Shelf。
 
-## Development Setup
+## 开发环境
 
-Requirements:
+要求：
 
 - Windows
 - .NET SDK
 
-Build:
+构建：
 
 ```powershell
 dotnet build .\LinkShelf.csproj -c Release
 ```
 
-Run CLI checks from a cache-root folder:
+从缓存根目录运行命令行检查：
 
 ```powershell
 .\LinkShelf.exe check --json
 ```
 
-## Pull Request Guidelines
+## 拉取请求要求
 
-- Keep file operations conservative.
-- Do not silently delete or overwrite user data.
-- Keep the current English configuration schema stable unless a new versioned migration is documented.
-- Keep config keys, executable names, and runtime directory names in English.
-- Keep UI strings in the localization service.
-- Update `README.md` and `README.en.md` when behavior changes.
-- Verify with `dotnet build -c Release`.
+- 文件操作要保持保守。
+- 不要静默删除或覆盖用户数据。
+- 除非有新的版本化迁移说明，否则保持当前英文配置架构稳定。
+- 配置键、可执行文件名和运行时目录名保持英文。
+- 界面字符串放在本地化服务中。
+- 行为变化时更新 `README.md` 和 `README.en.md`。
+- 使用 `dotnet build .\LinkShelf.csproj -c Release` 验证。
 
-## Safety Rules
+## 安全规则
 
-Any change that moves, deletes, overwrites, backs up, or links user files must have clear user confirmation in the GUI path. CLI commands should remain read-only unless a future command name makes mutation explicit.
+任何会移动、删除、覆盖、备份或链接用户文件的变更，都必须在图形界面路径中给出明确的用户确认。命令行命令应保持只读，除非未来命令名称明确表示会修改状态。

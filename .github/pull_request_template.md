@@ -1,18 +1,18 @@
-## Summary
+## 摘要
 
-中文模板：[pull_request_template.zh-CN.md](pull_request_template.zh-CN.md)
+English template: [pull_request_template.en.md](pull_request_template.en.md)
 
-## Changes
+## 变更
 
 
-## Verification
+## 验证
 
 - [ ] `dotnet build .\LinkShelf.csproj -c Release`
-- [ ] CLI behavior checked, if relevant
-- [ ] GUI behavior checked, if relevant
+- [ ] 如果相关，已检查命令行行为
+- [ ] 如果相关，已检查图形界面行为
 
-## Safety Notes
+## 安全说明
 
-- [ ] This change does not silently delete, overwrite, or merge user content.
-- [ ] Any path-moving behavior requires clear user confirmation.
-- [ ] Config compatibility is preserved or the migration is documented.
+- [ ] 这个变更不会静默删除、覆盖或合并用户内容
+- [ ] 任何路径移动行为都需要清楚的用户确认
+- [ ] 配置兼容性已保留，或迁移方式已记录

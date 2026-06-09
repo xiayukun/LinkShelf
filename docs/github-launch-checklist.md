@@ -1,18 +1,18 @@
-# GitHub Launch Checklist
+# GitHub 上线清单
 
-中文：[github-launch-checklist.zh-CN.md](github-launch-checklist.zh-CN.md)
+English: [github-launch-checklist.en.md](github-launch-checklist.en.md)
 
-This checklist turns Link Shelf from a local utility into a repository that is easier to trust, try, and star.
+这份清单用于把 Link Shelf 从本地工具整理成更容易信任、试用和收藏的仓库。
 
-## Positioning
+## 定位
 
-Lead with the broadest useful promise:
+开头使用最广泛有用的承诺：
 
-> Move scattered local paths into one portable folder, then keep apps working through symbolic links.
+> 把分散的本地路径移动到一个可携带文件夹中，并通过符号链接让应用继续工作。
 
-Syncthing should be presented as the recommended sync companion, not as the only reason the project exists.
+Syncthing 应作为推荐同步搭档，而不是项目存在的唯一理由。
 
-Good GitHub topics:
+推荐 GitHub 主题：
 
 - `windows`
 - `symlink`
@@ -23,65 +23,65 @@ Good GitHub topics:
 - `dotnet`
 - `wpf`
 
-## Before Publishing
+## 发布前
 
-- Replace `Assets/app-preview.png` with a real screenshot of the main window.
-- Confirm the release artifact is named `LinkShelf.exe`.
-- Confirm `README.md` opens with the problem and the quick start.
-- Confirm `LICENSE` exists.
-- Confirm `PRIVACY.md` exists and explains local-only behavior.
-- Follow `docs/first-push.md` for the empty GitHub repository and first push.
-- Confirm `.github/workflows/build.yml` passes on GitHub Actions.
-- Create the first release with a short changelog.
-- Add the repository profile from `docs/repository-profile.md`.
+- 用真实主窗口截图替换 `Assets/app-preview.png`。
+- 确认发布产物名为 `LinkShelf.exe`。
+- 确认 `README.md` 开头说明问题和快速开始。
+- 确认 `LICENSE` 存在。
+- 确认 `PRIVACY.md` 和 `PRIVACY.md` 存在，并说明本地运行行为。
+- 按 `docs/first-push.md` 完成空 GitHub 仓库和首次推送。
+- 确认 `.github/workflows/build.yml` 在 GitHub Actions 上通过。
+- 创建首个发布版本并写简短更新说明。
+- 使用 `docs/repository-profile.md` 中的仓库资料。
 
-## What Popular Repositories Usually Do Well
+## 受欢迎仓库通常做得好的地方
 
-Clear first screen:
+清晰的第一屏：
 
-- The README explains the problem in one or two sentences.
-- The primary screenshot appears near the top.
-- Install and quick-start instructions are visible without hunting.
+- README 用一两句话说明问题。
+- 主截图出现在靠前位置。
+- 安装和快速开始说明不需要翻找。
 
-Low trial cost:
+低试用成本：
 
-- Users can download one artifact.
-- The first command or first click is obvious.
-- Failure modes and limitations are documented.
+- 用户可以下载一个产物。
+- 第一次命令或第一次点击很明确。
+- 失败模式和限制有文档说明。
 
-Trust signals:
+信任信号：
 
-- License is present.
-- Build workflow is visible.
-- Issues have templates.
-- Releases are named and versioned.
-- Dangerous behavior is documented honestly.
+- 有许可证。
+- 可以看到构建工作流。
+- 有问题模板。
+- 发布版本有名称和版本号。
+- 危险行为被诚实说明。
 
-Community readiness:
+社区准备：
 
-- `CONTRIBUTING.md` exists.
-- Security reporting path exists.
-- The maintainer responds quickly to early issues.
-- The roadmap is specific but not bloated.
+- 有 `CONTRIBUTING.md` 和 `CONTRIBUTING.md`。
+- 有安全报告路径。
+- 维护者能快速回应早期问题。
+- 路线图具体但不过度膨胀。
 
-## Useful References
+## 有用参考
 
-- GitHub Open Source Guides: https://opensource.guide/building-community/
-- GitHub README research: https://arxiv.org/abs/2206.10772
-- README structure and popularity study: https://enoei.github.io/papers/liu2022readme.pdf
+- GitHub 开源指南：https://opensource.guide/building-community/
+- GitHub README 研究：https://arxiv.org/abs/2206.10772
+- README 结构和流行度研究：https://enoei.github.io/papers/liu2022readme.pdf
 
-## First Release Notes Draft
+## 首个发布说明草稿
 
 ```text
 Link Shelf 1.0.0
 
-Initial public release.
+首个公开版本。
 
-Highlights:
-- Windows GUI for moving files and folders into a portable cache root.
-- Symbolic link restoration on another machine.
-- CLI health checks with JSON output.
-- English and Chinese UI with automatic language selection.
-- English config schema with English runtime folder names.
-- Syncthing-friendly workflow without requiring Syncthing.
+亮点：
+- Windows 图形界面，用于把文件和目录移动到可携带缓存根目录。
+- 可在另一台机器上恢复符号链接。
+- 命令行健康检查支持 JSON 输出。
+- 支持英文和中文界面，并可自动按系统语言选择。
+- 英文配置架构，运行时目录名也使用英文。
+- 适合 Syncthing 工作流，但不要求必须使用 Syncthing。
 ```

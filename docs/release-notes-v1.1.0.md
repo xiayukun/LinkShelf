@@ -1,39 +1,39 @@
-中文发布说明：[docs/release-notes-v1.1.0.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.0/docs/release-notes-v1.1.0.zh-CN.md)
+English release notes: [docs/release-notes-v1.1.0.en.md](https://github.com/xiayukun/LinkShelf/blob/main/docs/release-notes-v1.1.0.en.md)
 
-This release turns Link Shelf more clearly into a portable app-state shelf for Windows. It adds recommended items for common local configuration paths and replaces record-only removal with a real move back / undo flow.
+这个版本让 Link Shelf 的定位更清楚：它是 Windows 上的便携应用状态收纳工具。本版本增加了常见本地配置路径的推荐项目，并把原来的“只移除记录”改为真正的“搬回原位/撤销”流程。
 
-## Highlights
+## 亮点
 
-- Add recommended items from detected local paths. Paths already in the config and paths missing on the current machine are hidden.
-- Recommended presets are curated from the author's daily Windows setup and AI-assisted web research into common developer, AI coding, editor, terminal, and package-manager configuration paths.
-- Presets include paths for Cursor, VS Code, VS Code Insiders, VSCodium, Codex, Claude, Claude Desktop, Gemini, Continue, aider, Windsurf, Cline, Roo Code, GitHub Copilot, Git, npm, Yarn, pnpm, pip, uv, NuGet, Maven, Gradle, Cargo, Bun, PowerShell, Windows Terminal, Neovim, Vim, Starship, Alacritty, WezTerm, Nushell, JetBrains, and Clash Verge.
-- Move selected items back to their original paths and remove their config records.
-- The undo flow refuses to overwrite real content at the original path.
-- The main button order is now `Add item`, `Check status`, `Restore links`, `Move back / Undo`.
-- The add menu opens on click instead of hover, avoiding tooltip/menu overlap.
+- 可以从本机检测到的路径中添加推荐项目。已经在配置中的路径、本机不存在的路径会被隐藏。
+- 推荐预设来自作者本人日常 Windows 环境，以及 AI 联网调研后认为很多人会使用的开发工具、AI 编程工具、编辑器、终端和包管理器配置路径。
+- 推荐预设包括 Cursor、VS Code、VS Code Insiders、VSCodium、Codex、Claude、Claude Desktop、Gemini、Continue、aider、Windsurf、Cline、Roo Code、GitHub Copilot、Git、npm、Yarn、pnpm、pip、uv、NuGet、Maven、Gradle、Cargo、Bun、PowerShell、Windows Terminal、Neovim、Vim、Starship、Alacritty、WezTerm、Nushell、JetBrains、Clash Verge。
+- 可以把选中的项目搬回原始路径，并删除配置记录。
+- 撤销流程不会覆盖原始路径上的真实内容。
+- 主按钮顺序调整为：`添加项目`、`检查状态`、`恢复链接`、`搬回原位/撤销`。
+- 添加菜单改为点击展开，不再鼠标悬停自动展开，避免提示或菜单遮挡下拉区域。
 
-![Recommended items window](https://raw.githubusercontent.com/xiayukun/LinkShelf/v1.1.0/Assets/recommended-items-window-cn.png)
+![推荐项目窗口](https://raw.githubusercontent.com/xiayukun/LinkShelf/v1.1.0/Assets/recommended-items-window-cn.png)
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission, unless Windows Developer Mode allows symbolic link creation for the current user.
+- 管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
 
-## Recommended Workflow
+## 推荐工作流
 
-1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
-2. Click `Add item` and choose `Add recommended items`, `Add directory`, or `Add file`.
-3. Use `Check status` for read-only health checks.
-4. Use `Restore links` on another machine after syncing or restoring the cache root.
-5. Use `Move back / Undo` when an item should leave Link Shelf management.
+1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
+2. 点击 `添加项目`，选择 `添加推荐项目`、`添加目录` 或 `添加文件`。
+3. 使用 `检查状态` 做只读健康检查。
+4. 缓存根目录同步或恢复到另一台机器后，使用 `恢复链接`。
+5. 某个项目不再需要 Link Shelf 管理时，使用 `搬回原位/撤销`。
 
-## Safety Notes
+## 安全说明
 
-- Move back / undo only proceeds when the original path is missing or is still the expected link to the cache item.
-- If real content exists at the original path, Link Shelf stops instead of overwriting it.
-- Recommended items are only shortcuts into the same add-item workflow; they do not bypass conflict or locked-path handling.
-- Some recommended paths can contain private state such as account names, tokens, local history, or provider settings. Review them before syncing the cache root with another tool.
+- 搬回原位/撤销只会在原始路径不存在，或仍然是指向该缓存项的正确链接时执行。
+- 如果原始路径已经有真实内容，Link Shelf 会停止而不是覆盖它。
+- 推荐项目只是同一个添加流程的快捷入口，不会绕过冲突处理或文件占用处理。
+- 部分推荐路径可能包含账号名、令牌、本地历史或服务商设置等私有状态。把缓存根目录交给其他工具同步前，请先检查这些内容。

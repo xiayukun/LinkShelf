@@ -1,20 +1,20 @@
 ---
-name: Feature request
-about: Suggest an improvement
+name: 功能建议
+about: "建议一个改进"
 title: "[Feature]: "
 labels: enhancement
 assignees: ""
 ---
 
-中文模板：[feature_request.zh-CN.md](feature_request.zh-CN.md)
+English template: [feature_request.en.md](feature_request.en.md)
 
-## Problem
-
-
-## Proposed solution
+## 问题
 
 
-## Alternatives considered
+## 建议方案
 
 
-## Extra context
+## 考虑过的替代方案
+
+
+## 其他信息

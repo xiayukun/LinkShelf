@@ -1,28 +1,28 @@
-中文发布说明：[docs/release-notes-v1.1.5.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.5/docs/release-notes-v1.1.5.zh-CN.md)
+English release notes: [docs/release-notes-v1.1.5.en.md](https://github.com/xiayukun/LinkShelf/blob/main/docs/release-notes-v1.1.5.en.md)
 
-This release improves the public GitHub presentation for Chinese-first promotion, adds a full English companion README, and makes the CLI help more useful for AI assistants and automation.
+这个版本主要改进 GitHub 公开展示：默认主页改为中文优先，补齐完整英文配套文档，并让命令行帮助更适合 AI 助手和自动化读取。
 
-## Highlights
+## 亮点
 
-- `README.md` is now the Chinese-first GitHub landing page.
-- `README.en.md` contains the full English documentation.
-- `README.zh-CN.md` remains as a short compatibility entry for older links.
-- The README now foregrounds Windows symbolic links, symlink backup, hard-link projection, dotfiles, app-state backup, Syncthing, and AI coding tool configuration sync.
-- The AI and automation section now includes a copy-ready prompt for a user's AI assistant.
-- `LinkShelf.exe -help` now works as a CLI help alias.
-- CLI help now explains the cache-root model, `check --json`, and read-only automation behavior.
-- The release workflow now checks out the requested tag when manually rerun through `workflow_dispatch`.
+- `README.md` 现在是中文优先的 GitHub 默认主页。
+- `README.en.md` 是完整英文说明。
+- 删除旧中文兼容入口，默认中文主页直接使用 `README.md`。
+- README 首屏强化了 Windows 符号链接、软链接备份、硬链接投射、dotfiles、应用状态备份、Syncthing 和 AI 编程工具配置同步等关键词。
+- AI 和自动化章节现在包含可以直接复制给用户 AI 助手的提示词。
+- `LinkShelf.exe -help` 现在可作为命令行帮助别名使用。
+- 命令行帮助现在说明缓存根目录模型、`check --json` 和只读自动化行为。
+- 发布工作流通过 `workflow_dispatch` 手动重跑时，现在会 checkout 用户指定的 tag。
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission is usually required for creating symbolic links unless Windows Developer Mode allows the current user to create them.
+- 创建符号链接通常需要管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
 
-## Notes
+## 说明
 
-- Link Shelf remains a local tool. It does not upload files, paths, logs, configuration, or machine names.
-- Review AI tool settings and other recommended paths before syncing them, because they can contain tokens, account names, local history, or other private state.
+- Link Shelf 仍然是本地工具。它不会上传文件、路径、日志、配置或机器名。
+- 同步 AI 工具设置和其他推荐路径前，请先检查内容，因为其中可能包含令牌、账号名、本地历史记录或其他私有状态。

@@ -1,53 +1,53 @@
-# Release Notes Template
+# 发布说明模板
 
-中文模板：[release-notes-template.zh-CN.md](release-notes-template.zh-CN.md)
+English template: [release-notes-template.en.md](release-notes-template.en.md)
 
-Copy this template into a GitHub release and edit it for the version being published.
+把这个模板复制到 GitHub Release，然后按实际版本编辑。
 
-中文发布说明：创建 `docs/release-notes-vX.Y.Z.zh-CN.md`，替换 `vX.Y.Z` 后在这里加入链接。
+English release notes: create `docs/release-notes-vX.Y.Z.en.md` and link it here after replacing `vX.Y.Z`.
 
-## Highlights
+## 亮点
 
-- Move selected files or directories into a portable cache root.
-- Restore symbolic links on another Windows machine.
-- Check link health from the GUI or CLI.
+- 把选中的文件或目录移动到可携带缓存根目录。
+- 在另一台 Windows 机器上恢复符号链接。
+- 从图形界面或命令行检查链接健康状态。
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission, unless Windows Developer Mode allows symbolic link creation for the current user.
+- 管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
 
-## Recommended Workflow
+## 推荐工作流
 
-1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
-2. Double-click it and add files or directories.
-3. Sync or back up the whole cache root with Syncthing or another tool.
-4. On another machine, put `LinkShelf.exe` in the restored cache root and click `Restore links`.
+1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
+2. 双击程序并添加文件或目录。
+3. 使用 Syncthing 或其他工具同步或备份整个缓存根目录。
+4. 在另一台机器上，把 `LinkShelf.exe` 放到恢复后的缓存根目录，然后点击 `恢复链接`。
 
-## Automation
+## 自动化
 
-Use this command for local health checks:
+本地健康检查推荐使用：
 
 ```powershell
 .\LinkShelf.exe check --json
 ```
 
-Notify the user only when `problemCount` is greater than `0`.
+只有 `problemCount` 大于 `0` 时才提醒用户。
 
-## Safety Notes
+## 安全说明
 
-- Link Shelf moves files and creates symbolic links.
-- Review conflict prompts before replacing target content.
-- Back up important data before the first run.
+- Link Shelf 会移动文件并创建符号链接。
+- 替换目标内容前，请仔细查看冲突提示。
+- 首次运行前请备份重要数据。
 
-## Checks
+## 检查项
 
 - [ ] `dotnet build .\LinkShelf.csproj -c Release`
 - [ ] `dotnet publish .\LinkShelf.csproj -t:Rebuild -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -p:DebugSymbols=false -o .\dist`
 - [ ] `.\dist\LinkShelf.exe check --json`
-- [ ] Screenshots updated
-- [ ] GitHub release asset uploaded
+- [ ] 截图已更新
+- [ ] GitHub 发布产物已上传

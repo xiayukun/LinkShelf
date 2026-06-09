@@ -1,36 +1,36 @@
-中文发布说明：[docs/release-notes-v1.1.4.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.4/docs/release-notes-v1.1.4.zh-CN.md)
+English release notes: [docs/release-notes-v1.1.4.en.md](https://github.com/xiayukun/LinkShelf/blob/main/docs/release-notes-v1.1.4.en.md)
 
-This release tightens recovery behavior for edge cases around extra cache items, missing cache content, and Windows shortcut files.
+这个版本收紧了多出缓存项、缓存内容缺失和 Windows 快捷方式文件相关边界场景的恢复行为。
 
-## Highlights
+## 亮点
 
-- Extra cache items now appear in the grid when the cache root contains files or folders that are not covered by enabled config records.
-- `Restore links` can complete an extra cache item after you choose its original path mapping.
-- `Move back / Undo` can delete an extra cache item from the cache root after a clear confirmation.
-- Windows shortcut files (`.lnk`) are rejected with a localized warning because they do not work reliably after being moved and linked back.
-- When a config record exists but its cache item is missing, restore and undo flows now present safer choices instead of silently failing or offering impossible actions.
-- Extra cache-item dialogs and cleanup paths include additional diagnostics for troubleshooting.
+- 当缓存根目录中存在未被已启用配置记录覆盖的文件或文件夹时，表格现在会显示为多出缓存项。
+- `恢复链接` 可以在你选择原始路径映射后，补全并恢复一个多出缓存项。
+- `搬回原位/撤销` 可以在明确确认后，从缓存根目录中删除多出缓存项。
+- Windows 快捷方式文件（`.lnk`）会被本地化警告拒绝，因为它们被移动并链接回原位置后行为不可靠。
+- 当配置记录存在但缓存项缺失时，恢复和撤销流程会给出更安全的选择，不会静默失败，也不会提供无法执行的操作。
+- 多出缓存项对话框和清理路径增加了更多诊断日志，方便排查问题。
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission, unless Windows Developer Mode allows symbolic link creation for the current user.
-- `Project app` uses a Windows hard link, so the target folder must be on the same drive as the current `LinkShelf.exe`.
+- 管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
+- `投射程序` 使用 Windows 硬链接，所以目标目录必须和当前 `LinkShelf.exe` 在同一个盘符下。
 
-## Recommended Workflow
+## 推荐工作流
 
-1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
-2. Click `Add item` and choose `Add recommended items`, `Add directory`, or `Add file`.
-3. Use `Check status` for read-only health checks.
-4. Use `Restore links` after syncing or restoring the cache root on another machine.
-5. Use `Move back / Undo` when an item should leave Link Shelf management.
+1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
+2. 点击 `添加项目`，选择 `添加推荐项目`、`添加目录` 或 `添加文件`。
+3. 用 `检查状态` 做只读健康检查。
+4. 在另一台电脑同步或恢复缓存根目录后，点击 `恢复链接`。
+5. 当某个项目不再需要由 Link Shelf 管理时，使用 `搬回原位/撤销`。
 
-## Safety Notes
+## 安全说明
 
-- Extra cache items are temporary view rows until you explicitly choose an original path for restore.
-- Deleting an extra cache item removes that cache-root entry; Link Shelf does not know an external destination for it.
-- Link Shelf still refuses to overwrite real content at the original path without a conflict decision.
+- 多出缓存项只是临时表格行，只有当你明确选择原始路径恢复时，才会写入配置。
+- 删除多出缓存项会移除缓存根目录中的该项目；Link Shelf 不知道它对应的外部目标位置。
+- Link Shelf 仍然不会在没有冲突决策的情况下覆盖原始路径上的真实内容。

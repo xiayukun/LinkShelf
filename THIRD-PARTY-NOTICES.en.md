@@ -1,14 +1,14 @@
-# 第三方来源声明
+# Third-party notices
 
-English: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
+Chinese: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
 
 ## ShowWhatProcessLocksFile
 
-本项目的占用检测实现参考并改写了 PolarGoose 的 `ShowWhatProcessLocksFile`。
+Parts of the lock inspection implementation are adapted from `ShowWhatProcessLocksFile` by PolarGoose.
 
-仓库：https://github.com/PolarGoose/ShowWhatProcessLocksFile
+Repository: https://github.com/PolarGoose/ShowWhatProcessLocksFile
 
-许可证原文：
+License:
 
 MIT License
 
@@ -34,10 +34,10 @@ SOFTWARE.
 
 ## Microsoft PowerToys File Locksmith
 
-本项目的文件占用处理流程参考了 Microsoft PowerToys File Locksmith。
+The locked-path recovery workflow is inspired by Microsoft PowerToys File Locksmith.
 
-文档：https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith
+Documentation: https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith
 
-仓库：https://github.com/microsoft/PowerToys
+Repository: https://github.com/microsoft/PowerToys
 
-本仓库没有复制 PowerToys 源代码。
+No PowerToys source code is copied into this repository.

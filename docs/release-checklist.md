@@ -1,28 +1,28 @@
-# Release Checklist
+# 发布清单
 
-中文：[release-checklist.zh-CN.md](release-checklist.zh-CN.md)
+English: [release-checklist.en.md](release-checklist.en.md)
 
-## Build
+## 构建
 
 ```powershell
 dotnet publish .\LinkShelf.csproj -t:Rebuild -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -p:DebugSymbols=false -o .\dist
 ```
 
-Expected artifact:
+预期产物：
 
 ```text
 dist\LinkShelf.exe
 ```
 
-## Local Verification
+## 本地验证
 
-From a cache root:
+从缓存根目录运行：
 
 ```powershell
 .\LinkShelf.exe check --json
 ```
 
-Expected result:
+预期结果：
 
 ```json
 {
@@ -31,23 +31,23 @@ Expected result:
 }
 ```
 
-## Manual GUI Verification
+## 手动图形界面验证
 
-- Double-click `LinkShelf.exe`.
-- Confirm Windows elevation prompt appears when needed.
-- Confirm the main window opens.
-- Confirm the language selector can switch between English and Chinese.
-- Confirm table headers and buttons update after language switching.
-- Confirm `check --json` still works after closing the GUI.
+- 双击 `LinkShelf.exe`。
+- 确认需要时会出现 Windows 提权提示。
+- 确认主窗口能打开。
+- 确认语言选择器可以在英文和中文之间切换。
+- 确认切换语言后表格标题和按钮会更新。
+- 确认关闭图形界面后 `check --json` 仍可工作。
 
-## GitHub Release
+## GitHub 发布
 
-- Tag: `v1.0.0`
-- Title: `Link Shelf 1.0.0`
-- Artifact: `LinkShelf.exe`
-- Prefer the `release` GitHub Actions workflow.
-- For the first release, open Actions, choose `release`, click `Run workflow`, keep branch `main`, and set tag to `v1.0.0`.
-- For later releases, push a new `v*` tag and let the workflow run automatically.
-- Use release notes from `docs/release-notes-v1.0.0.md`.
-- Update `CHANGELOG.md` and `CHANGELOG.zh-CN.md` before publishing another release.
-- Confirm every English changelog entry links to its matching Chinese changelog entry and Chinese release notes file.
+- 标签：`v1.0.0`
+- 标题：`Link Shelf 1.0.0`
+- 产物：`LinkShelf.exe`
+- 优先使用 `release` GitHub Actions 工作流。
+- 首个发布版本：打开 Actions，选择 `release`，点击运行工作流，分支保持 `main`，标签设为 `v1.0.0`。
+- 后续发布版本：推送新的 `v*` 标签，让工作流自动运行。
+- 使用 `docs/release-notes-v1.0.0.md` 和 `docs/release-notes-v1.0.0.en.md` 准备发布说明。
+- 发布新版本前更新 `CHANGELOG.md` 和 `CHANGELOG.en.md`。
+- 确认两种语言的更新日志中每个版本都能跳转到对应语言的更新日志条目和发布说明文件。

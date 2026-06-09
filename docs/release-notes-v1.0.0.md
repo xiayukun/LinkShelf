@@ -1,44 +1,44 @@
-中文发布说明：[docs/release-notes-v1.0.0.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.0.0/docs/release-notes-v1.0.0.zh-CN.md)
+English release notes: [docs/release-notes-v1.0.0.en.md](https://github.com/xiayukun/LinkShelf/blob/main/docs/release-notes-v1.0.0.en.md)
 
-Initial public release.
+首个公开发布版本。
 
-## Highlights
+## 亮点
 
-- Windows GUI for moving selected files and directories into a portable cache root.
-- Symbolic link restoration on another Windows machine.
-- CLI health checks with plain text and JSON output.
-- English and Chinese UI.
-- Portable config paths with `~` for user-profile compatibility across machines.
-- Syncthing-friendly workflow without requiring Syncthing.
+- Windows 图形界面，用于把选中的文件和目录移动到可携带缓存根目录。
+- 可在另一台 Windows 机器上恢复符号链接。
+- 命令行健康检查支持纯文本和 JSON 输出。
+- 支持英文和中文界面。
+- 用户目录下的路径使用 `~` 保存，方便跨用户配置文件使用。
+- 适合 Syncthing 工作流，但不要求必须使用 Syncthing。
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission, unless Windows Developer Mode allows symbolic link creation for the current user.
+- 管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
 
-## Quick Start
+## 快速开始
 
-1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
-2. Double-click it and add files or directories.
-3. Sync or back up the whole cache root with Syncthing or another tool.
-4. On another machine, put `LinkShelf.exe` in the restored cache root and click `Restore links`.
+1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
+2. 双击程序并添加文件或目录。
+3. 使用 Syncthing 或其他工具同步或备份整个缓存根目录。
+4. 在另一台机器上，把 `LinkShelf.exe` 放到恢复后的缓存根目录，然后点击 `恢复链接`。
 
-## Automation
+## 自动化
 
-Use this command for local health checks:
+本地健康检查推荐使用：
 
 ```powershell
 .\LinkShelf.exe check --json
 ```
 
-Notify the user only when `problemCount` is greater than `0`.
+只有 `problemCount` 大于 `0` 时才提醒用户。
 
-## Safety Notes
+## 安全说明
 
-- Link Shelf moves files and creates symbolic links.
-- Review conflict prompts before replacing target content.
-- Back up important data before the first run.
+- Link Shelf 会移动文件并创建符号链接。
+- 替换目标内容前，请仔细查看冲突提示。
+- 首次运行前请备份重要数据。

@@ -1,35 +1,35 @@
-# First Push Checklist
+# 首次推送清单
 
-中文：[first-push.zh-CN.md](first-push.zh-CN.md)
+English: [first-push.en.md](first-push.en.md)
 
-Use this checklist after creating an empty GitHub repository named `LinkShelf`.
+创建名为 `LinkShelf` 的空 GitHub 仓库后，使用这份清单。
 
-## GitHub Repository Settings
+## GitHub 仓库设置
 
-Create the repository with these options:
+创建仓库时使用这些选项：
 
-- Owner: your GitHub account or organization
-- Repository name: `LinkShelf`
-- Description: `A Windows desktop and CLI tool for moving scattered files and folders into a portable cache root, then restoring them with symbolic links.`
-- Visibility: `Public`
-- Add README: off
-- Add .gitignore: `No .gitignore`
-- Add license: `No license`
+- 所有者：你的 GitHub 账号或组织
+- 仓库名：`LinkShelf`
+- 描述：`A Windows desktop and CLI tool for moving scattered files and folders into a portable cache root, then restoring them with symbolic links.`
+- 可见性：`Public`
+- 添加 README：关闭
+- 添加 .gitignore：`No .gitignore`
+- 添加许可证：`No license`
 
-The local repository already contains `README.md`, `.gitignore`, and `LICENSE`, so GitHub should not generate those files.
+本地仓库已经包含 `README.md`、`.gitignore` 和 `LICENSE`，所以不要让 GitHub 自动生成这些文件。
 
-## Local Git Settings
+## 本地 Git 设置
 
-Set the commit identity for this repository:
+为这个仓库设置提交身份：
 
 ```powershell
 git config user.name "xiayukun"
 git config user.email "YOUR_GITHUB_EMAIL"
 ```
 
-If you do not want to expose a personal email address, use the GitHub-provided noreply email from GitHub email settings.
+如果不想公开个人邮箱，可以使用 GitHub 邮箱设置中的 noreply 邮箱。
 
-## First Commit
+## 首次提交
 
 ```powershell
 git status --short
@@ -37,9 +37,9 @@ git diff --cached --check
 git commit -m "Initial public release"
 ```
 
-## Connect Remote
+## 连接远程仓库
 
-Replace the URL with the repository URL shown by GitHub:
+把下面地址替换为 GitHub 显示的仓库地址：
 
 ```powershell
 git remote add origin https://github.com/xiayukun/LinkShelf.git
@@ -47,10 +47,10 @@ git branch -M main
 git push -u origin main
 ```
 
-## After Push
+## 推送之后
 
-- Confirm the README renders correctly on GitHub.
-- Confirm screenshots render near the top of the README.
-- Confirm the build workflow starts under GitHub Actions.
-- Add the repository topics listed in `docs/github-launch-checklist.md`.
-- Create the first release with the `release` GitHub Actions workflow. Use branch `main` and tag `v1.0.0`.
+- 确认 README 在 GitHub 上渲染正确。
+- 确认截图显示在 README 靠前位置。
+- 确认 GitHub Actions 中的构建工作流已开始运行。
+- 添加 `docs/github-launch-checklist.md` 中列出的仓库主题。
+- 使用 `release` GitHub Actions 工作流创建首个发布版本。分支使用 `main`，标签使用 `v1.0.0`。

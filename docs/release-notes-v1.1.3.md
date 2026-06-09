@@ -1,38 +1,38 @@
-中文发布说明：[docs/release-notes-v1.1.3.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.3/docs/release-notes-v1.1.3.zh-CN.md)
+English release notes: [docs/release-notes-v1.1.3.en.md](https://github.com/xiayukun/LinkShelf/blob/main/docs/release-notes-v1.1.3.en.md)
 
-This release improves batch adding and adds a lightweight way to reuse the same executable from another cache root.
+这个版本改进了批量添加流程，并增加了轻量复用同一个可执行文件的投射功能。
 
-## Highlights
+## 亮点
 
-- `Add directory` and `Add file` now support selecting multiple paths at once.
-- If a locked-path recovery window is canceled during a batch add, Link Shelf stops the remaining batch immediately.
-- If a normal add has already moved content into the cache but fails before the link and config record are completed, Link Shelf tries to roll the moved content back to its original path.
-- `Project app` creates a hard link to `LinkShelf.exe` in another folder.
-- Launching the projected executable uses the projected folder as its own cache root, so separate cache roots do not need full duplicate copies of the executable.
+- `添加目录` 和 `添加文件` 现在支持一次选择多个路径。
+- 批量添加过程中，如果用户在文件占用处理窗口点击取消，Link Shelf 会立刻停止后续批量项目。
+- 如果普通添加已经把内容移入缓存，但在创建链接和保存配置前失败，Link Shelf 会尽量把已移动内容回滚到原始路径。
+- `投射程序` 可以在另一个目录中创建 `LinkShelf.exe` 的硬链接。
+- 从投射出来的程序启动时，会把投射目录作为自己的缓存根目录，因此多个缓存根目录不需要各自保存一份完整可执行文件。
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission, unless Windows Developer Mode allows symbolic link creation for the current user.
-- `Project app` uses a Windows hard link, so the target folder must be on the same drive as the current `LinkShelf.exe`.
+- 管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
+- `投射程序` 使用 Windows 硬链接，所以目标目录必须和当前 `LinkShelf.exe` 在同一个盘符下。
 
-## Recommended Workflow
+## 推荐工作流
 
-1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
-2. Click `Add item` and choose `Add recommended items`, `Add directory`, or `Add file`.
-3. Select one or more paths when adding directories or files.
-4. Use `Project app` when another same-drive folder should have its own Link Shelf entry point without copying the full executable.
-5. Use `Check status` for read-only health checks.
-6. Use `Restore links` on another machine after syncing or restoring the cache root.
-7. Use `Move back / Undo` when an item should leave Link Shelf management.
+1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
+2. 点击 `添加项目`，选择 `添加推荐项目`、`添加目录` 或 `添加文件`。
+3. 添加目录或文件时，可以一次选择一个或多个路径。
+4. 当另一个同盘目录也需要自己的 Link Shelf 入口，但不想复制完整程序时，使用 `投射程序`。
+5. 用 `检查状态` 做只读健康检查。
+6. 在另一台电脑同步或恢复缓存根目录后，点击 `恢复链接`。
+7. 当某个项目不再需要由 Link Shelf 管理时，使用 `搬回原位/撤销`。
 
-## Safety Notes
+## 安全说明
 
-- Batch add stops on cancel or failure instead of continuing unexpectedly.
-- Link Shelf still tries the normal move before opening locked-path recovery.
-- Link Shelf still refuses to overwrite real content at the original path.
-- `Project app` will not overwrite an existing `LinkShelf.exe` in the selected folder.
+- 批量添加遇到取消或失败会停止，不会继续执行后面的选择。
+- Link Shelf 仍然会先尝试正常移动，再打开文件占用处理。
+- Link Shelf 仍然拒绝覆盖原始路径上的真实内容。
+- `投射程序` 不会覆盖所选目录中已有的 `LinkShelf.exe`。

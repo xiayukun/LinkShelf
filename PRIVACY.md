@@ -1,38 +1,38 @@
-# Privacy
+# 隐私
 
-中文：[PRIVACY.zh-CN.md](PRIVACY.zh-CN.md)
+English: [PRIVACY.en.md](PRIVACY.en.md)
 
-Link Shelf is designed as a local Windows utility.
+Link Shelf 被设计为本地 Windows 工具。
 
-## Data It Reads
+## 读取的数据
 
-Link Shelf reads:
+Link Shelf 会读取：
 
-- the cache root where `LinkShelf.exe` is running
+- `LinkShelf.exe` 所在的缓存根目录
 - `link-shelf.config.json`
-- configured source paths and cache item paths
-- file-system metadata needed to check links, conflicts, and missing items
+- 已配置的源路径和缓存项路径
+- 检查链接、冲突和缺失项所需的文件系统元数据
 
-## Data It Writes
+## 写入的数据
 
-Link Shelf writes:
+Link Shelf 会写入：
 
 - `link-shelf.config.json`
 - `.link-shelf-logs`
 - `.link-shelf-backups`
-- symbolic links at configured target paths
-- moved files or directories when the user adds an item or resolves a conflict
+- 配置目标路径处的符号链接
+- 用户添加项目或处理冲突时被移动的文件或目录
 
-## Network Access
+## 网络访问
 
-Link Shelf does not require network access for normal operation.
+Link Shelf 正常运行不需要网络访问。
 
-It does not upload files, paths, logs, configuration, or machine names to a remote service. If the cache root is stored in Syncthing, a cloud drive, or another sync tool, that external tool is responsible for any network transfer.
+它不会把文件、路径、日志、配置或机器名上传到远程服务。如果缓存根目录放在 Syncthing、云盘或其他同步工具中，网络传输由对应外部工具负责。
 
-## Sensitive Paths
+## 敏感路径
 
-Configuration may contain local paths, machine names, and cache item names. Treat `link-shelf.config.json`, logs, backups, and screenshots as potentially sensitive before sharing them publicly.
+配置可能包含本地路径、机器名和缓存项名称。公开分享 `link-shelf.config.json`、日志、备份或截图前，请把它们当作可能包含敏感信息处理。
 
-## Automation
+## 自动化
 
-CLI commands such as `LinkShelf.exe check --json` are intended for local health checks. They print configured paths and status information to the local console so automation tools can notify the user when links break.
+`LinkShelf.exe check --json` 等命令行命令用于本地健康检查。它们会把已配置路径和状态信息打印到本地控制台，方便自动化工具在链接失效时提醒用户。

@@ -1,48 +1,48 @@
-中文发布说明：[docs/release-notes-v1.0.1.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.0.1/docs/release-notes-v1.0.1.zh-CN.md)
+English release notes: [docs/release-notes-v1.0.1.en.md](https://github.com/xiayukun/LinkShelf/blob/main/docs/release-notes-v1.0.1.en.md)
 
-This release improves the add-item flow when the selected path cannot be moved because Windows reports `Access denied`, usually because a running program is using the selected directory or one of its files.
+这个版本改进了添加项目流程。当 Windows 返回拒绝访问时，通常是某个正在运行的程序占用了选中的目录或目录里的文件，程序现在会给出更清楚的处理入口。
 
-## Highlights
+## 亮点
 
-- Link Shelf now tries the normal move first and scans for locking processes only after Windows blocks the move.
-- The GUI shows a locked-path recovery window with process names, process IDs, users, executable paths, and locked files.
-- Users can terminate selected processes from the context menu or choose `Terminate all and continue`.
-- After terminating processes, Link Shelf waits briefly and retries the original move operation. If the path is still blocked, it opens the recovery window again.
-- The implementation adapts lock inspection code from `ShowWhatProcessLocksFile` and documents the related acknowledgements.
-- CLI health checks remain read-only and unchanged.
+- Link Shelf 现在会先尝试正常移动，只有 Windows 阻止移动后才扫描占用进程。
+- 图形界面会显示文件占用处理窗口，列出进程名、进程号、用户、程序路径和被占用文件。
+- 用户可以右键结束选中进程，也可以选择“结束全部并继续”。
+- 结束进程后，Link Shelf 会短暂等待并重新执行原来的移动操作。如果路径仍然被占用，会再次打开处理窗口。
+- 占用检测实现改写自 `ShowWhatProcessLocksFile`，并在项目文档中补充了对应鸣谢。
+- 命令行健康检查保持只读，行为不变。
 
-![Locked path recovery window](https://raw.githubusercontent.com/xiayukun/LinkShelf/v1.0.1/Assets/lock-resolution-window-cn.png)
+![文件占用处理窗口](https://raw.githubusercontent.com/xiayukun/LinkShelf/v1.0.1/Assets/lock-resolution-window-cn.png)
 
-## Download
+## 下载
 
 - `LinkShelf.exe`
 
-## Requirements
+## 要求
 
 - Windows
-- Administrator permission, unless Windows Developer Mode allows symbolic link creation for the current user.
+- 管理员权限，除非 Windows 开发者模式允许当前用户创建符号链接。
 
-## Recommended Workflow
+## 推荐工作流
 
-1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
-2. Double-click it and add files or directories.
-3. If the add operation reports a blocked path, review the listed processes.
-4. Close them manually, terminate selected processes, or choose `Terminate all and continue`.
-5. Sync or back up the whole cache root with Syncthing or another tool.
-6. On another machine, put `LinkShelf.exe` in the restored cache root and click `Restore links`.
+1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
+2. 双击程序并添加文件或目录。
+3. 如果添加操作提示路径被阻止，请查看列出的占用进程。
+4. 手动关闭它们、右键结束选中进程，或选择“结束全部并继续”。
+5. 使用 Syncthing 或其他工具同步或备份整个缓存根目录。
+6. 在另一台机器上，把 `LinkShelf.exe` 放到恢复后的缓存根目录，然后点击 `恢复链接`。
 
-## Automation
+## 自动化
 
-Use this command for local health checks:
+本地健康检查推荐使用：
 
 ```powershell
 .\LinkShelf.exe check --json
 ```
 
-Notify the user only when `problemCount` is greater than `0`.
+只有 `problemCount` 大于 `0` 时才提醒用户。
 
-## Safety Notes
+## 安全说明
 
-- Link Shelf moves files and creates symbolic links.
-- Review conflict prompts before replacing target content.
-- Back up important data before the first run.
+- Link Shelf 会移动文件并创建符号链接。
+- 替换目标内容前，请仔细查看冲突提示。
+- 首次运行前请备份重要数据。

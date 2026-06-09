@@ -264,7 +264,7 @@ Link Shelf 会在缓存根目录里创建这些文件夹：
 
 Link Shelf 是本地工具。它不会把文件、路径、日志、配置或机器名上传到远程服务。如果缓存根目录由 Syncthing、云盘或其他工具同步，网络传输由那些外部工具负责。
 
-更多细节见 [隐私说明](PRIVACY.zh-CN.md)。
+更多细节见 [隐私说明](PRIVACY.md)。
 
 ## 从源码构建
 
@@ -325,19 +325,19 @@ Link Shelf 以整个文件或整个目录为最小管理单位。目录内部排
 
 ## 参与贡献
 
-欢迎贡献。请从 [CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md) 开始，并保持文件移动行为保守：Link Shelf 不应该静默删除、覆盖或合并用户内容。
+欢迎贡献。请从 [CONTRIBUTING.md](CONTRIBUTING.md) 开始，并保持文件移动行为保守：Link Shelf 不应该静默删除、覆盖或合并用户内容。
 
-发布规划和 GitHub 上线说明见 [docs/github-launch-checklist.zh-CN.md](docs/github-launch-checklist.zh-CN.md)。
+发布规划和 GitHub 上线说明见 [docs/github-launch-checklist.md](docs/github-launch-checklist.md)。
 
 ## 维护者文档
 
-仅维护者需要的上线、发布、截图、签名和交接说明放在 [docs](docs)。普通用户可以忽略它们。签名说明见 [Windows 程序签名](docs/windows-code-signing.zh-CN.md)。
+仅维护者需要的上线、发布、截图、签名和交接说明放在 [docs](docs)。普通用户可以忽略它们。签名说明见 [Windows 程序签名](docs/windows-code-signing.md)。
 
 ## 鸣谢
 
 文件占用检测代码改写自 PolarGoose 的 [ShowWhatProcessLocksFile](https://github.com/PolarGoose/ShowWhatProcessLocksFile)。
 
-文件占用处理流程也参考了微软开源项目 PowerToys 的 [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith)。详细来源见 [THIRD-PARTY-NOTICES.zh-CN.md](THIRD-PARTY-NOTICES.zh-CN.md)。
+文件占用处理流程也参考了微软开源项目 PowerToys 的 [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith)。详细来源见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
 
 感谢 [Syncthing](https://github.com/syncthing/syncthing) 提供可靠的开源同步工具。它是 Link Shelf 推荐搭配的同步方案。
 

@@ -1,25 +1,25 @@
-# Security Policy
+# 安全策略
 
-中文：[SECURITY.zh-CN.md](SECURITY.zh-CN.md)
+English: [SECURITY.en.md](SECURITY.en.md)
 
-Link Shelf manages paths, backups, and symbolic links, so security reports are welcome even while the project is small.
+Link Shelf 会管理路径、备份和符号链接，所以即使项目还很小，也欢迎安全报告。
 
-## Supported Versions
+## 支持版本
 
-Only the latest release is supported.
+只支持最新发布版本。
 
-## Reporting a Vulnerability
+## 报告漏洞
 
-Please open a private security advisory on GitHub if the repository is public, or contact the maintainer directly before publishing details.
+如果仓库已经公开，请在 GitHub 上创建私有安全公告；或者在公开细节前直接联系维护者。
 
-Useful report details:
+有用的报告信息包括：
 
-- Windows version
-- Link Shelf version
-- exact path layout
-- whether the GUI or CLI was used
-- steps to reproduce
+- Windows 版本
+- Link Shelf 版本
+- 具体路径结构
+- 使用的是图形界面还是命令行
+- 复现步骤
 
-## Safety Expectations
+## 安全预期
 
-Link Shelf should never silently delete, overwrite, or merge user content. Reports about unexpected mutation are treated as high priority.
+Link Shelf 不应静默删除、覆盖或合并用户内容。任何意外修改内容的报告都会按高优先级处理。

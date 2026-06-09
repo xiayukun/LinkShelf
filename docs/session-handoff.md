@@ -1,6 +1,6 @@
 # 会话交接文档
 
-中文：[session-handoff.zh-CN.md](session-handoff.zh-CN.md)
+English: [session-handoff.en.md](session-handoff.en.md)
 
 这个文档用于把本次会话里沉淀出的高价值上下文交给后续会话。新的 Codex 会话接手本项目时，应该先读取 `AGENTS.md`，再读取本文件。
 
@@ -97,18 +97,18 @@ GitHub 上已经有自动构建和自动发布能力：
 当前已修改文件大致包括：
 
 - `AGENTS.md`
-- `AGENTS.zh-CN.md`
+- `AGENTS.en.md`
 - `ConflictChoiceWindow.xaml.cs`
 - `MainWindow.xaml.cs`
 - `Models/SyncModels.cs`
 - `README.md`
-- `README.zh-CN.md`
+- `README.en.md`
 - `Services/FileOperations.cs`
 - `Services/LocalizationService.cs`
 - `docs/release-notes-template.md`
-- `docs/release-notes-template.zh-CN.md`
+- `docs/release-notes-template.en.md`
 - `docs/session-handoff.md`
-- `docs/session-handoff.zh-CN.md`
+- `docs/session-handoff.en.md`
 
 ## v1.1.5 推广改造
 
@@ -116,12 +116,12 @@ GitHub 上已经有自动构建和自动发布能力：
 
 - `README.md` 已改为中文优先的 GitHub 默认主页。
 - `README.en.md` 是完整英文配套文档。
-- `README.zh-CN.md` 只作为旧链接兼容入口，指向 `README.md` 和 `README.en.md`。
+- 已删除旧中文兼容 README 入口；默认中文主页直接使用 `README.md`。
 - GitHub 仓库描述已改为：`Portable Windows app-state and dotfiles manager: move scattered config into one syncable cache root, then restore original paths with symlinks.`
 - GitHub topics 已补充：`windows`、`symlink`、`symbolic-link`、`hardlink`、`backup`、`sync`、`dotfiles`、`dotfiles-manager`、`syncthing`、`wpf`、`dotnet`、`ai-tools`、`developer-tools`、`config-management`。
 - `CommandLineMode` 已增加 `-help` 别名，并把 `help` 输出扩展为适合 AI 助手和自动化读取的安全说明。
-- `v1.1.5` 发布说明记录在 `docs/release-notes-v1.1.5.md` 和 `docs/release-notes-v1.1.5.zh-CN.md`。
-- 推广判断：暂时不要把所有 Markdown 都重命名成中文默认 / `*-en.md` 配对；先把推广价值最高的默认 README 做中文主导，避免大量内部和外部链接 churn。
+- `v1.1.5` 发布说明记录在 `docs/release-notes-v1.1.5.md` 和 `docs/release-notes-v1.1.5.en.md`。
+- 文档策略已改为：面向读者的 Markdown 使用中文默认 `.md`，英文配套使用 `.en.md`，不再保留旧中文命名兼容文件。
 
 ## 当前自动化巡检
 
