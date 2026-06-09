@@ -19,6 +19,13 @@ public partial class ConflictChoiceWindow : Window
         MergeButton.Content = text.T("conflict.merge");
         SkipButton.Content = text.T("conflict.skip");
         CancelButton.Content = text.T("conflict.cancel");
+
+        if (string.Equals(reason, "cache-missing-target-has-real-content", StringComparison.OrdinalIgnoreCase))
+        {
+            UseCacheButton.IsEnabled = false;
+            MergeButton.IsEnabled = false;
+            SkipButton.IsEnabled = false;
+        }
     }
 
     public ConflictDecision Decision { get; private set; } = ConflictDecision.Cancel;

@@ -109,6 +109,24 @@ public sealed class FileOperations
 
         if (!PathExists(cachePath))
         {
+            EnsureCanUsePath(targetPath);
+
+            if (PathExists(targetPath) && TryGetLinkTarget(targetPath) is null)
+            {
+                var decision = resolveConflict(item, targetPath, cachePath, "cache-missing-target-has-real-content");
+                if (!ApplyConflictDecision(item, targetPath, cachePath, decision))
+                {
+                    item.CheckResult = SyncConstants.CheckSkipped;
+                    return;
+                }
+
+                item.LastOperation = "restore-local-link";
+                item.UpdatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                item.CheckResult = SyncConstants.CheckRestored;
+                log.Write($"Imported target because cache item was missing: {targetPath} -> {cachePath}");
+                return;
+            }
+
             item.CheckResult = SyncConstants.CheckCacheMissing;
             log.Write($"Cache item missing: {cachePath}");
             return;

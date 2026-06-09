@@ -117,6 +117,10 @@ On a second machine:
 3. Click `Restore links`.
 4. Resolve any target-path conflicts.
 
+If a config record exists but the cache item is missing, `Restore links` can still import real content from the original path when that content exists. In that case, cache-based choices are disabled because there is no cache content to use.
+
+If the cache root contains a file or folder that is not in `link-shelf.config.json`, Link Shelf shows it as an extra cache item. Select it and click `Restore links` to choose an original path; Link Shelf saves the config record first, then asks how to handle any conflict at that path.
+
 ### Locked Paths
 
 When adding a file or directory, Link Shelf first tries the normal move. If Windows reports `Access denied`, Link Shelf opens a locked-path recovery window and scans the selected path for running programs that are using it.
@@ -136,6 +140,10 @@ Projection uses a Windows hard link, so the target folder must be on the same dr
 ### Move Back / Undo
 
 Select one or more rows and click `Move back / Undo` to remove the original link, move the cached content back to its original path, and remove the config record. Link Shelf only does this when the original path is missing or is still the expected link to the cache item. If real content exists at the original path, the undo is skipped to avoid overwriting user data. If Windows blocks the link removal or move with `Access denied`, the locked-path recovery window opens before retrying.
+
+If the cache item is already missing, Link Shelf asks whether to remove only the config record. Confirming that prompt does not move or delete any external file or folder.
+
+If the selected row is an extra cache item with no config record, `Move back / Undo` warns that Link Shelf does not know its destination and can delete only that cache item from the cache root.
 
 ## CLI Usage
 
@@ -270,6 +278,7 @@ Link Shelf is not designed for:
 - replacing a version-control system
 - replacing Syncthing, cloud sync, or backup software
 - partially linking only some files inside a directory
+- managing Windows shortcut files (`.lnk`), because they do not work reliably after being moved and linked back
 - silently overwriting existing target content
 
 ## Recommended With Syncthing

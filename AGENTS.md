@@ -74,12 +74,14 @@ Add item:
 5. The app saves a config record.
 6. Batch add must stop immediately when a selected item is canceled or fails; it must not continue processing later selections.
 7. If a normal add has moved the source into the cache but fails before the link/config record is completed, try to roll the moved content back to the original path.
+8. Windows shortcut files (`.lnk`) must be rejected with a localized warning. They do not work reliably after being moved into the cache and linked back.
 
 Project app:
 
 - The `Project app` button creates a hard link named `LinkShelf.exe` in a user-selected directory.
 - Starting Link Shelf from that hard link uses the hard-link directory as `AppContext.BaseDirectory`, so that directory becomes an independent cache root.
 - Use a hard link for projection, not a shortcut and not a copied executable.
+- After regenerating `dist\LinkShelf.exe`, inspect existing projected hard links and recreate them if needed, because publish/build tools may replace the file object and break the old hard-link relationship.
 - Projection is same-drive only because Windows hard links cannot cross volumes.
 - Do not overwrite an existing `LinkShelf.exe` or any other file system entry in the target directory.
 - Projection UI text must stay in `LocalizationService`.
@@ -115,6 +117,8 @@ Restore links:
 4. When target content already exists, show the conflict dialog and wait for the user's choice.
 5. Process selected rows one by one; if no rows are selected, process all enabled items.
 6. If restore fails with access denied, open `LockingProcessesWindow` for the target path and let the user terminate blocking processes before retrying the same restore item.
+7. If the cache item is missing but the original path has real content, show the conflict dialog with only `ImportTargetOverwriteCache` enabled; cache-based, merge, and skip choices must be disabled because there is no cache content to use.
+8. If the selected row is an untracked cache item, prompt the user for the original path, immediately create and save a config record, then run the normal restore/conflict flow for that item.
 
 Status display:
 
@@ -139,6 +143,14 @@ Move back / undo:
 - must stop with a clear error if the original path has real content or points to another link target
 - if move back / undo fails with access denied, open `LockingProcessesWindow`, let the user terminate blocking processes, and retry the same item
 - when choosing the lock scan path for move back / undo, scan the original path while it still exists; if the original link has already been removed, scan the cache item path
+- if the cache item is missing, ask the user whether to remove only the config record; on confirmation, delete the JSON record without moving files or folders
+- if the selected row is an untracked cache item, warn that there is no known destination; on confirmation, delete that cache item from the cache root
+
+Untracked cache items:
+
+- Cache root children that are not covered by enabled config records should appear in the grid as `untracked-cache-item`.
+- Ignore Link Shelf runtime entries: `LinkShelf.exe`, `link-shelf.config.json`, `.link-shelf-logs`, and `.link-shelf-backups`.
+- Untracked rows are temporary view models and must not be saved to JSON until the user chooses `Restore links` and provides an original path.
 
 CLI mode:
 
@@ -225,6 +237,8 @@ Build:
 ```powershell
 dotnet build .\LinkShelf.csproj -c Release
 ```
+
+After changing code, do not stop at `dotnet build`. Re-publish `dist\LinkShelf.exe`, inspect the projected hard links, and recreate any projected `LinkShelf.exe` hard links that should point at the new `dist` artifact.
 
 Publish:
 

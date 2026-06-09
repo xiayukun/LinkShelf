@@ -9,20 +9,26 @@
 - 项目名：`Link Shelf`
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
-- 最新 GitHub Release：`v1.1.3`
-- 当前源码和本地运行程序版本：`1.1.3`
-- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.3`
-- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.3/LinkShelf.exe`
+- 最新 GitHub Release：`v1.1.4`
+- 当前源码和本地运行程序版本：`1.1.4`
+- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.4`
+- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.4/LinkShelf.exe`
 - 主分支：`main`
+- 当前 Git HEAD：`Prepare Link Shelf 1.1.4`（具体 hash 以 `git log -1 --oneline` 为准）
+- 当前工作区状态：`main` 已包含 `v1.1.4` 发布提交；发布前应确认 tag 已推送、GitHub Release 已生成。
 
 ## 本地结构
 
 - 缓存根目录：`C:\Users\11467\AppData\Local\同步缓存`
-- 源码仓库：`C:\Users\11467\AppData\Local\同步缓存\LinkShelf`
+- 源码仓库：`C:\git\其他\LinkShelf`
 - 运行程序：`C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe`
 - 配置文件：`C:\Users\11467\AppData\Local\同步缓存\link-shelf.config.json`
 - 运行日志目录：`C:\Users\11467\AppData\Local\同步缓存\.link-shelf-logs`
 - 冲突备份目录：`C:\Users\11467\AppData\Local\同步缓存\.link-shelf-backups`
+
+如果迁移源码仓库目录，优先复制整个 `LinkShelf` 仓库目录，包括 `.git` 和任何未提交改动。不要只从 GitHub 重新克隆仍未发布的本地修正。
+
+如果迁移运行缓存根目录，要记住 `LinkShelf.exe` 所在目录就是缓存根目录。把 `LinkShelf.exe` 移到新目录后，新目录会成为新的运行根目录，配置、日志、备份和缓存项都应一起迁移。
 
 ## 项目目的
 
@@ -52,6 +58,9 @@
 - 最小管理单位是整个文件或整个目录；目录内部的排除规则交给 `Syncthing` 或其他同步工具处理。
 - 添加文件和添加目录支持多选；批量添加中遇到取消或失败时应停止后续项目。
 - `投射程序` 使用同盘硬链接把 `LinkShelf.exe` 投射到另一个目录。从投射链接启动时，该目录会成为独立缓存根目录。
+- Windows 快捷方式文件（`.lnk`）不支持加入 Link Shelf。文件选择器需要保留 `.lnk` 本体路径，以便识别后弹出本地化警告并跳过。
+- 如果配置中有记录但缓存项不存在，`恢复链接` 会在原始路径有真实内容时只允许“使用原位置内容”导入缓存；`搬回原位/撤销` 会询问是否只删除 JSON 记录。
+- 如果缓存根目录中有文件或目录但 JSON 中没有记录，GUI 会把它显示为“多出缓存项”。对它执行 `恢复链接` 时，先让用户选择原始路径并立即写入 JSON，再进入正常冲突处理；对它执行 `搬回原位/撤销` 时，会提示没有已知目标位置，确认后删除这个缓存项。
 
 ## 已发布内容
 
@@ -60,7 +69,7 @@ GitHub 上已经有自动构建和自动发布能力：
 - 构建工作流：`.github/workflows/build.yml`
 - 发布工作流：`.github/workflows/release.yml`
 - 首版发布说明：`docs/release-notes-v1.0.0.md`
-- 最新发布说明：`docs/release-notes-v1.1.3.md`
+- 最新发布说明：`docs/release-notes-v1.1.4.md`
 
 `release` 工作流可以创建或更新 GitHub Release，并上传 `LinkShelf.exe`。
 
@@ -69,6 +78,37 @@ GitHub 上已经有自动构建和自动发布能力：
 - 分支：`main`
 - 标签：`v1.0.0`
 - 发布结果：成功
+
+## v1.1.4 发布内容
+
+本次发布重点：
+
+- 拒绝添加 Windows 快捷方式文件（`.lnk`），弹出警告并跳过。
+- 当 JSON 记录存在但缓存项缺失时：
+  - `恢复链接` 如果原始路径有真实内容，只启用“使用原位置内容”选项。
+  - `搬回原位/撤销` 可确认只删除 JSON 记录，不移动文件。
+- 当缓存根目录存在未被 JSON 记录管理的文件或目录时：
+  - 表格显示为“多出缓存项”。
+  - `恢复链接` 会先选择原始路径并保存配置，再继续冲突处理。
+  - `搬回原位/撤销` 会确认删除该缓存项。
+- 已更新 `AGENTS.md`、`README.md`、`CHANGELOG.md`、发布说明和相关 GUI/模型代码。
+- `v1.1.4` 发布说明不再包含顶层版本标题，避免 GitHub Release 页面出现重复标题。
+
+当前已修改文件大致包括：
+
+- `AGENTS.md`
+- `AGENTS.zh-CN.md`
+- `ConflictChoiceWindow.xaml.cs`
+- `MainWindow.xaml.cs`
+- `Models/SyncModels.cs`
+- `README.md`
+- `README.zh-CN.md`
+- `Services/FileOperations.cs`
+- `Services/LocalizationService.cs`
+- `docs/release-notes-template.md`
+- `docs/release-notes-template.zh-CN.md`
+- `docs/session-handoff.md`
+- `docs/session-handoff.zh-CN.md`
 
 ## 当前自动化巡检
 
@@ -122,6 +162,30 @@ GitHub 上已经有自动构建和自动发布能力：
 
 用户目录情况比较特殊：账号名是 `xiayukun`，但很多实际路径仍然在 `C:\Users\11467` 下。不要只根据账号名推断用户目录，应以程序和系统接口返回的路径为准。
 
+迁移目录时，优先用程序实际输出确认路径，不要凭记忆改配置。常用检查：
+
+```powershell
+& "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" cache-root
+& "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" version
+& "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" check --json
+```
+
+如果源码仓库迁移到新目录，迁移后先运行：
+
+```powershell
+git status --short --branch
+git log --oneline --decorate -5
+dotnet build .\LinkShelf.csproj -c Release
+```
+
+如果运行程序迁移到新缓存根目录，迁移后先确认：
+
+```powershell
+.\LinkShelf.exe cache-root
+.\LinkShelf.exe version
+.\LinkShelf.exe check --json
+```
+
 ## 常用命令
 
 巡检链接状态：
@@ -152,7 +216,7 @@ git log --oneline --decorate -5
 ## 推荐下个会话开场白
 
 ```text
-请先读取 AGENTS.md 和 docs/session-handoff.md，然后检查当前项目状态。这个项目是 Link Shelf，用于把分散的本地文件或目录移动到同步缓存根目录，并通过符号链接恢复原路径。之前已经发布到 GitHub，请先不要重构，先确认当前工作区、Release、自动化巡检和配置状态。
+请先读取 AGENTS.md 和 docs/session-handoff.md，然后检查当前项目状态。这个项目是 Link Shelf，用于把分散的本地文件或目录移动到同步缓存根目录，并通过符号链接恢复原路径。项目已经发布到 GitHub，最新公开版本是 v1.1.4。请先不要重构，先确认当前仓库路径、运行缓存根目录、Git 状态、Release 状态、Markdown 中英文配对、自动化巡检和配置健康状态，再继续后续开发或迁移。
 ```
 
 ## 维护规则

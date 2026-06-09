@@ -11,6 +11,7 @@ public partial class App : System.Windows.Application
     protected override void OnStartup(StartupEventArgs e)
     {
         var text = new LocalizationService();
+        InstallUnhandledExceptionLogging(text);
 
         try
         {
@@ -40,6 +41,41 @@ public partial class App : System.Windows.Application
             System.Windows.MessageBox.Show(text.T("app.startupFailed"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Error);
             Shutdown();
         }
+    }
+
+    private void InstallUnhandledExceptionLogging(LocalizationService text)
+    {
+        DispatcherUnhandledException += (_, e) =>
+        {
+            WriteUnhandledError("dispatcher-unhandled", e.Exception);
+            try
+            {
+                System.Windows.MessageBox.Show(e.Exception.Message, text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch
+            {
+            }
+
+            e.Handled = true;
+        };
+
+        AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+        {
+            if (e.ExceptionObject is Exception ex)
+            {
+                WriteUnhandledError("appdomain-unhandled", ex);
+            }
+            else
+            {
+                WriteUnhandledText("appdomain-unhandled", e.ExceptionObject?.ToString() ?? "Unknown exception object.");
+            }
+        };
+
+        TaskScheduler.UnobservedTaskException += (_, e) =>
+        {
+            WriteUnhandledError("task-unobserved", e.Exception);
+            e.SetObserved();
+        };
     }
 
     private static bool IsAdministrator()
@@ -83,6 +119,25 @@ public partial class App : System.Windows.Application
             Directory.CreateDirectory(logDirectory);
             var logPath = Path.Combine(logDirectory, "startup-error.log");
             File.AppendAllText(logPath, $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]{Environment.NewLine}{ex}{Environment.NewLine}{Environment.NewLine}");
+        }
+        catch
+        {
+        }
+    }
+
+    private static void WriteUnhandledError(string source, Exception ex)
+    {
+        WriteUnhandledText(source, ex.ToString());
+    }
+
+    private static void WriteUnhandledText(string source, string detail)
+    {
+        try
+        {
+            var logDirectory = Path.Combine(AppContext.BaseDirectory, AppPaths.LogDirectoryName);
+            Directory.CreateDirectory(logDirectory);
+            var logPath = Path.Combine(logDirectory, "unhandled-error.log");
+            File.AppendAllText(logPath, $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {source}{Environment.NewLine}{detail}{Environment.NewLine}{Environment.NewLine}");
         }
         catch
         {

@@ -6,6 +6,23 @@ The project follows semantic versioning for public releases.
 
 Chinese changelog: [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
+## 1.1.4 - 2026-06-09
+
+中文：[更新日志](CHANGELOG.zh-CN.md#114---2026-06-09) | [发布说明](docs/release-notes-v1.1.4.zh-CN.md)
+
+### Added
+
+- Cache root entries that are not covered by enabled config records now appear in the grid as extra cache items.
+- Extra cache items can be restored after choosing an original path mapping, or removed from the cache root through Move back / Undo.
+- Added safer handling and diagnostics for extra cache-item cleanup and unexpected GUI exceptions.
+
+### Fixed
+
+- Windows shortcut files (`.lnk`) are now rejected with a localized warning instead of being moved into the cache.
+- Restore links now handles the case where a config record exists, the cache item is missing, and the original path has real content by only allowing the original content to be imported back into the cache.
+- Move back / Undo can remove stale config records when the cache item is missing.
+- Extra cache-item confirmation dialogs now use correct formatting arguments and no longer fail before the user can confirm removal.
+
 ## 1.1.3 - 2026-06-09
 
 中文：[更新日志](CHANGELOG.zh-CN.md#113---2026-06-09) | [发布说明](docs/release-notes-v1.1.3.zh-CN.md)

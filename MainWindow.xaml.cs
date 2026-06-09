@@ -185,6 +185,7 @@ public partial class MainWindow : Window
         {
             Title = text.T("dialog.pickFile"),
             CheckFileExists = true,
+            DereferenceLinks = false,
             Multiselect = true
         };
 
@@ -193,8 +194,21 @@ public partial class MainWindow : Window
             return;
         }
 
+        var shortcutFiles = dialog.FileNames.Where(IsWindowsShortcut).ToList();
+        if (shortcutFiles.Count > 0)
+        {
+            var message = text.F("dialog.shortcutUnsupported", Environment.NewLine, string.Join(Environment.NewLine, shortcutFiles));
+            AppendLog(text.F("log.skippedShortcuts", shortcutFiles.Count));
+            System.Windows.MessageBox.Show(this, message, text.T("main.addFile"), MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
         foreach (var fileName in dialog.FileNames)
         {
+            if (IsWindowsShortcut(fileName))
+            {
+                continue;
+            }
+
             log.WriteDiagnostic($"add-file selected path={fileName}");
             if (!await RunAddOperationAsync(text.T("op.addFile"), fileName, SyncItemKind.File))
             {
@@ -259,12 +273,18 @@ public partial class MainWindow : Window
             return;
         }
 
-        var scopeText = selectedItems.Count > 0
-            ? text.F("dialog.restoreSelected", selectedItems.Count)
-            : text.T("dialog.restoreAll");
+        var untrackedItemCount = selectedItems.Count(IsUntrackedCacheItem);
+        var hasUntrackedItems = untrackedItemCount > 0;
+        var scopeText = hasUntrackedItems
+            ? untrackedItemCount == selectedItems.Count
+                ? text.F("dialog.restoreUntrackedConfirm", untrackedItemCount)
+                : text.F("dialog.restoreMixedUntrackedConfirm", selectedItems.Count, untrackedItemCount)
+            : selectedItems.Count > 0
+                ? text.F("dialog.restoreSelected", selectedItems.Count)
+                : text.T("dialog.restoreAll");
         var result = System.Windows.MessageBox.Show(
             this,
-            scopeText + Environment.NewLine + text.T("dialog.restoreConfirmSuffix"),
+            scopeText + Environment.NewLine + text.T(hasUntrackedItems ? "dialog.restoreUntrackedConfirmSuffix" : "dialog.restoreConfirmSuffix"),
             text.T("main.restore"),
             MessageBoxButton.OKCancel,
             MessageBoxImage.Question);
@@ -288,26 +308,57 @@ public partial class MainWindow : Window
 
     private async void RevertButton_Click(object sender, RoutedEventArgs e)
     {
-        var selectedItems = GetSelectedItems();
-        if (selectedItems.Count == 0)
+        try
         {
-            System.Windows.MessageBox.Show(this, text.T("dialog.noSelection"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
+            log.WriteDiagnostic("revert-click stage=begin");
+            var selectedItems = GetSelectedItems();
+            log.WriteDiagnostic($"revert-click stage=selected count={selectedItems.Count} names={string.Join("|", selectedItems.Select(x => x.CacheName))}");
+            if (selectedItems.Count == 0)
+            {
+                System.Windows.MessageBox.Show(this, text.T("dialog.noSelection"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var hasUntrackedItems = selectedItems.Any(IsUntrackedCacheItem);
+            MessageBoxResult result;
+            if (hasUntrackedItems && selectedItems.All(IsUntrackedCacheItem))
+            {
+                log.WriteDiagnostic("revert-click stage=skip-generic-confirm all-untracked=true");
+                result = MessageBoxResult.OK;
+            }
+            else
+            {
+                var message = hasUntrackedItems
+                    ? text.F("dialog.revertMixedUntrackedConfirm", selectedItems.Count, selectedItems.Count(IsUntrackedCacheItem))
+                    : text.F("dialog.revertConfirm", selectedItems.Count);
+                log.WriteDiagnostic($"revert-click stage=generic-confirm-show hasUntracked={hasUntrackedItems}");
+                result = System.Windows.MessageBox.Show(
+                    this,
+                    message,
+                    text.T("main.revert"),
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Warning);
+                log.WriteDiagnostic($"revert-click stage=generic-confirm-closed result={result}");
+            }
+
+            if (result != MessageBoxResult.OK)
+            {
+                log.WriteDiagnostic("revert-click stage=canceled");
+                return;
+            }
+
+            log.WriteDiagnostic("revert-click stage=run-operation");
+            await RunRevertOperationAsync(text.T("op.revertItems"), selectedItems);
+            log.WriteDiagnostic("revert-click stage=done");
         }
-
-        var result = System.Windows.MessageBox.Show(
-            this,
-            text.F("dialog.revertConfirm", selectedItems.Count),
-            text.T("main.revert"),
-            MessageBoxButton.OKCancel,
-            MessageBoxImage.Warning);
-
-        if (result != MessageBoxResult.OK)
+        catch (Exception ex)
         {
-            return;
+            log.WriteDiagnostic($"revert-click stage=exception type={ex.GetType().FullName} message={ex.Message} stack={ex}");
+            AppendLog(text.F("log.failed", text.T("main.revert"), ex.Message));
+            System.Windows.MessageBox.Show(this, ex.Message, text.T("main.revert"), MessageBoxButton.OK, MessageBoxImage.Error);
+            config = store.Load();
+            ReloadGrid();
         }
-
-        await RunRevertOperationAsync(text.T("op.revertItems"), selectedItems);
     }
 
     private FileOperations CreateOperations()
@@ -395,7 +446,19 @@ public partial class MainWindow : Window
 
         foreach (var item in itemsToRestore)
         {
-            var targetPath = PathTools.ExpandPortablePath(item.OriginalPath, paths.UserHome);
+            var restoreItem = item;
+            if (IsUntrackedCacheItem(restoreItem))
+            {
+                restoreItem = CreateConfigRecordForUntrackedCacheItem(restoreItem);
+                if (restoreItem is null)
+                {
+                    config = store.Load();
+                    ReloadGrid();
+                    return;
+                }
+            }
+
+            var targetPath = PathTools.ExpandPortablePath(restoreItem.OriginalPath, paths.UserHome);
             var attempt = 0;
 
             while (true)
@@ -403,11 +466,11 @@ public partial class MainWindow : Window
                 attempt++;
                 try
                 {
-                    log.WriteDiagnostic($"restore attempt={attempt} stage=begin name={name} target={targetPath} cacheName={item.CacheName}");
+                    log.WriteDiagnostic($"restore attempt={attempt} stage=begin name={name} target={targetPath} cacheName={restoreItem.CacheName}");
                     await Task.Run(() =>
                     {
                         var operations = CreateOperations();
-                        operations.RestoreItem(item);
+                        operations.RestoreItem(restoreItem);
                     });
                     store.Save(config);
                     log.WriteDiagnostic($"restore attempt={attempt} stage=item-finished target={targetPath}");
@@ -459,9 +522,87 @@ public partial class MainWindow : Window
 
         foreach (var item in itemsToRevert)
         {
+            if (IsUntrackedCacheItem(item))
+            {
+                var cachePathForUntracked = Path.Combine(paths.CacheRoot, item.CacheName);
+                var confirmResult = System.Windows.MessageBox.Show(
+                    this,
+                    text.F("dialog.untrackedCacheDeleteConfirm", Environment.NewLine, cachePathForUntracked),
+                    text.T("main.revert"),
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Warning);
+
+                if (confirmResult != MessageBoxResult.OK)
+                {
+                    return;
+                }
+
+                var untrackedAttempt = 0;
+                while (true)
+                {
+                    untrackedAttempt++;
+                    try
+                    {
+                        log.WriteDiagnostic($"revert-untracked attempt={untrackedAttempt} stage=delete-begin name={name} cache={cachePathForUntracked} cacheName={item.CacheName}");
+                        await Task.Run(() => DeletePath(cachePathForUntracked, log, $"revert-untracked attempt={untrackedAttempt} cacheName={item.CacheName}"));
+                        log.WriteDiagnostic($"revert-untracked attempt={untrackedAttempt} stage=delete-finished cache={cachePathForUntracked}");
+                        AppendLog(text.F("log.removedUntrackedCacheItem", item.CacheName));
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        log.WriteDiagnostic($"revert-untracked attempt={untrackedAttempt} stage=exception cache={cachePathForUntracked} type={ex.GetType().FullName} message={ex.Message} stack={ex}");
+                        if (IsAccessDenied(ex))
+                        {
+                            var decision = ShowLockingProcessesWindow(cachePathForUntracked, ex.Message);
+                            log.WriteDiagnostic($"revert-untracked attempt={untrackedAttempt} stage=access-denied-lock-window-closed decision={decision} cache={cachePathForUntracked}");
+
+                            if (decision == LockingProcessesDecision.Continue)
+                            {
+                                AppendLog(text.F("log.retryLockedPath", cachePathForUntracked));
+                                continue;
+                            }
+
+                            AppendLog(text.F("log.lockedPathCanceled", cachePathForUntracked));
+                            config = store.Load();
+                            ReloadGrid();
+                            return;
+                        }
+
+                        AppendLog(text.F("log.failed", name, ex.Message));
+                        System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        config = store.Load();
+                        ReloadGrid();
+                        return;
+                    }
+                }
+
+                continue;
+            }
+
             var targetPath = PathTools.ExpandPortablePath(item.OriginalPath, paths.UserHome);
             var cachePath = Path.Combine(paths.CacheRoot, item.CacheName);
             var attempt = 0;
+
+            if (!PathExistsForLockScan(cachePath))
+            {
+                var result = System.Windows.MessageBox.Show(
+                    this,
+                    text.F("dialog.revertMissingCacheConfirm", Environment.NewLine, cachePath, item.OriginalPath),
+                    text.T("main.revert"),
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Warning);
+
+                if (result != MessageBoxResult.OK)
+                {
+                    return;
+                }
+
+                config.Items.Remove(item);
+                store.Save(config);
+                AppendLog(text.F("log.removedMissingCacheRecord", item.CacheName));
+                continue;
+            }
 
             while (true)
             {
@@ -536,6 +677,11 @@ public partial class MainWindow : Window
         return Directory.Exists(path) || File.Exists(path);
     }
 
+    private static bool IsWindowsShortcut(string path)
+    {
+        return string.Equals(Path.GetExtension(path), ".lnk", StringComparison.OrdinalIgnoreCase);
+    }
+
     private LockingProcessesDecision ShowLockingProcessesWindow(string sourcePath, string errorMessage)
     {
         var window = new LockingProcessesWindow(text, sourcePath, errorMessage)
@@ -576,14 +722,205 @@ public partial class MainWindow : Window
         visibleItems = new ObservableCollection<SyncItemRow>(
             config.Items
                 .Where(x => x.Status == SyncConstants.StatusEnabled)
+                .Concat(GetUntrackedCacheItems())
                 .Select(x => new SyncItemRow(x, text.Code)));
         ItemsGrid.ItemsSource = visibleItems;
         ItemsGrid.Items.Refresh();
     }
 
+    private List<SyncItem> GetUntrackedCacheItems()
+    {
+        var configuredNames = config.Items
+            .Where(x => x.Status == SyncConstants.StatusEnabled)
+            .Select(x => x.CacheName)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        var ignoredNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            AppPaths.ConfigFileName,
+            AppPaths.LogDirectoryName,
+            AppPaths.BackupDirectoryName,
+            Path.GetFileName(Environment.ProcessPath ?? "LinkShelf.exe"),
+            "LinkShelf.exe"
+        };
+
+        var items = new List<SyncItem>();
+        foreach (var entry in Directory.EnumerateFileSystemEntries(paths.CacheRoot))
+        {
+            var name = Path.GetFileName(entry);
+            if (string.IsNullOrWhiteSpace(name) || ignoredNames.Contains(name) || configuredNames.Contains(name))
+            {
+                continue;
+            }
+
+            try
+            {
+                var attributes = File.GetAttributes(entry);
+                var kind = attributes.HasFlag(FileAttributes.Directory) ? SyncItemKind.Directory : SyncItemKind.File;
+                items.Add(new SyncItem
+                {
+                    CacheName = name,
+                    OriginalPath = "",
+                    ItemType = PathTools.KindText(kind),
+                    Status = SyncConstants.StatusUntrackedCacheItem,
+                    SourceMachine = Environment.MachineName,
+                    UpdatedAt = File.GetLastWriteTime(entry).ToString("yyyy-MM-dd HH:mm:ss"),
+                    LastOperation = SyncConstants.CheckUntrackedCacheItem,
+                    CheckResult = SyncConstants.CheckUntrackedCacheItem,
+                    CachePath = entry,
+                    ExpandedOriginalPath = ""
+                });
+            }
+            catch
+            {
+                // Skip entries that disappear or cannot be inspected while refreshing the grid.
+            }
+        }
+
+        return items.OrderBy(x => x.CacheName, StringComparer.OrdinalIgnoreCase).ToList();
+    }
+
+    private SyncItem? CreateConfigRecordForUntrackedCacheItem(SyncItem untrackedItem)
+    {
+        var targetPath = ChooseOriginalPathForUntrackedCacheItem(untrackedItem);
+        if (targetPath is null)
+        {
+            return null;
+        }
+
+        if (!CanUseOriginalPath(targetPath))
+        {
+            System.Windows.MessageBox.Show(this, text.T("dialog.invalidOriginalPath"), text.T("main.restore"), MessageBoxButton.OK, MessageBoxImage.Error);
+            return null;
+        }
+
+        var portable = PathTools.ToPortablePath(targetPath, paths.UserHome);
+        var now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        var item = new SyncItem
+        {
+            CacheName = untrackedItem.CacheName,
+            OriginalPath = portable,
+            ItemType = untrackedItem.ItemType,
+            LinkMode = SyncConstants.LinkModeSymbolic,
+            Status = SyncConstants.StatusEnabled,
+            SourceMachine = Environment.MachineName,
+            CreatedAt = now,
+            UpdatedAt = now,
+            LastOperation = "complete-untracked-cache-item"
+        };
+
+        config.Items.RemoveAll(x =>
+            string.Equals(x.CacheName, item.CacheName, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(x.OriginalPath, item.OriginalPath, StringComparison.OrdinalIgnoreCase));
+        config.Items.Add(item);
+        store.Save(config);
+        AppendLog(text.F("log.completedUntrackedCacheRecord", item.CacheName, item.OriginalPath));
+        return item;
+    }
+
+    private string? ChooseOriginalPathForUntrackedCacheItem(SyncItem item)
+    {
+        var kind = PathTools.KindFromText(item.ItemType);
+        if (kind == SyncItemKind.Directory)
+        {
+            var dialog = new Microsoft.Win32.OpenFolderDialog
+            {
+                Title = text.F("dialog.pickUntrackedDirectoryParent", item.CacheName),
+                Multiselect = false
+            };
+
+            return dialog.ShowDialog(this) == true
+                ? Path.Combine(dialog.FolderName, item.CacheName)
+                : null;
+        }
+
+        var fileDialog = new Microsoft.Win32.SaveFileDialog
+        {
+            Title = text.F("dialog.pickUntrackedFilePath", item.CacheName),
+            FileName = item.CacheName,
+            Filter = text.T("dialog.allFilesFilter"),
+            CheckPathExists = true,
+            OverwritePrompt = false
+        };
+
+        return fileDialog.ShowDialog(this) == true ? fileDialog.FileName : null;
+    }
+
+    private bool CanUseOriginalPath(string path)
+    {
+        var normalized = PathTools.Normalize(path);
+        var cacheRoot = PathTools.Normalize(paths.CacheRoot);
+        return !PathTools.IsSamePath(normalized, cacheRoot) &&
+               !PathTools.IsSameOrChild(normalized, cacheRoot) &&
+               !PathTools.IsSameOrChild(cacheRoot, normalized);
+    }
+
     private List<SyncItem> GetSelectedItems()
     {
         return ItemsGrid.SelectedItems.OfType<SyncItemRow>().Select(x => x.Item).ToList();
+    }
+
+    private static bool IsUntrackedCacheItem(SyncItem item)
+    {
+        return string.Equals(item.Status, SyncConstants.StatusUntrackedCacheItem, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static void DeletePath(string path, LogService? log = null, string context = "delete")
+    {
+        var stopwatch = Stopwatch.StartNew();
+        log?.WriteDiagnostic($"{context} stage=inspect-begin path={path} existsFile={File.Exists(path)} existsDirectory={Directory.Exists(path)}");
+        var attributes = File.GetAttributes(path);
+        log?.WriteDiagnostic($"{context} stage=inspect-finished path={path} attributes={attributes}");
+
+        if (attributes.HasFlag(FileAttributes.Directory))
+        {
+            DeleteDirectory(path, attributes, log, context, depth: 0);
+        }
+        else
+        {
+            var info = new FileInfo(path);
+            log?.WriteDiagnostic($"{context} stage=file-delete-begin path={path} length={info.Length} lastWrite={info.LastWriteTime:yyyy-MM-dd HH:mm:ss.fff}");
+            File.Delete(path);
+            log?.WriteDiagnostic($"{context} stage=file-delete-finished path={path} elapsedMs={stopwatch.ElapsedMilliseconds}");
+        }
+    }
+
+    private static void DeleteDirectory(string path, FileAttributes attributes, LogService? log, string context, int depth)
+    {
+        var stopwatch = Stopwatch.StartNew();
+        log?.WriteDiagnostic($"{context} stage=directory-delete-begin depth={depth} path={path} attributes={attributes}");
+
+        if (attributes.HasFlag(FileAttributes.ReparsePoint))
+        {
+            log?.WriteDiagnostic($"{context} stage=directory-reparse-delete-begin depth={depth} path={path}");
+            Directory.Delete(path, recursive: false);
+            log?.WriteDiagnostic($"{context} stage=directory-reparse-delete-finished depth={depth} path={path} elapsedMs={stopwatch.ElapsedMilliseconds}");
+            return;
+        }
+
+        var entryCount = 0;
+        log?.WriteDiagnostic($"{context} stage=directory-enumerate-begin depth={depth} path={path}");
+        foreach (var entry in Directory.EnumerateFileSystemEntries(path))
+        {
+            entryCount++;
+            log?.WriteDiagnostic($"{context} stage=directory-entry depth={depth} index={entryCount} path={entry}");
+            var entryAttributes = File.GetAttributes(entry);
+            if (entryAttributes.HasFlag(FileAttributes.Directory))
+            {
+                DeleteDirectory(entry, entryAttributes, log, context, depth + 1);
+                continue;
+            }
+
+            var info = new FileInfo(entry);
+            log?.WriteDiagnostic($"{context} stage=file-delete-begin depth={depth} path={entry} length={info.Length} lastWrite={info.LastWriteTime:yyyy-MM-dd HH:mm:ss.fff}");
+            File.Delete(entry);
+            log?.WriteDiagnostic($"{context} stage=file-delete-finished depth={depth} path={entry}");
+        }
+
+        log?.WriteDiagnostic($"{context} stage=directory-enumerate-finished depth={depth} path={path} entries={entryCount}");
+        log?.WriteDiagnostic($"{context} stage=directory-remove-empty-begin depth={depth} path={path}");
+        Directory.Delete(path, recursive: false);
+        log?.WriteDiagnostic($"{context} stage=directory-remove-empty-finished depth={depth} path={path} elapsedMs={stopwatch.ElapsedMilliseconds}");
     }
 
     private void AppendLog(string message)

@@ -9,6 +9,7 @@ public static class SyncConstants
     public const string StatusEnabled = "enabled";
     public const string StatusRemoved = "removed";
     public const string StatusProblem = "problem";
+    public const string StatusUntrackedCacheItem = "untracked-cache-item";
     public const string LinkModeSymbolic = "symbolic-link";
 
     public const string CheckUnknown = "";
@@ -17,6 +18,7 @@ public static class SyncConstants
     public const string CheckTargetHasContent = "target-has-content";
     public const string CheckTargetMissingLink = "target-missing-link";
     public const string CheckLinkWrongTarget = "link-wrong-target";
+    public const string CheckUntrackedCacheItem = "untracked-cache-item";
     public const string CheckSkipped = "skipped";
     public const string CheckRestored = "restored";
 }
