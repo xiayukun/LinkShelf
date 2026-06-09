@@ -9,13 +9,13 @@ English: [session-handoff.md](session-handoff.md)
 - 项目名：`Link Shelf`
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
-- 最新 GitHub Release：`v1.1.4`
-- 当前源码和本地运行程序版本：`1.1.4`
-- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.4`
-- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.4/LinkShelf.exe`
+- 最新 GitHub Release：`v1.1.5`
+- 当前源码和本地运行程序版本：`1.1.5`
+- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.5`
+- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.5/LinkShelf.exe`
 - 主分支：`main`
-- 当前 Git HEAD：`Prepare Link Shelf 1.1.4`（具体 hash 以 `git log -1 --oneline` 为准）
-- 当前工作区状态：`main` 已包含 `v1.1.4` 发布提交；发布前应确认 tag 已推送、GitHub Release 已生成。
+- 当前 Git HEAD：`Prepare Link Shelf 1.1.5`（具体 hash 以 `git log -1 --oneline` 为准）
+- 当前工作区状态：`main` 已包含 `v1.1.5` 发布提交；发布前应确认 tag 已推送、GitHub Release 已生成。
 
 ## 本地结构
 
@@ -69,7 +69,7 @@ GitHub 上已经有自动构建和自动发布能力：
 - 构建工作流：`.github/workflows/build.yml`
 - 发布工作流：`.github/workflows/release.yml`
 - 首版发布说明：`docs/release-notes-v1.0.0.md`
-- 最新发布说明：`docs/release-notes-v1.1.4.md`
+- 最新发布说明：`docs/release-notes-v1.1.5.md`
 
 `release` 工作流可以创建或更新 GitHub Release，并上传 `LinkShelf.exe`。
 
@@ -110,7 +110,7 @@ GitHub 上已经有自动构建和自动发布能力：
 - `docs/session-handoff.md`
 - `docs/session-handoff.zh-CN.md`
 
-## v1.1.4 之后的推广改造
+## v1.1.5 推广改造
 
 发布后已开始按“中文主导、英文配套、AI 工具配置同步”方向调整 GitHub 展示：
 
@@ -120,6 +120,7 @@ GitHub 上已经有自动构建和自动发布能力：
 - GitHub 仓库描述已改为：`Portable Windows app-state and dotfiles manager: move scattered config into one syncable cache root, then restore original paths with symlinks.`
 - GitHub topics 已补充：`windows`、`symlink`、`symbolic-link`、`hardlink`、`backup`、`sync`、`dotfiles`、`dotfiles-manager`、`syncthing`、`wpf`、`dotnet`、`ai-tools`、`developer-tools`、`config-management`。
 - `CommandLineMode` 已增加 `-help` 别名，并把 `help` 输出扩展为适合 AI 助手和自动化读取的安全说明。
+- `v1.1.5` 发布说明记录在 `docs/release-notes-v1.1.5.md` 和 `docs/release-notes-v1.1.5.zh-CN.md`。
 - 推广判断：暂时不要把所有 Markdown 都重命名成中文默认 / `*-en.md` 配对；先把推广价值最高的默认 README 做中文主导，避免大量内部和外部链接 churn。
 
 ## 当前自动化巡检
@@ -228,7 +229,7 @@ git log --oneline --decorate -5
 ## 推荐下个会话开场白
 
 ```text
-请先读取 AGENTS.md 和 docs/session-handoff.md，然后检查当前项目状态。这个项目是 Link Shelf，用于把分散的本地文件或目录移动到同步缓存根目录，并通过符号链接恢复原路径。项目已经发布到 GitHub，最新公开版本是 v1.1.4。请先不要重构，先确认当前仓库路径、运行缓存根目录、Git 状态、Release 状态、Markdown 中英文配对、自动化巡检和配置健康状态，再继续后续开发或迁移。
+请先读取 AGENTS.md 和 docs/session-handoff.md，然后检查当前项目状态。这个项目是 Link Shelf，用于把分散的本地文件或目录移动到同步缓存根目录，并通过符号链接恢复原路径。项目已经发布到 GitHub，最新公开版本是 v1.1.5。请先不要重构，先确认当前仓库路径、运行缓存根目录、Git 状态、Release 状态、Markdown 中英文配对、自动化巡检和配置健康状态，再继续后续开发或迁移。
 ```
 
 ## 维护规则

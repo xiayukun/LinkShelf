@@ -6,13 +6,14 @@ The project follows semantic versioning for public releases.
 
 中文更新日志：[CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
-## Unreleased
+## 1.1.5 - 2026-06-09
 
-中文：[更新日志](CHANGELOG.zh-CN.md#unreleased)
+中文：[更新日志](CHANGELOG.zh-CN.md#115---2026-06-09) | [发布说明](docs/release-notes-v1.1.5.zh-CN.md)
 
 ### Added
 
 - Added `-help` as a CLI help alias and expanded help output for AI assistants and automation.
+- The release workflow now checks out the requested tag when manually rerun through `workflow_dispatch`.
 
 ### Changed
 

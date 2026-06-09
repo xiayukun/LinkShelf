@@ -6,13 +6,14 @@ Link Shelf 的重要变更会记录在这里。
 
 English changelog: [CHANGELOG.md](CHANGELOG.md)
 
-## Unreleased
+## 1.1.5 - 2026-06-09
 
-English: [Changelog](CHANGELOG.md#unreleased)
+English: [Changelog](CHANGELOG.md#115---2026-06-09) | [Release notes](docs/release-notes-v1.1.5.md)
 
 ### 新增
 
 - 增加 `-help` 作为命令行帮助别名，并扩展面向 AI 助手和自动化的帮助输出。
+- 发布工作流通过 `workflow_dispatch` 手动重跑时，现在会 checkout 用户指定的 tag。
 
 ### 变更
 
