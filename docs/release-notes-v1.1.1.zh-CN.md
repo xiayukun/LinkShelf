@@ -1,5 +1,3 @@
-# Link Shelf 1.1.1
-
 英文发布说明：[docs/release-notes-v1.1.1.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.1/docs/release-notes-v1.1.1.md)
 
 这个版本主要打磨 1.1.0 之后的恢复流程和状态显示，让异常项目更明显，也让另一台电脑恢复链接时的占用处理更完整。

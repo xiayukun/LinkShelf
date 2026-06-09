@@ -1,5 +1,3 @@
-# Link Shelf 1.0.0
-
 英文发布说明：[docs/release-notes-v1.0.0.md](https://github.com/xiayukun/LinkShelf/blob/v1.0.0/docs/release-notes-v1.0.0.md)
 
 首个公开发布版本。

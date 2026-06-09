@@ -1,5 +1,3 @@
-# Link Shelf 1.0.1
-
 英文发布说明：[docs/release-notes-v1.0.1.md](https://github.com/xiayukun/LinkShelf/blob/v1.0.1/docs/release-notes-v1.0.1.md)
 
 这个版本改进了添加项目流程。当 Windows 返回拒绝访问时，通常是某个正在运行的程序占用了选中的目录或目录里的文件，程序现在会给出更清楚的处理入口。

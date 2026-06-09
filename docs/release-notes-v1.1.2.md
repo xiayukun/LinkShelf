@@ -1,5 +1,3 @@
-# Link Shelf 1.1.2
-
 Chinese release notes: [docs/release-notes-v1.1.2.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.2/docs/release-notes-v1.1.2.zh-CN.md)
 
 This release completes the locked-path recovery coverage for the move back / undo workflow.

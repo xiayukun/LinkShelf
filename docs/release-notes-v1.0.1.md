@@ -1,5 +1,3 @@
-# Link Shelf 1.0.1
-
 Chinese release notes: [docs/release-notes-v1.0.1.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.0.1/docs/release-notes-v1.0.1.zh-CN.md)
 
 This release improves the add-item flow when the selected path cannot be moved because Windows reports `Access denied`, usually because a running program is using the selected directory or one of its files.
