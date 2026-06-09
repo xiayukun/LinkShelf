@@ -28,7 +28,7 @@ This release improves the add-item flow when the selected path cannot be moved b
 2. Double-click it and add files or directories.
 3. If the add operation reports a blocked path, review the listed processes.
 4. Close them manually, terminate selected processes, or choose `Terminate all and continue`.
-5. Sync or back up the whole cache root with Syncthing or another tool.
+5. Back up, copy, or sync the whole cache root with a tool you trust.
 6. On another machine, put `LinkShelf.exe` in the restored cache root and click `Restore links`.
 
 ## Automation

@@ -7,11 +7,11 @@
 
 [中文主页](README.md)
 
-Portable app-state shelf for Windows: collect scattered configuration and small state paths into one syncable root, while apps keep using their original paths through symbolic links.
+Windows config mover and symlink tool: collect scattered app settings, dotfiles, and small state folders into one cache root, then restore original paths with symbolic links.
 
-Link Shelf is a Windows desktop and command-line tool for relocating application state, developer settings, AI coding tool profiles, terminal/editor configuration, and small working directories into a folder you can back up, sync, or move between machines.
+It is useful for organizing developer environments, AI coding tool settings, terminal/editor configuration, and small app state. Backup and sync are handled by tools you choose; Link Shelf handles local path relocation, link restoration, and health checks.
 
-Keywords: Windows symbolic link manager, symlink backup, hard link projection, dotfiles manager for Windows, portable app state, developer settings sync, AI coding tool config sync, Syncthing companion.
+Keywords: Windows symbolic links, symlinks, hard links, dotfiles, config migration, config backup, AI coding tool config, developer environment restore.
 
 **Download:** [LinkShelf.exe](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) | [Latest release](https://github.com/xiayukun/LinkShelf/releases/latest)
 
@@ -26,7 +26,7 @@ Keywords: Windows symbolic link manager, symlink backup, hard link projection, d
 5. Choose a file or directory.
 6. Let Link Shelf move it into the cache root and create a symbolic link at the original path.
 
-On another machine, put `LinkShelf.exe` in the synced or restored cache root and click `Restore links`.
+If you have backed up, copied, or synced the cache root to another machine, put `LinkShelf.exe` inside it and click `Restore links`.
 
 ## Table of Contents
 
@@ -42,7 +42,7 @@ On another machine, put `LinkShelf.exe` in the synced or restored cache root and
 - [Build From Source](#build-from-source)
 - [Good Fit](#good-fit)
 - [Not a Good Fit](#not-a-good-fit)
-- [Recommended With Syncthing](#recommended-with-syncthing)
+- [Backup and Sync Notes](#backup-and-sync-notes)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Maintainer Docs](#maintainer-docs)
@@ -59,9 +59,9 @@ Many tools store important state outside your projects:
 - package manager config files
 - small application data folders
 
-Link Shelf lets you place those paths on a "shelf" that can be backed up, synced, moved to another machine, or inspected as a single directory.
+Link Shelf lets you place those paths on a "shelf" that can be backed up, moved to another machine, or inspected as a single directory.
 
-Syncthing is the recommended companion, but not a requirement. You can also use Link Shelf with cloud drives, backup software, external disks, network shares, or any workflow where one folder is easier to manage than scattered paths.
+It is not sync software, and it does not decide which caches are safe to share across machines. You can pair it with cloud drives, backup software, external disks, network shares, or other sync tools, but review the content before copying it to another computer.
 
 ## Features
 
@@ -109,13 +109,13 @@ Common workflow:
 
 Recommended items only show paths that exist on the current machine and are not already in `link-shelf.config.json`. The built-in list is curated from the author's daily Windows setup and AI-assisted web research into common developer, AI coding, editor, terminal, and package-manager configuration paths. Selecting a recommended item runs the same add flow as choosing that path manually.
 
-Some recommended paths can contain account names, tokens, local history, or other private state. Review the folder before syncing it with Syncthing, a cloud drive, or another tool.
+Some recommended paths can contain account names, tokens, local history, or other private state. Review the folder before using a cloud drive, sync tool, or backup tool on it.
 
 ![Recommended items window](Assets/recommended-items-window-cn.png)
 
 On a second machine:
 
-1. Put `LinkShelf.exe` in the synced cache root.
+1. Put `LinkShelf.exe` in the cache root that you backed up, copied, or synced from another machine.
 2. Double-click it.
 3. Click `Restore links`.
 4. Resolve any target-path conflicts.
@@ -262,7 +262,7 @@ Backups are created before conflict handling moves or replaces existing content.
 
 ## Privacy
 
-Link Shelf works locally. It does not upload files, paths, logs, configuration, or machine names to a remote service. If your cache root is synced with Syncthing, a cloud drive, or another tool, that tool is responsible for network transfer.
+Link Shelf works locally. It does not upload files, paths, logs, configuration, or machine names to a remote service. If your cache root is handled by a sync tool, cloud drive, or another tool, that tool is responsible for network transfer.
 
 See [PRIVACY.md](PRIVACY.md) for details.
 
@@ -289,7 +289,7 @@ dotnet publish .\LinkShelf.csproj -t:Rebuild -c Release -r win-x64 --self-contai
 
 Link Shelf is a good fit for:
 
-- syncing developer tool settings across machines
+- backing up, migrating, or restoring developer tool settings
 - making application state easier to back up
 - moving scattered config paths into one managed folder
 - checking whether symlink-based setup is still healthy
@@ -299,22 +299,20 @@ Link Shelf is a good fit for:
 
 Link Shelf is not designed for:
 
-- syncing very large application caches blindly
+- blindly sharing very large application caches, databases, or high-churn directories
 - replacing a version-control system
-- replacing Syncthing, cloud sync, or backup software
+- replacing cloud sync, file sync, or backup software
 - partially linking only some files inside a directory
 - managing Windows shortcut files (`.lnk`), because they do not work reliably after being moved and linked back
 - silently overwriting existing target content
 
-## Recommended With Syncthing
+## Backup and Sync Notes
 
-Syncthing pairs well with Link Shelf:
+Link Shelf only handles local path relocation and symbolic-link restoration. How the cache root is backed up, copied, or synced is up to your external tool.
 
-- Syncthing syncs the cache root between machines.
-- Link Shelf creates and restores local symbolic links.
-- Syncthing ignore rules decide what should not be synced.
+Prefer small config files, dotfiles, editor settings, and low-churn app state. Do not blindly share large caches, databases, browser profiles, folders currently used by running apps, or paths that contain tokens and local history.
 
-The directory itself remains the smallest managed unit in Link Shelf. Use Syncthing ignore rules for internal file exclusions.
+If you use a sync tool, close the related applications first, keep a backup, and understand the conflict rules. Link Shelf does not resolve conflicts created by external sync tools.
 
 ## Roadmap
 
@@ -339,7 +337,6 @@ The locked-path detection code is adapted from [ShowWhatProcessLocksFile](https:
 
 The user workflow is also inspired by Microsoft PowerToys [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith), an open-source PowerToys utility. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for details.
 
-Thanks to [Syncthing](https://github.com/syncthing/syncthing) for providing a reliable open-source sync tool. It is the recommended sync companion for Link Shelf.
 
 ## License
 

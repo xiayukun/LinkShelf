@@ -25,7 +25,7 @@ Chinese release notes: create `docs/release-notes-vX.Y.Z.md` and link it here af
 
 1. Put `LinkShelf.exe` inside the folder that should act as the cache root.
 2. Double-click it and add files or directories.
-3. Sync or back up the whole cache root with Syncthing or another tool.
+3. Back up, copy, or sync the whole cache root with a tool you trust.
 4. On another machine, put `LinkShelf.exe` in the restored cache root and click `Restore links`.
 
 ## Automation

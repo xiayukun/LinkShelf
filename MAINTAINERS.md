@@ -13,7 +13,7 @@ English: [MAINTAINERS.en.md](MAINTAINERS.en.md)
 - 对任何会移动、替换、链接或备份用户内容的操作，优先使用明确的用户确认。
 - 配置键和运行时文件名保持英文。
 - 中文界面文本集中放在 `Services/LocalizationService.cs`。
-- Syncthing 是推荐工作流，不是唯一支持的工作流。
+- 备份和同步工具是可选工作流，不是产品本身。
 
 ## 发布节奏
 

@@ -7,7 +7,7 @@ English release notes: [docs/release-notes-v1.1.5.en.md](https://github.com/xiay
 - `README.md` 现在是中文优先的 GitHub 默认主页。
 - `README.en.md` 是完整英文说明。
 - 删除旧中文兼容入口，默认中文主页直接使用 `README.md`。
-- README 首屏强化了 Windows 符号链接、软链接备份、硬链接投射、dotfiles、应用状态备份、Syncthing 和 AI 编程工具配置同步等关键词。
+- README 首屏强化了 Windows 符号链接、软链接备份、硬链接投射、dotfiles、应用状态备份、配置迁移和 AI 编程工具配置等关键词。
 - AI 和自动化章节现在包含可以直接复制给用户 AI 助手的提示词。
 - `LinkShelf.exe -help` 现在可作为命令行帮助别名使用。
 - 命令行帮助现在说明缓存根目录模型、`check --json` 和只读自动化行为。

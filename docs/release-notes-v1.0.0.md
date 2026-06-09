@@ -9,7 +9,7 @@ English release notes: [docs/release-notes-v1.0.0.en.md](https://github.com/xiay
 - 命令行健康检查支持纯文本和 JSON 输出。
 - 支持英文和中文界面。
 - 用户目录下的路径使用 `~` 保存，方便跨用户配置文件使用。
-- 适合 Syncthing 工作流，但不要求必须使用 Syncthing。
+- 适合备份/同步工具工作流，但不要求使用特定工具。
 
 ## 下载
 
@@ -24,7 +24,7 @@ English release notes: [docs/release-notes-v1.0.0.en.md](https://github.com/xiay
 
 1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
 2. 双击程序并添加文件或目录。
-3. 使用 Syncthing 或其他工具同步或备份整个缓存根目录。
+3. 使用你信任的工具备份、复制或同步整个缓存根目录。
 4. 在另一台机器上，把 `LinkShelf.exe` 放到恢复后的缓存根目录，然后点击 `恢复链接`。
 
 ## 自动化

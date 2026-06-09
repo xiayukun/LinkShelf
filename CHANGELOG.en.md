@@ -6,6 +6,13 @@ The project follows semantic versioning for public releases.
 
 Chinese changelog: [CHANGELOG.md](CHANGELOG.md)
 
+## Unreleased
+
+### Changed
+
+- Shortened the README opening, reduced sync-tool framing, and clarified that Link Shelf handles local config relocation, symlink restoration, and health checks.
+- Removed the specific sync-tool framing from the homepage selling point and GitHub topics, replacing it with general backup/sync risk guidance.
+
 ## 1.1.5 - 2026-06-09
 
 Chinese: [Changelog](CHANGELOG.md#115---2026-06-09) | [Release notes](docs/release-notes-v1.1.5.md)

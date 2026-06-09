@@ -25,7 +25,7 @@ English release notes: create `docs/release-notes-vX.Y.Z.en.md` and link it here
 
 1. 把 `LinkShelf.exe` 放到要作为缓存根目录的文件夹中。
 2. 双击程序并添加文件或目录。
-3. 使用 Syncthing 或其他工具同步或备份整个缓存根目录。
+3. 使用你信任的工具备份、复制或同步整个缓存根目录。
 4. 在另一台机器上，把 `LinkShelf.exe` 放到恢复后的缓存根目录，然后点击 `恢复链接`。
 
 ## 自动化

@@ -18,7 +18,7 @@ The broad use case is path relocation into a portable cache root:
 - restore links after setting up a new machine
 - run a CLI health check for automation
 
-Syncthing is the recommended companion, not the only supported scenario. Syncthing can sync the cache root between machines while Link Shelf handles local symbolic links.
+Backup or sync tools are optional companions, not the product itself. Link Shelf handles local relocation and symbolic links; users should choose external tools carefully and avoid blindly sharing caches, databases, or high-churn directories across machines.
 
 ## Core Contract
 
@@ -259,7 +259,7 @@ Before publishing, prefer:
 - `CONTRIBUTING.md`
 - a real license file
 - a clean release artifact named `LinkShelf.exe`
-- GitHub topics such as `windows`, `symlink`, `backup`, `syncthing`, `dotnet`, `wpf`
+- GitHub topics such as `windows`, `symlink`, `backup`, `config-migration`, `config-backup`, `dotnet`, `wpf`
 - issue templates after the first public release
 
 ## Safety Boundaries
@@ -272,6 +272,6 @@ Do not allow users to select a parent directory that contains the cache root.
 
 Do not silently delete, overwrite, or merge target-path content.
 
-Do not implement directory-internal include or exclude rules in Link Shelf. Pair with Syncthing or another sync tool for internal ignore rules.
+Do not implement directory-internal include or exclude rules in Link Shelf. Pair with an external backup or sync tool for internal ignore rules.
 
 Do not save user-profile absolute paths in config when `~` can represent them.

@@ -40,10 +40,10 @@ Typical flow:
 2. Select files or directories to sync or back up.
 3. Link Shelf moves them into the cache root.
 4. Link Shelf creates symbolic links at the original paths.
-5. Syncthing or another tool syncs the cache root.
+5. A trusted external tool backs up, copies, or syncs the cache root.
 6. On another computer, run Link Shelf from that cache root and restore links.
 
-Syncthing is the recommended companion tool, but it is not the only supported scenario.
+Backup and sync tools are optional companions; Link Shelf itself only handles local relocation and links.
 
 ## Key Decisions
 
@@ -55,7 +55,7 @@ Syncthing is the recommended companion tool, but it is not the only supported sc
 - Current config version is `2`.
 - Old Chinese-key config files are no longer supported.
 - Paths under the user profile should be stored with `~`.
-- The smallest managed unit is a whole file or a whole directory. Directory-internal ignore rules belong in Syncthing or another sync tool.
+- The smallest managed unit is a whole file or a whole directory. Directory-internal ignore rules belong in an external backup or sync tool.
 - Add file and add directory support multi-select. A canceled or failed item must stop the remaining batch.
 - `Project app` creates a same-drive hard link named `LinkShelf.exe` in another folder. Launching that hard link makes the hard-link folder an independent cache root.
 - Windows shortcut files (`.lnk`) are rejected.
@@ -102,8 +102,8 @@ The project moved toward Chinese-first public presentation with English companio
 - Old Chinese-named compatibility files should not be kept.
 - Reader-facing Markdown uses Chinese default `.md` files and `.en.md` English companions.
 - Release-note language links should point at `main` when they reference files renamed after older tags.
-- GitHub description: `Portable Windows app-state and dotfiles manager: move scattered config into one syncable cache root, then restore original paths with symlinks.`
-- GitHub topics: `windows`, `symlink`, `symbolic-link`, `hardlink`, `backup`, `sync`, `dotfiles`, `dotfiles-manager`, `syncthing`, `wpf`, `dotnet`, `ai-tools`, `developer-tools`, `config-management`.
+- GitHub description: `Windows 配置迁移和符号链接工具 / Windows config mover: collect app settings, dotfiles, and small state folders, then restore paths with symlinks.`
+- GitHub topics: `windows`, `symlink`, `symbolic-link`, `hardlink`, `backup`, `app-state`, `config-backup`, `config-migration`, `dotfiles`, `dotfiles-manager`, `wpf`, `dotnet`, `ai-tools`, `developer-tools`, `config-management`.
 - `CommandLineMode` supports `-help` and has CLI help written for AI assistants and automation.
 - `v1.1.5` release notes live in `docs/release-notes-v1.1.5.md` and `docs/release-notes-v1.1.5.en.md`.
 

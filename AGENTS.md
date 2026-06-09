@@ -18,7 +18,7 @@ Link Shelf 是一个 Windows 工具，可以把用户选择的文件或目录移
 - 设置新机器后恢复链接。
 - 通过命令行健康检查支持自动化。
 
-Syncthing 是推荐搭配工具，但不是唯一支持场景。Syncthing 可以在机器之间同步缓存根目录，Link Shelf 负责处理本机符号链接。
+备份或同步工具只是可选搭配，不是产品本身。Link Shelf 负责本机路径搬迁和符号链接；用户应谨慎选择外部工具，不要盲目跨机器共享缓存、数据库或高频变化目录。
 
 ## 核心约定
 
@@ -258,7 +258,7 @@ dotnet publish .\LinkShelf.csproj -t:Rebuild -c Release -r win-x64 --self-contai
 - `CONTRIBUTING.md` 存在。
 - 存在真实许可证文件。
 - 发布产物名是干净的 `LinkShelf.exe`。
-- GitHub topics 包含 `windows`、`symlink`、`backup`、`syncthing`、`dotnet`、`wpf` 等。
+- GitHub topics 包含 `windows`、`symlink`、`backup`、`config-migration`、`config-backup`、`dotnet`、`wpf` 等。
 - 首次公开发布后再补充 issue 模板。
 
 ## 安全边界
@@ -271,6 +271,6 @@ dotnet publish .\LinkShelf.csproj -t:Rebuild -c Release -r win-x64 --self-contai
 
 不要静默删除、覆盖或合并目标路径内容。
 
-不要在 Link Shelf 中实现目录内部包含或排除规则。目录内部忽略规则应交给 Syncthing 或其他同步工具。
+不要在 Link Shelf 中实现目录内部包含或排除规则。目录内部忽略规则应交给外部备份/同步工具。
 
 当 `~` 可以表示用户目录下路径时，不要在配置中保存用户目录绝对路径。

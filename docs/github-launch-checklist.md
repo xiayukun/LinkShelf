@@ -10,7 +10,7 @@ English: [github-launch-checklist.en.md](github-launch-checklist.en.md)
 
 > 把分散的本地路径移动到一个可携带文件夹中，并通过符号链接让应用继续工作。
 
-Syncthing 应作为推荐同步搭档，而不是项目存在的唯一理由。
+外部备份或同步工具应作为可选搭配，而不是项目存在的理由。
 
 推荐 GitHub 主题：
 
@@ -18,8 +18,9 @@ Syncthing 应作为推荐同步搭档，而不是项目存在的唯一理由。
 - `symlink`
 - `backup`
 - `portable`
-- `sync`
-- `syncthing`
+- `app-state`
+- `config-backup`
+- `config-migration`
 - `dotnet`
 - `wpf`
 
@@ -83,5 +84,5 @@ Link Shelf 1.0.0
 - 命令行健康检查支持 JSON 输出。
 - 支持英文和中文界面，并可自动按系统语言选择。
 - 英文配置架构，运行时目录名也使用英文。
-- 适合 Syncthing 工作流，但不要求必须使用 Syncthing。
+- 适合备份/同步工具工作流，但不要求使用特定工具。
 ```

@@ -13,7 +13,7 @@ Primary maintainer:
 - Prefer explicit user confirmation for any operation that moves, replaces, links, or backs up user content.
 - Keep config keys and runtime file names in English.
 - Keep Chinese UI text isolated in `Services/LocalizationService.cs`.
-- Keep Syncthing as a recommended workflow, not the only supported workflow.
+- Present backup and sync tools as optional workflows, not as the product itself.
 
 ## Release Rhythm
 

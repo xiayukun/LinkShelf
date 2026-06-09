@@ -10,7 +10,7 @@ Lead with the broadest useful promise:
 
 > Move scattered local paths into one portable folder, then keep apps working through symbolic links.
 
-Syncthing should be presented as the recommended sync companion, not as the only reason the project exists.
+External backup or sync tools should be presented as optional companions, not as the reason the project exists.
 
 Good GitHub topics:
 
@@ -18,8 +18,9 @@ Good GitHub topics:
 - `symlink`
 - `backup`
 - `portable`
-- `sync`
-- `syncthing`
+- `app-state`
+- `config-backup`
+- `config-migration`
 - `dotnet`
 - `wpf`
 
@@ -83,5 +84,5 @@ Highlights:
 - CLI health checks with JSON output.
 - English and Chinese UI with automatic language selection.
 - English config schema with English runtime folder names.
-- Syncthing-friendly workflow without requiring Syncthing.
+- Backup/sync-tool-friendly workflow without requiring a specific tool.
 ```

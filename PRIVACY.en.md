@@ -27,7 +27,7 @@ Link Shelf writes:
 
 Link Shelf does not require network access for normal operation.
 
-It does not upload files, paths, logs, configuration, or machine names to a remote service. If the cache root is stored in Syncthing, a cloud drive, or another sync tool, that external tool is responsible for any network transfer.
+It does not upload files, paths, logs, configuration, or machine names to a remote service. If the cache root is stored in a cloud drive, sync tool, or backup tool, that external tool is responsible for any network transfer.
 
 ## Sensitive Paths
 

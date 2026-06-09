@@ -7,7 +7,7 @@ This release improves the public GitHub presentation for Chinese-first promotion
 - `README.md` is now the Chinese-first GitHub landing page.
 - `README.en.md` contains the full English documentation.
 - The old Chinese compatibility README was removed because `README.md` is now the Chinese landing page.
-- The README now foregrounds Windows symbolic links, symlink backup, hard-link projection, dotfiles, app-state backup, Syncthing, and AI coding tool configuration sync.
+- The README now foregrounds Windows symbolic links, symlink backup, hard-link projection, dotfiles, app-state backup, config migration, and AI coding tool configuration.
 - The AI and automation section now includes a copy-ready prompt for a user's AI assistant.
 - `LinkShelf.exe -help` now works as a CLI help alias.
 - CLI help now explains the cache-root model, `check --json`, and read-only automation behavior.

@@ -6,6 +6,13 @@ Link Shelf 的重要变更会记录在这里。
 
 English changelog: [CHANGELOG.en.md](CHANGELOG.en.md)
 
+## 未发布
+
+### 调整
+
+- 精简 README 首屏介绍，弱化同步工具叙事，强调 Link Shelf 负责本机配置迁移、符号链接恢复和健康检查。
+- 将特定同步工具从主页主卖点和 GitHub topics 中移除，改为通用备份/同步风险提示。
+
 ## 1.1.5 - 2026-06-09
 
 English: [Changelog](CHANGELOG.en.md#115---2026-06-09) | [Release notes](docs/release-notes-v1.1.5.en.md)

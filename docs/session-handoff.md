@@ -40,10 +40,10 @@ English: [session-handoff.en.md](session-handoff.en.md)
 2. 选择需要同步或备份的文件、目录。
 3. 程序把它们移动到缓存根目录。
 4. 程序在原始位置创建链接。
-5. `Syncthing` 或其他同步工具同步整个缓存根目录。
+5. 使用你信任的外部工具备份、复制或同步整个缓存根目录。
 6. 另一台电脑拿到同一个缓存根目录后，运行 `Link Shelf` 恢复本机链接。
 
-`Syncthing` 是推荐搭配工具，但不是唯一用途。
+备份和同步工具只是可选搭配；Link Shelf 本身只处理本机路径搬迁和链接。
 
 ## 关键设计决策
 
@@ -55,7 +55,7 @@ English: [session-handoff.en.md](session-handoff.en.md)
 - 当前配置版本是 `2`。
 - 不再兼容旧中文键配置。
 - 用户目录下的路径保存时使用 `~`，方便跨电脑兼容。
-- 最小管理单位是整个文件或整个目录；目录内部的排除规则交给 `Syncthing` 或其他同步工具处理。
+- 最小管理单位是整个文件或整个目录；目录内部的排除规则交给外部备份/同步工具处理。
 - 添加文件和添加目录支持多选；批量添加中遇到取消或失败时应停止后续项目。
 - `投射程序` 使用同盘硬链接把 `LinkShelf.exe` 投射到另一个目录。从投射链接启动时，该目录会成为独立缓存根目录。
 - Windows 快捷方式文件（`.lnk`）不支持加入 Link Shelf。文件选择器需要保留 `.lnk` 本体路径，以便识别后弹出本地化警告并跳过。
@@ -117,8 +117,8 @@ GitHub 上已经有自动构建和自动发布能力：
 - `README.md` 已改为中文优先的 GitHub 默认主页。
 - `README.en.md` 是完整英文配套文档。
 - 已删除旧中文兼容 README 入口；默认中文主页直接使用 `README.md`。
-- GitHub 仓库描述已改为：`Portable Windows app-state and dotfiles manager: move scattered config into one syncable cache root, then restore original paths with symlinks.`
-- GitHub topics 已补充：`windows`、`symlink`、`symbolic-link`、`hardlink`、`backup`、`sync`、`dotfiles`、`dotfiles-manager`、`syncthing`、`wpf`、`dotnet`、`ai-tools`、`developer-tools`、`config-management`。
+- GitHub 仓库描述已改为：`Windows 配置迁移和符号链接工具 / Windows config mover: collect app settings, dotfiles, and small state folders, then restore paths with symlinks.`
+- GitHub topics 已补充：`windows`、`symlink`、`symbolic-link`、`hardlink`、`backup`、`app-state`、`config-backup`、`config-migration`、`dotfiles`、`dotfiles-manager`、`wpf`、`dotnet`、`ai-tools`、`developer-tools`、`config-management`。
 - `CommandLineMode` 已增加 `-help` 别名，并把 `help` 输出扩展为适合 AI 助手和自动化读取的安全说明。
 - `v1.1.5` 发布说明记录在 `docs/release-notes-v1.1.5.md` 和 `docs/release-notes-v1.1.5.en.md`。
 - 文档策略已改为：面向读者的 Markdown 使用中文默认 `.md`，英文配套使用 `.en.md`，不再保留旧中文命名兼容文件。
