@@ -1,4 +1,4 @@
-英文发布说明：[docs/release-notes-v1.1.0.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.0/docs/release-notes-v1.1.0.md)
+English release notes: [docs/release-notes-v1.1.0.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.0/docs/release-notes-v1.1.0.md)
 
 这个版本让 Link Shelf 的定位更清楚：它是 Windows 上的便携应用状态收纳工具。本版本增加了常见本地配置路径的推荐项目，并把原来的“只移除记录”改为真正的“搬回原位/撤销”流程。
 

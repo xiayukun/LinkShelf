@@ -4,7 +4,7 @@ All notable changes to Link Shelf will be documented in this file.
 
 The project follows semantic versioning for public releases.
 
-Chinese changelog: [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
+中文更新日志：[CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
 ## 1.1.4 - 2026-06-09
 

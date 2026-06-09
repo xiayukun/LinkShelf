@@ -1,4 +1,4 @@
-Chinese release notes: [docs/release-notes-v1.1.4.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.4/docs/release-notes-v1.1.4.zh-CN.md)
+中文发布说明：[docs/release-notes-v1.1.4.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.4/docs/release-notes-v1.1.4.zh-CN.md)
 
 This release tightens recovery behavior for edge cases around extra cache items, missing cache content, and Windows shortcut files.
 

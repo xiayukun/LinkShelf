@@ -1,4 +1,4 @@
-英文发布说明：[docs/release-notes-v1.1.4.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.4/docs/release-notes-v1.1.4.md)
+English release notes: [docs/release-notes-v1.1.4.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.4/docs/release-notes-v1.1.4.md)
 
 这个版本收紧了多出缓存项、缓存内容缺失和 Windows 快捷方式文件相关边界场景的恢复行为。
 

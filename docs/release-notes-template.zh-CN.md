@@ -4,7 +4,7 @@ English template: [release-notes-template.md](release-notes-template.md)
 
 把这个模板复制到 GitHub Release，然后按实际版本编辑。
 
-英文发布说明：创建 `docs/release-notes-vX.Y.Z.md`，替换 `vX.Y.Z` 后再在这里加入链接。
+English release notes: create `docs/release-notes-vX.Y.Z.md` and link it here after replacing `vX.Y.Z`.
 
 ## 亮点
 

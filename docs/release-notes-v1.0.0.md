@@ -1,4 +1,4 @@
-Chinese release notes: [docs/release-notes-v1.0.0.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.0.0/docs/release-notes-v1.0.0.zh-CN.md)
+中文发布说明：[docs/release-notes-v1.0.0.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.0.0/docs/release-notes-v1.0.0.zh-CN.md)
 
 Initial public release.
 

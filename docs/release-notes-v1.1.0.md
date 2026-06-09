@@ -1,4 +1,4 @@
-Chinese release notes: [docs/release-notes-v1.1.0.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.0/docs/release-notes-v1.1.0.zh-CN.md)
+中文发布说明：[docs/release-notes-v1.1.0.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.0/docs/release-notes-v1.1.0.zh-CN.md)
 
 This release turns Link Shelf more clearly into a portable app-state shelf for Windows. It adds recommended items for common local configuration paths and replaces record-only removal with a real move back / undo flow.
 

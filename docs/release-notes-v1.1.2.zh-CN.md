@@ -1,4 +1,4 @@
-英文发布说明：[docs/release-notes-v1.1.2.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.2/docs/release-notes-v1.1.2.md)
+English release notes: [docs/release-notes-v1.1.2.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.2/docs/release-notes-v1.1.2.md)
 
 这个版本补齐“搬回原位/撤销”的文件占用处理覆盖范围。
 

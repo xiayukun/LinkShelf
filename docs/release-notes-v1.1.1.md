@@ -1,4 +1,4 @@
-Chinese release notes: [docs/release-notes-v1.1.1.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.1/docs/release-notes-v1.1.1.zh-CN.md)
+中文发布说明：[docs/release-notes-v1.1.1.zh-CN.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.1/docs/release-notes-v1.1.1.zh-CN.md)
 
 This release focuses on polishing recovery behavior and status clarity after the 1.1.0 app-state shelf update.
 

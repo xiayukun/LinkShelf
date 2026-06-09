@@ -4,11 +4,11 @@ Link Shelf 的重要变更会记录在这里。
 
 本项目的公开版本遵循语义化版本。
 
-英文更新日志：[CHANGELOG.md](CHANGELOG.md)
+English changelog: [CHANGELOG.md](CHANGELOG.md)
 
 ## 1.1.4 - 2026-06-09
 
-英文：[更新日志](CHANGELOG.md#114---2026-06-09) | [发布说明](docs/release-notes-v1.1.4.md)
+English: [Changelog](CHANGELOG.md#114---2026-06-09) | [Release notes](docs/release-notes-v1.1.4.md)
 
 ### 新增
 
@@ -25,7 +25,7 @@ Link Shelf 的重要变更会记录在这里。
 
 ## 1.1.3 - 2026-06-09
 
-英文：[更新日志](CHANGELOG.md#113---2026-06-09) | [发布说明](docs/release-notes-v1.1.3.md)
+English: [Changelog](CHANGELOG.md#113---2026-06-09) | [Release notes](docs/release-notes-v1.1.3.md)
 
 ### 新增
 
@@ -39,7 +39,7 @@ Link Shelf 的重要变更会记录在这里。
 
 ## 1.1.2 - 2026-06-08
 
-英文：[更新日志](CHANGELOG.md#112---2026-06-08) | [发布说明](docs/release-notes-v1.1.2.md)
+English: [Changelog](CHANGELOG.md#112---2026-06-08) | [Release notes](docs/release-notes-v1.1.2.md)
 
 ### 修复
 
@@ -52,7 +52,7 @@ Link Shelf 的重要变更会记录在这里。
 
 ## 1.1.1 - 2026-06-07
 
-英文：[更新日志](CHANGELOG.md#111---2026-06-07) | [发布说明](docs/release-notes-v1.1.1.md)
+English: [Changelog](CHANGELOG.md#111---2026-06-07) | [Release notes](docs/release-notes-v1.1.1.md)
 
 ### 修复
 
@@ -67,7 +67,7 @@ Link Shelf 的重要变更会记录在这里。
 
 ## 1.1.0 - 2026-06-06
 
-英文：[更新日志](CHANGELOG.md#110---2026-06-06) | [发布说明](docs/release-notes-v1.1.0.md)
+English: [Changelog](CHANGELOG.md#110---2026-06-06) | [Release notes](docs/release-notes-v1.1.0.md)
 
 ### 新增
 
@@ -85,7 +85,7 @@ Link Shelf 的重要变更会记录在这里。
 
 ## 1.0.1 - 2026-06-05
 
-英文：[更新日志](CHANGELOG.md#101---2026-06-05) | [发布说明](docs/release-notes-v1.0.1.md)
+English: [Changelog](CHANGELOG.md#101---2026-06-05) | [Release notes](docs/release-notes-v1.0.1.md)
 
 ### 新增
 
@@ -102,7 +102,7 @@ Link Shelf 的重要变更会记录在这里。
 
 ## 1.0.0 - 2026-06-04
 
-英文：[更新日志](CHANGELOG.md#100---2026-06-04) | [发布说明](docs/release-notes-v1.0.0.md)
+English: [Changelog](CHANGELOG.md#100---2026-06-04) | [Release notes](docs/release-notes-v1.0.0.md)
 
 首个公开就绪版本。
 

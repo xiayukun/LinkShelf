@@ -4,7 +4,7 @@
 
 Copy this template into a GitHub release and edit it for the version being published.
 
-Chinese release notes: create `docs/release-notes-vX.Y.Z.zh-CN.md` and link it here after replacing `vX.Y.Z`.
+中文发布说明：创建 `docs/release-notes-vX.Y.Z.zh-CN.md`，替换 `vX.Y.Z` 后在这里加入链接。
 
 ## Highlights
 

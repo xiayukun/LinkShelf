@@ -1,4 +1,4 @@
-英文发布说明：[docs/release-notes-v1.1.3.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.3/docs/release-notes-v1.1.3.md)
+English release notes: [docs/release-notes-v1.1.3.md](https://github.com/xiayukun/LinkShelf/blob/v1.1.3/docs/release-notes-v1.1.3.md)
 
 这个版本改进了批量添加流程，并增加了轻量复用同一个可执行文件的投射功能。
 
