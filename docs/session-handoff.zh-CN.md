@@ -9,10 +9,10 @@ English: [session-handoff.md](session-handoff.md)
 - 项目名：`Link Shelf`
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
-- 最新 GitHub Release：`v1.1.2`
-- 当前源码和本地运行程序版本：`1.1.2`
-- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.2`
-- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.2/LinkShelf.exe`
+- 最新 GitHub Release：`v1.1.3`
+- 当前源码和本地运行程序版本：`1.1.3`
+- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.3`
+- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.3/LinkShelf.exe`
 - 主分支：`main`
 
 ## 本地结构
@@ -50,6 +50,8 @@ English: [session-handoff.md](session-handoff.md)
 - 不再兼容旧中文键配置。
 - 用户目录下的路径保存时使用 `~`，方便跨电脑兼容。
 - 最小管理单位是整个文件或整个目录；目录内部的排除规则交给 `Syncthing` 或其他同步工具处理。
+- 添加文件和添加目录支持多选；批量添加中遇到取消或失败时应停止后续项目。
+- `投射程序` 使用同盘硬链接把 `LinkShelf.exe` 投射到另一个目录。从投射链接启动时，该目录会成为独立缓存根目录。
 
 ## 已发布内容
 
@@ -58,7 +60,7 @@ GitHub 上已经有自动构建和自动发布能力：
 - 构建工作流：`.github/workflows/build.yml`
 - 发布工作流：`.github/workflows/release.yml`
 - 首版发布说明：`docs/release-notes-v1.0.0.md`
-- 最新发布说明：`docs/release-notes-v1.1.2.md`
+- 最新发布说明：`docs/release-notes-v1.1.3.md`
 
 `release` 工作流可以创建或更新 GitHub Release，并上传 `LinkShelf.exe`。
 
@@ -111,6 +113,10 @@ GitHub 上已经有自动构建和自动发布能力：
 恢复链接时也可能遇到拒绝访问，尤其是另一台电脑上已有程序正在使用目标路径时。图形界面应打开文件占用处理窗口，用户结束占用进程后继续重试同一个恢复项目。
 
 搬回原位/撤销时也可能遇到拒绝访问。原始链接仍存在时优先扫描原始路径；如果原始链接已移除但缓存项搬回失败，应扫描缓存项路径，然后重试同一个撤销项目。
+
+添加项目如果已经把内容移入缓存，但随后创建链接或保存配置失败，应尽量把已移动内容回滚到原始路径。用户在占用处理窗口点击取消后，不应继续处理批量选择中的后续项目。
+
+投射功能已经验证过硬链接行为：从硬链接位置启动 `LinkShelf.exe cache-root` 时，程序返回硬链接所在目录，而不是原始可执行文件所在目录。因此投射链接可以作为另一个缓存根目录的入口；但硬链接不能跨盘符。
 
 检查结果异常时，配置里的 `status` 仍然保持 `enabled`，但表格状态列应显示异常，避免用户误以为该项目健康。
 

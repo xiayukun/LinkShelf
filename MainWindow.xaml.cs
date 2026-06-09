@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using LinkShelf.Models;
 using LinkShelf.Services;
-using Forms = System.Windows.Forms;
 
 namespace LinkShelf;
 
@@ -63,6 +63,7 @@ public partial class MainWindow : Window
         CheckButton.Content = text.T("main.check");
         RestoreButton.Content = text.T("main.restore");
         RevertButton.Content = text.T("main.revert");
+        ProjectButton.Content = text.T("main.project");
 
         AddSyncButton.ToolTip = null;
         SetToolTip(AddRecommendedMenuItem, "help.addRecommended");
@@ -71,6 +72,7 @@ public partial class MainWindow : Window
         SetToolTip(CheckButton, "help.check");
         SetToolTip(RestoreButton, "help.restore");
         SetToolTip(RevertButton, "help.revert");
+        SetToolTip(ProjectButton, "help.project");
 
         CacheNameColumn.Header = text.T("grid.cacheName");
         OriginalPathColumn.Header = text.T("grid.originalPath");
@@ -112,20 +114,25 @@ public partial class MainWindow : Window
 
     private async void AddDirectoryButton_Click(object sender, RoutedEventArgs e)
     {
-        using var dialog = new Forms.FolderBrowserDialog
+        var dialog = new Microsoft.Win32.OpenFolderDialog
         {
-            Description = text.T("dialog.pickDirectory"),
-            UseDescriptionForTitle = true,
-            ShowNewFolderButton = false
+            Title = text.T("dialog.pickDirectory"),
+            Multiselect = true
         };
 
-        if (dialog.ShowDialog() != Forms.DialogResult.OK)
+        if (dialog.ShowDialog(this) != true)
         {
             return;
         }
 
-        log.WriteDiagnostic($"add-directory selected path={dialog.SelectedPath}");
-        await RunAddOperationAsync(text.T("op.addDirectory"), dialog.SelectedPath, SyncItemKind.Directory);
+        foreach (var selectedPath in dialog.FolderNames)
+        {
+            log.WriteDiagnostic($"add-directory selected path={selectedPath}");
+            if (!await RunAddOperationAsync(text.T("op.addDirectory"), selectedPath, SyncItemKind.Directory))
+            {
+                return;
+            }
+        }
     }
 
     private void AddSyncButton_Click(object sender, RoutedEventArgs e)
@@ -155,7 +162,10 @@ public partial class MainWindow : Window
 
         foreach (var item in window.SelectedItems)
         {
-            await RunAddOperationAsync(text.F("op.addRecommendedItem", text.T(item.NameKey)), item.ExpandedPath, item.Kind);
+            if (!await RunAddOperationAsync(text.F("op.addRecommendedItem", text.T(item.NameKey)), item.ExpandedPath, item.Kind))
+            {
+                return;
+            }
         }
     }
 
@@ -175,6 +185,29 @@ public partial class MainWindow : Window
         {
             Title = text.T("dialog.pickFile"),
             CheckFileExists = true,
+            Multiselect = true
+        };
+
+        if (dialog.ShowDialog(this) != true)
+        {
+            return;
+        }
+
+        foreach (var fileName in dialog.FileNames)
+        {
+            log.WriteDiagnostic($"add-file selected path={fileName}");
+            if (!await RunAddOperationAsync(text.T("op.addFile"), fileName, SyncItemKind.File))
+            {
+                return;
+            }
+        }
+    }
+
+    private void ProjectButton_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new Microsoft.Win32.OpenFolderDialog
+        {
+            Title = text.T("dialog.pickProjectionDirectory"),
             Multiselect = false
         };
 
@@ -183,8 +216,34 @@ public partial class MainWindow : Window
             return;
         }
 
-        log.WriteDiagnostic($"add-file selected path={dialog.FileName}");
-        await RunAddOperationAsync(text.T("op.addFile"), dialog.FileName, SyncItemKind.File);
+        try
+        {
+            var executablePath = Environment.ProcessPath;
+            if (string.IsNullOrWhiteSpace(executablePath))
+            {
+                executablePath = Process.GetCurrentProcess().MainModule?.FileName;
+            }
+
+            if (string.IsNullOrWhiteSpace(executablePath))
+            {
+                throw new InvalidOperationException(text.T("projection.cannotLocateSelf"));
+            }
+
+            var projectionPath = ProjectionService.ProjectExecutableToDirectory(executablePath, dialog.FolderName);
+            AppendLog(text.F("log.projected", projectionPath));
+            System.Windows.MessageBox.Show(this, text.F("projection.created", projectionPath), text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (ProjectionException ex)
+        {
+            var message = ex.Detail is null ? text.T(ex.TextKey) : text.F(ex.TextKey, ex.Detail);
+            AppendLog(text.F("log.failed", text.T("main.project"), message));
+            System.Windows.MessageBox.Show(this, message, text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            AppendLog(text.F("log.failed", text.T("main.project"), ex.Message));
+            System.Windows.MessageBox.Show(this, ex.Message, text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private async void RestoreButton_Click(object sender, RoutedEventArgs e)
@@ -271,7 +330,7 @@ public partial class MainWindow : Window
         return window.ShowDialog() == true ? window.Decision : ConflictDecision.Cancel;
     }
 
-    private async Task RunAddOperationAsync(string name, string sourcePath, SyncItemKind kind)
+    private async Task<bool> RunAddOperationAsync(string name, string sourcePath, SyncItemKind kind)
     {
         var attempt = 0;
         while (true)
@@ -298,7 +357,7 @@ public partial class MainWindow : Window
                 ReloadGrid();
                 log.WriteDiagnostic($"add attempt={attempt} stage=done");
                 AppendLog(text.F("log.done", name));
-                return;
+                return true;
             }
             catch (Exception ex)
             {
@@ -318,14 +377,14 @@ public partial class MainWindow : Window
                     }
 
                     AppendLog(text.F("log.lockedPathCanceled", sourcePath));
-                    return;
+                    return false;
                 }
 
                 AppendLog(text.F("log.failed", name, ex.Message));
                 System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                 config = store.Load();
                 ReloadGrid();
-                return;
+                return false;
             }
         }
     }

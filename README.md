@@ -63,7 +63,7 @@ Syncthing is the recommended companion, but not a requirement. You can also use 
 
 ## Features
 
-- Add files or directories into the cache root.
+- Add one or more files or directories into the cache root.
 - Create symbolic links at the original locations.
 - Restore all configured links on another Windows machine.
 - Detect broken links, missing cache items, wrong link targets, and target-path conflicts.
@@ -71,6 +71,7 @@ Syncthing is the recommended companion, but not a requirement. You can also use 
 - Add detected recommended paths such as Cursor, VS Code, Git, npm, Codex, Claude, JetBrains, and Clash state.
 - When Windows blocks an add, restore, or move back / undo operation with `Access denied`, detect processes that are using the target path and offer to terminate them before retrying.
 - Move selected items back to their original paths and remove their cache/config records.
+- Project the app into another folder with a hard link so that folder can act as a separate cache root without copying the full executable.
 - Use the same executable as a GUI app or a CLI checker.
 - Store portable paths with `~` so user-profile folders work across machines.
 - Use English config, logs, executable names, and folders.
@@ -98,7 +99,7 @@ Common workflow:
 
 1. Click `Add item`.
 2. Choose `Add recommended items`, `Add directory`, or `Add file`.
-3. Pick the original path.
+3. Pick one or more original paths.
 4. Link Shelf moves it into the cache root.
 5. Link Shelf creates a symbolic link at the original path.
 6. Sync, back up, or move the cache root with your preferred tool.
@@ -125,6 +126,12 @@ From that window, you can review the processes, terminate selected processes fro
 The same recovery window is also used when `Restore links` or `Move back / Undo` fails with `Access denied`, so locked target paths can be handled before retrying the operation.
 
 ![Locked path recovery window](Assets/lock-resolution-window-cn.png)
+
+### Project App
+
+Click `Project app` next to the language selector to create a hard link to `LinkShelf.exe` in another folder. Launching the projected executable uses that folder as its cache root, so you can manage a separate cache root without storing a second full copy of the single-file executable.
+
+Projection uses a Windows hard link, so the target folder must be on the same drive as the current `LinkShelf.exe`. Link Shelf will not overwrite an existing `LinkShelf.exe` in the selected folder.
 
 ### Move Back / Undo
 

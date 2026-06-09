@@ -6,6 +6,20 @@ The project follows semantic versioning for public releases.
 
 Chinese changelog: [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
+## 1.1.3 - 2026-06-09
+
+中文：[更新日志](CHANGELOG.zh-CN.md#113---2026-06-09) | [发布说明](docs/release-notes-v1.1.3.zh-CN.md)
+
+### Added
+
+- Add directory and add file now support selecting multiple paths in one dialog.
+- Added `Project app`, which creates a hard link to `LinkShelf.exe` in another folder. Launching that linked executable uses the linked folder as a separate cache root without copying the full executable.
+
+### Fixed
+
+- If the locked-path recovery window is canceled during a batch add, Link Shelf stops the remaining batch instead of continuing with later selections.
+- If an add operation has already moved content into the cache but then fails before the link/config record is completed, Link Shelf now tries to roll that move back to the original path.
+
 ## 1.1.2 - 2026-06-08
 
 中文：[更新日志](CHANGELOG.zh-CN.md#112---2026-06-08) | [发布说明](docs/release-notes-v1.1.2.zh-CN.md)

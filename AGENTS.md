@@ -67,11 +67,22 @@ Paths under the current user profile must be stored with `~` so that configs can
 
 Add item:
 
-1. User selects a file or directory.
+1. User selects one or more files or directories.
 2. The app rejects the cache root itself, paths inside the cache root, and parent directories that contain the cache root.
 3. The app moves the selected path into the cache root.
 4. The app creates a symbolic link at the original path.
 5. The app saves a config record.
+6. Batch add must stop immediately when a selected item is canceled or fails; it must not continue processing later selections.
+7. If a normal add has moved the source into the cache but fails before the link/config record is completed, try to roll the moved content back to the original path.
+
+Project app:
+
+- The `Project app` button creates a hard link named `LinkShelf.exe` in a user-selected directory.
+- Starting Link Shelf from that hard link uses the hard-link directory as `AppContext.BaseDirectory`, so that directory becomes an independent cache root.
+- Use a hard link for projection, not a shortcut and not a copied executable.
+- Projection is same-drive only because Windows hard links cannot cross volumes.
+- Do not overwrite an existing `LinkShelf.exe` or any other file system entry in the target directory.
+- Projection UI text must stay in `LocalizationService`.
 
 Recommended add item:
 
@@ -93,6 +104,7 @@ Locked-path handling during add item:
 - The user can refresh the scan, cancel, terminate selected processes from the context menu, or use "terminate all and continue".
 - "Terminate all and continue" terminates the listed processes, waits briefly, closes the lock window with `Continue`, reloads config/grid state, and retries the original add-item move.
 - If the retry still fails with access denied, show the lock window again instead of silently giving up.
+- If the user cancels the lock window during add, stop that add operation and any remaining batch selections.
 - Detection or termination errors should be shown in the lock window and should not crash the main window.
 
 Restore links:
@@ -199,6 +211,7 @@ Rules:
 - `Services/RecommendedSyncItems.cs`: built-in recommended paths and local/config filtering.
 - `Services/StatusCheckService.cs`: read-only health checks.
 - `Services/PathTools.cs`: path normalization, `~` expansion, unique cache names.
+- `Services/ProjectionService.cs`: hard-link projection of the current executable into another cache root.
 - `Services/LocalizationService.cs`: English and Chinese UI strings.
 - `Services/LogService.cs`: operation logs and diagnostic logs for add-item troubleshooting.
 - `CommandLineMode.cs`: CLI entry points and machine-readable status output.

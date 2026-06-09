@@ -62,33 +62,43 @@ public sealed class FileOperations
         var cacheName = sameRecord?.CacheName ?? ChooseCacheName(desiredName, portable);
         var item = sameRecord ?? CreateItem(cacheName, portable, kind);
         var cachePath = Path.Combine(paths.CacheRoot, cacheName);
+        var movedSourceToCache = false;
 
-        if (PathExists(cachePath))
+        try
         {
-            var decision = resolveConflict(item, source, cachePath, "cache-already-exists");
-            if (!ApplyConflictDecision(item, source, cachePath, decision))
+            if (PathExists(cachePath))
             {
-                throw new InvalidOperationException("The conflict was canceled or skipped.");
+                var decision = resolveConflict(item, source, cachePath, "cache-already-exists");
+                if (!ApplyConflictDecision(item, source, cachePath, decision))
+                {
+                    throw new InvalidOperationException("The conflict was canceled or skipped.");
+                }
             }
+            else
+            {
+                MovePath(source, cachePath, kind);
+                movedSourceToCache = true;
+                log.Write($"Moved into cache: {source} -> {cachePath}");
+            }
+
+            CreateLink(source, cachePath, kind);
+            item.LastOperation = "add-sync-item";
+            item.UpdatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            if (!config.Items.Contains(item))
+            {
+                config.Items.Add(item);
+            }
+
+            store.Save(config);
+            log.Write($"Created link: {source} -> {cachePath}");
+            return item;
         }
-        else
+        catch
         {
-            MovePath(source, cachePath, kind);
-            log.Write($"Moved into cache: {source} -> {cachePath}");
+            TryRollbackMovedAdd(source, cachePath, kind, movedSourceToCache);
+            throw;
         }
-
-        CreateLink(source, cachePath, kind);
-        item.LastOperation = "add-sync-item";
-        item.UpdatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-        if (!config.Items.Contains(item))
-        {
-            config.Items.Add(item);
-        }
-
-        store.Save(config);
-        log.Write($"Created link: {source} -> {cachePath}");
-        return item;
     }
 
     public void RestoreItem(SyncItem item)
@@ -358,6 +368,24 @@ public sealed class FileOperations
         else
         {
             File.Move(source, destination, overwrite: false);
+        }
+    }
+
+    private void TryRollbackMovedAdd(string source, string cachePath, SyncItemKind kind, bool movedSourceToCache)
+    {
+        if (!movedSourceToCache || !PathExists(cachePath) || PathExists(source))
+        {
+            return;
+        }
+
+        try
+        {
+            MovePath(cachePath, source, kind);
+            log.Write($"Rolled back add move after failure: {cachePath} -> {source}");
+        }
+        catch (Exception rollbackError)
+        {
+            log.Write($"Failed to roll back add move after failure: {cachePath} -> {source}. {rollbackError.Message}");
         }
     }
 
