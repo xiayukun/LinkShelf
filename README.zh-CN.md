@@ -2,9 +2,11 @@
 
 [English](README.md)
 
-Windows 上的便携应用状态收纳工具：把分散的配置和小型状态路径收进一个可同步根目录，同时让应用继续按原路径工作。
+Windows 上的便携应用状态收纳工具：把分散的配置和小型状态路径收进一个可同步根目录，同时通过符号链接让应用继续按原路径工作。
 
-Link Shelf 是一个 Windows 桌面和命令行工具。它可以把应用状态、开发工具设置、工具资料、小型工作目录等内容集中到一个更容易备份、同步或迁移的文件夹里。
+Link Shelf 是一个 Windows 桌面和命令行工具。它可以把应用状态、开发工具设置、AI 编程工具资料、终端/编辑器配置、小型工作目录等内容集中到一个更容易备份、同步或迁移的文件夹里。
+
+关键词：Windows 符号链接管理器、软链接备份、硬链接投射、Windows dotfiles 管理、便携应用状态、开发环境同步、AI 编程工具配置同步、Syncthing 搭配工具。
 
 **下载：** [LinkShelf.exe](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) | [最新发布页](https://github.com/xiayukun/LinkShelf/releases/latest)
 
@@ -64,6 +66,7 @@ Syncthing 是推荐搭配方式，但不是必需条件。你也可以把 Link S
 - 检查损坏链接、缺失缓存项、错误链接目标和目标路径冲突。
 - 遇到冲突时逐项确认，不静默覆盖。
 - 添加本机检测到的推荐路径，例如 Cursor、VS Code、Git、npm、Codex、Claude、JetBrains 和 Clash 状态。
+- 当本机存在对应路径时，收纳 Codex、Claude、Gemini、Cursor、Cline、Roo Code、Continue、aider、Windsurf、GitHub Copilot 等 AI 编程工具状态。
 - 当添加、恢复链接或搬回原位/撤销时遇到 Windows 返回拒绝访问，检测正在使用目标路径的进程，并可结束进程后重试。
 - 把选中的项目搬回原始位置，并移除对应缓存项和配置记录。
 - 通过硬链接把程序投射到另一个目录，让那个目录成为独立缓存根目录，而不需要复制完整可执行文件。
@@ -152,6 +155,7 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe version
 .\LinkShelf.exe help
+.\LinkShelf.exe -help
 ```
 
 退出码：
@@ -170,7 +174,28 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 
 ## AI 和自动化
 
-本仓库包含 [AGENTS.md](AGENTS.md)，这是给 AI 编程助手看的项目说明。如果你使用 Codex 或其他 AI 编程助手维护这个项目，建议先让它读取 `AGENTS.md`，这样它能理解项目目标、安全边界、配置格式和发布流程。
+很多 AI 编程工具会把重要状态放在项目目录之外。Link Shelf 可以把 Codex、Claude、Gemini、Cursor、Cline、Roo Code、Continue、aider、Windsurf、GitHub Copilot 和编辑器设置收进同一个缓存根目录，然后在另一台 Windows 电脑上通过符号链接恢复原路径。
+
+让用户自己的 AI 助手检查 Link Shelf 时，最安全的入口是命令行：
+
+```powershell
+.\LinkShelf.exe cache-root
+.\LinkShelf.exe check --json
+.\LinkShelf.exe help
+```
+
+可以直接给 AI 助手的提示词：
+
+```text
+我在 Windows 上使用 Link Shelf，把分散的应用状态、dotfiles、AI 编程工具设置和小型配置文件夹移动到一个缓存根目录，再通过符号链接恢复原路径。
+
+请先运行 `LinkShelf.exe cache-root` 找到缓存根目录。
+再运行 `LinkShelf.exe check --json`，只解释不健康的项目。
+除非我明确要求，不要移动、删除、覆盖、恢复或重新创建链接。
+如果我要你推荐可收纳路径，优先考虑开发工具、AI 编程工具、编辑器、终端、包管理器和小型应用状态目录。同步前提醒我检查密钥、令牌、本地历史记录和账号相关文件。
+```
+
+本仓库还包含 [AGENTS.md](AGENTS.md)，这是给维护本项目的 AI 编程助手看的项目说明。如果你使用 Codex 或其他 AI 编程助手维护这个项目，建议先让它读取 `AGENTS.md`，这样它能理解项目目标、安全边界、配置格式和发布流程。
 
 Codex 自动化也适合用来定时检查链接健康状态。可以让自动化任务定时在缓存根目录运行：
 

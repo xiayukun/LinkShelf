@@ -7,9 +7,11 @@
 
 [中文说明](README.zh-CN.md)
 
-Portable app-state shelf for Windows: collect scattered configuration and small state paths into one syncable root, while apps keep using their original paths.
+Portable app-state shelf for Windows: collect scattered configuration and small state paths into one syncable root, while apps keep using their original paths through symbolic links.
 
-Link Shelf is a Windows desktop and command-line tool for relocating application state, developer settings, tool profiles, and small working directories into a folder you can back up, sync, or move between machines.
+Link Shelf is a Windows desktop and command-line tool for relocating application state, developer settings, AI coding tool profiles, terminal/editor configuration, and small working directories into a folder you can back up, sync, or move between machines.
+
+Keywords: Windows symbolic link manager, symlink backup, hard link projection, dotfiles manager for Windows, portable app state, developer settings sync, AI coding tool config sync, Syncthing companion.
 
 **Download:** [LinkShelf.exe](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) | [Latest release](https://github.com/xiayukun/LinkShelf/releases/latest)
 
@@ -69,6 +71,7 @@ Syncthing is the recommended companion, but not a requirement. You can also use 
 - Detect broken links, missing cache items, wrong link targets, and target-path conflicts.
 - Resolve conflicts interactively, one item at a time.
 - Add detected recommended paths such as Cursor, VS Code, Git, npm, Codex, Claude, JetBrains, and Clash state.
+- Collect AI coding tool state for Codex, Claude, Gemini, Cursor, Cline, Roo Code, Continue, aider, Windsurf, and GitHub Copilot when those paths exist locally.
 - When Windows blocks an add, restore, or move back / undo operation with `Access denied`, detect processes that are using the target path and offer to terminate them before retrying.
 - Move selected items back to their original paths and remove their cache/config records.
 - Project the app into another folder with a hard link so that folder can act as a separate cache root without copying the full executable.
@@ -157,6 +160,7 @@ The same executable supports automation-friendly commands:
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe version
 .\LinkShelf.exe help
+.\LinkShelf.exe -help
 ```
 
 Exit codes:
@@ -175,7 +179,28 @@ Only notify the user when `problemCount` is greater than `0`.
 
 ## AI and Automation
 
-This repository includes [AGENTS.md](AGENTS.md) for AI coding agents. If you use Codex or another coding agent to maintain the project, let the agent read `AGENTS.md` first so it understands the product goal, safety rules, config schema, and release workflow.
+Link Shelf is useful when AI coding tools store important local state outside your projects. It can place Codex, Claude, Gemini, Cursor, Cline, Roo Code, Continue, aider, Windsurf, GitHub Copilot, and editor settings into one cache root, then restore the original paths with symbolic links on another Windows machine.
+
+For a user's AI assistant, the safest way to inspect Link Shelf is the CLI:
+
+```powershell
+.\LinkShelf.exe cache-root
+.\LinkShelf.exe check --json
+.\LinkShelf.exe help
+```
+
+Prompt you can give to an AI assistant:
+
+```text
+I use Link Shelf on Windows to move scattered app state, dotfiles, AI coding tool settings, and small config folders into one cache root, then restore the original paths with symbolic links.
+
+First run `LinkShelf.exe cache-root` to locate the cache root.
+Then run `LinkShelf.exe check --json` and explain only unhealthy items.
+Do not move, delete, overwrite, restore, or relink anything unless I explicitly ask.
+If I ask you to recommend paths, prefer developer tools, AI coding tools, editors, terminals, package managers, and small app-state folders. Warn me before syncing secrets, tokens, local history, or account-specific files.
+```
+
+This repository includes [AGENTS.md](AGENTS.md) for AI coding agents that maintain the source code. If you use Codex or another coding agent to maintain the project, let the agent read `AGENTS.md` first so it understands the product goal, safety rules, config schema, and release workflow.
 
 Codex automation is also a good fit for day-to-day link health monitoring. A scheduled automation can run:
 

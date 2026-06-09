@@ -17,7 +17,7 @@ internal static class CommandLineMode
         }
 
         var command = args[0].Trim().ToLowerInvariant();
-        return command is "check" or "status" or "cache-root" or "version" or "help" or "--help" or "-h";
+        return command is "check" or "status" or "cache-root" or "version" or "help" or "--help" or "-h" or "-help";
     }
 
     public static int Run(string[] args)
@@ -37,6 +37,7 @@ internal static class CommandLineMode
                 "help" => WriteHelp(),
                 "--help" => WriteHelp(),
                 "-h" => WriteHelp(),
+                "-help" => WriteHelp(),
                 _ => UnknownCommand(command)
             };
         }
@@ -141,6 +142,8 @@ internal static class CommandLineMode
     private static int WriteHelp()
     {
         Console.WriteLine("Link Shelf");
+        Console.WriteLine("Move scattered local files or directories into this executable's folder,");
+        Console.WriteLine("then restore the original paths with Windows symbolic links.");
         Console.WriteLine();
         Console.WriteLine("Commands:");
         Console.WriteLine("  check              Check links and cache items");
@@ -149,6 +152,15 @@ internal static class CommandLineMode
         Console.WriteLine("  status             Alias of check");
         Console.WriteLine("  cache-root         Print current cache root");
         Console.WriteLine("  version            Print version");
+        Console.WriteLine("  help, -h, -help, --help");
+        Console.WriteLine("                     Print this help");
+        Console.WriteLine();
+        Console.WriteLine("AI and automation notes:");
+        Console.WriteLine("  - The executable directory is the cache root.");
+        Console.WriteLine("  - Use 'cache-root' before inspecting files.");
+        Console.WriteLine("  - Use 'check --json' for health monitoring.");
+        Console.WriteLine("  - Notify the user only when problemCount is greater than 0.");
+        Console.WriteLine("  - CLI commands are read-only; GUI actions perform moves, links, restores, and undo.");
         return 0;
     }
 

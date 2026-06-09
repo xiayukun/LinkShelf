@@ -162,6 +162,7 @@ Syncthing 是推荐搭配工具，但不是唯一支持场景。Syncthing 可以
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe version
 .\LinkShelf.exe help
+.\LinkShelf.exe -help
 ```
 
 命令行检查应保持适合计划任务和自动化使用，不得移动、删除、覆盖、恢复或创建链接。

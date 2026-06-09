@@ -162,6 +162,7 @@ CLI mode:
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe version
 .\LinkShelf.exe help
+.\LinkShelf.exe -help
 ```
 
 CLI checks should stay safe for scheduled automation and should not move, delete, overwrite, restore, or link files.

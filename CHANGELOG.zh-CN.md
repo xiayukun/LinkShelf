@@ -6,6 +6,18 @@ Link Shelf 的重要变更会记录在这里。
 
 English changelog: [CHANGELOG.md](CHANGELOG.md)
 
+## Unreleased
+
+English: [Changelog](CHANGELOG.md#unreleased)
+
+### 新增
+
+- 增加 `-help` 作为命令行帮助别名，并扩展面向 AI 助手和自动化的帮助输出。
+
+### 变更
+
+- 更新 README 定位、关键词、GitHub 仓库资料建议和 AI 助手提示词，强化 Windows 符号链接、dotfiles、应用状态备份和 AI 编程工具配置同步场景。
+
 ## 1.1.4 - 2026-06-09
 
 English: [Changelog](CHANGELOG.md#114---2026-06-09) | [Release notes](docs/release-notes-v1.1.4.md)

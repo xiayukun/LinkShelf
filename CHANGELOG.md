@@ -6,6 +6,18 @@ The project follows semantic versioning for public releases.
 
 中文更新日志：[CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
 
+## Unreleased
+
+中文：[更新日志](CHANGELOG.zh-CN.md#unreleased)
+
+### Added
+
+- Added `-help` as a CLI help alias and expanded help output for AI assistants and automation.
+
+### Changed
+
+- Updated README positioning, keywords, GitHub repository profile guidance, and AI assistant prompts for Windows symlink, dotfiles, app-state backup, and AI coding tool configuration use cases.
+
 ## 1.1.4 - 2026-06-09
 
 中文：[更新日志](CHANGELOG.zh-CN.md#114---2026-06-09) | [发布说明](docs/release-notes-v1.1.4.zh-CN.md)
