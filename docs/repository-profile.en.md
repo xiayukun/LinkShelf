@@ -54,6 +54,7 @@ I built Link Shelf, a Windows config mover and symlink tool. It collects scatter
 
 ## Promotion Notes
 
+- README should stay a short homepage; full documentation belongs in `docs/user-guide.md` / `docs/user-guide.en.md`.
 - Keep `README.md` as the default GitHub landing page and make it Chinese-first because the current launch audience is Chinese. Preserve the full English version in `README.en.md` for GitHub search, global users, and external references.
 - Reader-facing Markdown now uses Chinese as the default `.md` document and English companions as `.en.md`. Do not keep the old Chinese-named compatibility files; release-note language links should point at the current `main` branch so renamed companion files do not break when older tags lack them.
 - Keep `LICENSE` as the standard English MIT text so GitHub can detect the license and the legal text stays canonical; other explanatory pages use Chinese default documents.

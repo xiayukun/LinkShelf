@@ -10,7 +10,7 @@ Chinese changelog: [CHANGELOG.md](CHANGELOG.md)
 
 ### Changed
 
-- Shortened the README opening, reduced sync-tool framing, and clarified that Link Shelf handles local config relocation, symlink restoration, and health checks.
+- Turned the README into a true short homepage and moved the full documentation to `docs/user-guide.md` / `docs/user-guide.en.md`.
 - Removed the specific sync-tool framing from the homepage selling point and GitHub topics, replacing it with general backup/sync risk guidance.
 
 ## 1.1.5 - 2026-06-09

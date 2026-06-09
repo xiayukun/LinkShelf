@@ -54,6 +54,7 @@ Link Shelf collects scattered Windows app settings, dotfiles, developer config, 
 
 ## 推广判断
 
+- README 应保持短主页；完整说明放在 `docs/user-guide.md` / `docs/user-guide.en.md`。
 - 保留 `README.md` 作为默认 GitHub 入口，并让它中文优先，因为当前启动推广的核心受众是中文用户。完整英文版放在 `README.en.md`，用于 GitHub 搜索、全球用户和外部引用。
 - 仓库里面向读者的 Markdown 改为中文默认 `.md`，英文配套使用 `.en.md`。不再保留旧中文命名兼容文件；发布说明里的互链应指向当前 `main` 分支，避免旧 tag 中没有新文件名时出现断链。
 - `LICENSE` 继续保留标准英文 MIT 文本，方便 GitHub 识别许可证并维持法律文本原貌；其他说明性页面使用中文默认文档。
