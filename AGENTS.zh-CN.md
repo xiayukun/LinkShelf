@@ -2,7 +2,7 @@
 
 English: [AGENTS.md](AGENTS.md)
 
-本文件供在此仓库中工作的 AI 编码代理使用。面向用户的产品文档应放在 `README.md` 中。
+本文件供在此仓库中工作的 AI 编码代理使用。中文优先的用户产品文档应放在 `README.md` 中；完整英文配套文档应放在 `README.en.md` 中。
 
 修改项目前，也要读取 `docs/session-handoff.md`。它记录当前本地设置、GitHub 发布状态、自动化行为，以及设置会话中的重要经验。
 
@@ -200,7 +200,7 @@ Syncthing 是推荐搭配工具，但不是唯一支持场景。Syncthing 可以
 - 如果新增或实质修改 Markdown 文件，应保留同用途的 `.zh-CN.md` 配套文件；只有机器生成且不作为仓库文档阅读的文件可以例外。
 - 配套文档应保持结构一致：用途、章节顺序、示例、发布链接、截图、警告和致谢都要对应。
 - 配套文档应在靠前位置互相链接，方便英文读者进入中文文档，也方便中文读者返回英文文档。
-- 对于 `README.md` 和 `README.zh-CN.md`，检查目录、主要章节、下载链接、截图、功能描述和致谢是否等价。
+- 对于 `README.md` 和 `README.en.md`，检查目录、主要章节、下载链接、截图、功能描述和致谢是否等价。`README.zh-CN.md` 作为旧链接兼容入口保留，应指向 `README.md` 和 `README.en.md`。
 - 对于发布说明和更新日志，两种语言都要加入相同版本条目。
 - 对于 GitHub issue 和 pull request 模板，实际可行时也提供中文配套。
 - 提交 Markdown 修改前，列出所有 `.md` 文件，检查英文和中文配套文档是否仍然对应。
@@ -252,7 +252,8 @@ dotnet publish .\LinkShelf.csproj -t:Rebuild -c Release -r win-x64 --self-contai
 
 发布前优先确认：
 
-- `README.md` 包含截图、安装说明、快速开始、命令行示例和限制。
+- 中文优先的 `README.md` 包含截图、安装说明、快速开始、命令行示例和限制。
+- `README.en.md` 包含等价的英文内容。
 - `README.md` 中有直接的最新下载链接，优先使用 `https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe`。
 - `CONTRIBUTING.md` 存在。
 - 存在真实许可证文件。

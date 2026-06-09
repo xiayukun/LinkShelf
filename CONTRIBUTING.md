@@ -30,7 +30,7 @@ Run CLI checks from a cache-root folder:
 - Keep the current English configuration schema stable unless a new versioned migration is documented.
 - Keep config keys, executable names, and runtime directory names in English.
 - Keep UI strings in the localization service.
-- Update `README.md` when behavior changes.
+- Update `README.md` and `README.en.md` when behavior changes.
 - Verify with `dotnet build -c Release`.
 
 ## Safety Rules

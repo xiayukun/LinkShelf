@@ -2,7 +2,7 @@
 
 中文：[AGENTS.zh-CN.md](AGENTS.zh-CN.md)
 
-This file is for AI coding agents that work on this repository. Human-facing product documentation belongs in `README.md`.
+This file is for AI coding agents that work on this repository. The Chinese-first human-facing product documentation belongs in `README.md`; the full English companion belongs in `README.en.md`.
 
 Before changing the project, also read `docs/session-handoff.md`. It records the current local setup, GitHub release state, automation behavior, and important lessons from the setup conversation.
 
@@ -201,7 +201,7 @@ Rules:
 - If a Markdown file is added or materially changed, keep a same-purpose `.zh-CN.md` companion unless it is machine-generated and not intended to be read as repository documentation.
 - Keep paired documents structurally aligned: matching purpose, section order, examples, release links, screenshots, warnings, and acknowledgements.
 - Paired documents should link to each other near the top so English readers can reach Chinese docs and Chinese readers can return to English docs.
-- For `README.md` and `README.zh-CN.md`, verify the table of contents, major sections, download links, screenshots, feature descriptions, and acknowledgements stay equivalent.
+- For `README.md` and `README.en.md`, verify the table of contents, major sections, download links, screenshots, feature descriptions, and acknowledgements stay equivalent. `README.zh-CN.md` is kept as a compatibility entry for old links and should point readers to `README.md` and `README.en.md`.
 - For release notes and changelogs, add the same version entries to both languages.
 - For GitHub issue and pull request templates, provide Chinese companions when practical.
 - Before committing Markdown changes, list all `.md` files and check that paired English/Chinese documents still correspond.
@@ -253,7 +253,8 @@ The published executable is `dist\LinkShelf.exe`.
 
 Before publishing, prefer:
 
-- `README.md` with screenshot, install, quick start, CLI examples, and limitations
+- Chinese-first `README.md` with screenshot, install, quick start, CLI examples, and limitations
+- `README.en.md` with equivalent English content
 - a direct latest download link in `README.md`, preferably `https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe`
 - `CONTRIBUTING.md`
 - a real license file

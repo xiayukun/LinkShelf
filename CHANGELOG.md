@@ -17,6 +17,8 @@ The project follows semantic versioning for public releases.
 ### Changed
 
 - Updated README positioning, keywords, GitHub repository profile guidance, and AI assistant prompts for Windows symlink, dotfiles, app-state backup, and AI coding tool configuration use cases.
+- Made `README.md` Chinese-first for the default GitHub landing page and added `README.en.md` as the full English companion.
+- Kept `README.zh-CN.md` as a short compatibility entry for older links.
 
 ## 1.1.4 - 2026-06-09
 

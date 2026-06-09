@@ -110,6 +110,18 @@ GitHub 上已经有自动构建和自动发布能力：
 - `docs/session-handoff.md`
 - `docs/session-handoff.zh-CN.md`
 
+## v1.1.4 之后的推广改造
+
+发布后已开始按“中文主导、英文配套、AI 工具配置同步”方向调整 GitHub 展示：
+
+- `README.md` 已改为中文优先的 GitHub 默认主页。
+- `README.en.md` 是完整英文配套文档。
+- `README.zh-CN.md` 只作为旧链接兼容入口，指向 `README.md` 和 `README.en.md`。
+- GitHub 仓库描述已改为：`Portable Windows app-state and dotfiles manager: move scattered config into one syncable cache root, then restore original paths with symlinks.`
+- GitHub topics 已补充：`windows`、`symlink`、`symbolic-link`、`hardlink`、`backup`、`sync`、`dotfiles`、`dotfiles-manager`、`syncthing`、`wpf`、`dotnet`、`ai-tools`、`developer-tools`、`config-management`。
+- `CommandLineMode` 已增加 `-help` 别名，并把 `help` 输出扩展为适合 AI 助手和自动化读取的安全说明。
+- 推广判断：暂时不要把所有 Markdown 都重命名成中文默认 / `*-en.md` 配对；先把推广价值最高的默认 README 做中文主导，避免大量内部和外部链接 churn。
+
 ## 当前自动化巡检
 
 当前会话中创建过一个 Codex 心跳自动化：

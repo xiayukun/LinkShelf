@@ -30,7 +30,7 @@ dotnet build .\LinkShelf.csproj -c Release
 - 除非有新的版本化迁移说明，否则保持当前英文配置架构稳定。
 - 配置键、可执行文件名和运行时目录名保持英文。
 - 界面字符串放在本地化服务中。
-- 行为变化时更新 `README.md` 和 `README.zh-CN.md`。
+- 行为变化时更新 `README.md` 和 `README.en.md`。
 - 使用 `dotnet build .\LinkShelf.csproj -c Release` 验证。
 
 ## 安全规则

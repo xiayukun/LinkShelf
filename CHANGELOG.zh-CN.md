@@ -17,6 +17,8 @@ English: [Changelog](CHANGELOG.md#unreleased)
 ### 变更
 
 - 更新 README 定位、关键词、GitHub 仓库资料建议和 AI 助手提示词，强化 Windows 符号链接、dotfiles、应用状态备份和 AI 编程工具配置同步场景。
+- 将默认 GitHub 主页 `README.md` 调整为中文优先，并新增 `README.en.md` 作为完整英文配套文档。
+- 将 `README.zh-CN.md` 保留为旧链接兼容入口。
 
 ## 1.1.4 - 2026-06-09
 

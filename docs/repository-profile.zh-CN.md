@@ -53,7 +53,7 @@ Link Shelf turns scattered Windows app state, dotfiles, developer settings, and 
 
 ## 推广判断
 
-- 暂时保留 `README.md` 作为默认 GitHub 入口。GitHub、外部索引、搜索摘要和很多外链都默认识别这个文件名，把所有文档改成 `*-en.md` 会带来大量链接和维护成本，推广收益并不确定。
-- 更稳的做法是增强默认 README：保留英文入口，顶部放中文说明链接，并在首屏加入中英文都能命中的搜索词。
+- 保留 `README.md` 作为默认 GitHub 入口，但让它中文优先，因为当前启动推广的核心受众是中文用户。完整英文版放在 `README.en.md`，用于 GitHub 搜索、全球用户和外部引用。
+- 暂时不要把所有 Markdown 文件都改成中文默认 / `*-en.md` 配对。那会牵动发布说明、模板和外部页面里的大量链接。先把中文优先模型落到推广价值最高的默认 README。
 - AI 方向值得做，但不要写成“让 AI 推销产品”。更可信的角度是：Link Shelf 能帮助用户安全同步和恢复本地 AI 编程工具配置。
 - 适合放进 README、Release、topics 和发布帖的关键词：Windows symlink manager、symbolic link、hard link、dotfiles manager、config sync、app state backup、Syncthing、AI coding tools、Codex、Claude、Gemini、Cursor、Windows 符号链接、软链接、硬链接、配置同步。

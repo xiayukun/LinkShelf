@@ -53,7 +53,7 @@ I built Link Shelf, a small Windows utility for collecting scattered app state, 
 
 ## Promotion Notes
 
-- Keep `README.md` as the default GitHub landing page for now. GitHub, package indexes, search snippets, and many external links assume that file name, so renaming everything to `*-en.md` would add churn without clear discovery benefit.
-- Make the default README stronger for both audiences instead: keep the English landing page, link the Chinese page near the top, and use bilingual search terms where they help.
+- Keep `README.md` as the default GitHub landing page, but make it Chinese-first because the current launch audience is Chinese. Preserve the full English version in `README.en.md` for GitHub search, global users, and external references.
+- Do not rename every Markdown file into a Chinese-default / `*-en.md` pair yet. That would create wide link churn across release notes, templates, and external pages. Apply the Chinese-first model first to the default README, where the promotion impact is highest.
 - Use AI positioning carefully. The strongest angle is not "AI sells this tool"; it is "Link Shelf helps users sync and restore local AI coding tool configuration safely."
 - Good search phrases for README, releases, topics, and launch posts: Windows symlink manager, symbolic link, hard link, dotfiles manager, config sync, app state backup, Syncthing, AI coding tools, Codex, Claude, Gemini, Cursor.
