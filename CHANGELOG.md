@@ -8,10 +8,19 @@ English changelog: [CHANGELOG.en.md](CHANGELOG.en.md)
 
 ## 未发布
 
+## 1.1.6 - 2026-06-10
+
+English: [Changelog](CHANGELOG.en.md#116---2026-06-10) | [Release notes](docs/release-notes-v1.1.6.en.md)
+
+### 新增
+
+- 增加只读命令 `recommended` 和 `recommended --json`，方便自动化和 AI 助手查看本机当前可添加的推荐路径。
+
 ### 调整
 
 - 将 README 改成真正的短主页，并把完整说明移到 `docs/user-guide.md` / `docs/user-guide.en.md`。
 - 将特定同步工具从主页主卖点和 GitHub topics 中移除，改为通用备份/同步风险提示。
+- 将 2.0 探索中最稳妥的自动化能力回迁到当前 Windows 版；跨平台核心拆分和 macOS 推进继续保留在独立分支。
 
 ## 1.1.5 - 2026-06-09
 

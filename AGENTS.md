@@ -159,6 +159,8 @@ Link Shelf 是一个 Windows 工具，可以把用户选择的文件或目录移
 .\LinkShelf.exe check --json
 .\LinkShelf.exe check --verbose
 .\LinkShelf.exe status
+.\LinkShelf.exe recommended
+.\LinkShelf.exe recommended --json
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe version
 .\LinkShelf.exe help

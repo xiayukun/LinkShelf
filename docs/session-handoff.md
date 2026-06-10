@@ -10,12 +10,12 @@ English: [session-handoff.en.md](session-handoff.en.md)
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
 - 最新 GitHub Release：`v1.1.5`
-- 当前源码和本地运行程序版本：`1.1.5`
+- 当前源码和本地运行程序版本：`1.1.6`
 - 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.5`
 - 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.5/LinkShelf.exe`
 - 主分支：`main`
-- 当前 Git HEAD：`Prepare Link Shelf 1.1.5`（具体 hash 以 `git log -1 --oneline` 为准）
-- 当前工作区状态：`main` 已包含 `v1.1.5` 发布提交；发布前应确认 tag 已推送、GitHub Release 已生成。
+- 当前 Git HEAD：以 `git log -1 --oneline` 为准。
+- 当前工作区状态：`main` 正在准备 `v1.1.6` 小版本；最新公开 Release 仍是 `v1.1.5`，除非后续已经打 tag 并运行发布工作流。
 
 ## 本地结构
 
@@ -69,7 +69,8 @@ GitHub 上已经有自动构建和自动发布能力：
 - 构建工作流：`.github/workflows/build.yml`
 - 发布工作流：`.github/workflows/release.yml`
 - 首版发布说明：`docs/release-notes-v1.0.0.md`
-- 最新发布说明：`docs/release-notes-v1.1.5.md`
+- 最新已公开发布说明：`docs/release-notes-v1.1.5.md`
+- 当前准备中的发布说明：`docs/release-notes-v1.1.6.md`
 
 `release` 工作流可以创建或更新 GitHub Release，并上传 `LinkShelf.exe`。
 
@@ -122,6 +123,17 @@ GitHub 上已经有自动构建和自动发布能力：
 - `CommandLineMode` 已增加 `-help` 别名，并把 `help` 输出扩展为适合 AI 助手和自动化读取的安全说明。
 - `v1.1.5` 发布说明记录在 `docs/release-notes-v1.1.5.md` 和 `docs/release-notes-v1.1.5.en.md`。
 - 文档策略已改为：面向读者的 Markdown 使用中文默认 `.md`，英文配套使用 `.en.md`，不再保留旧中文命名兼容文件。
+
+## v1.1.6 自动化回迁
+
+`v1.1.6` 是从 2.0 探索中挑选低风险能力回迁到当前 Windows 版的小版本：
+
+- 新增只读命令 `LinkShelf.exe recommended`。
+- 新增只读命令 `LinkShelf.exe recommended --json`，用于让脚本和 AI 助手查看本机当前可添加的推荐路径。
+- 该命令复用现有 `RecommendedSyncItems.GetAvailable(...)` 筛选逻辑，只读取配置和本机路径，不移动、删除、恢复或创建链接。
+- README 继续保持短主页定位，完整说明放在 `docs/user-guide.md` / `docs/user-guide.en.md`。
+- 2.0 跨平台核心拆分、`LinkShelf.Core`、`LinkShelf.Cli`、测试项目和 macOS 推进文档已经提交到分支 `codex/link-shelf-2.0-macos-groundwork`，不要直接在 `main` 上继续扩大这部分结构调整。
+- macOS 后续推进记录在该分支的 `docs/macos-port-plan.md` 和 `docs/macos-port-plan.en.md`。
 
 ## 当前自动化巡检
 
@@ -181,6 +193,7 @@ GitHub 上已经有自动构建和自动发布能力：
 & "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" cache-root
 & "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" version
 & "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" check --json
+& "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" recommended --json
 ```
 
 如果源码仓库迁移到新目录，迁移后先运行：
@@ -207,6 +220,12 @@ dotnet build .\LinkShelf.csproj -c Release
 & "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" check --json
 ```
 
+查看本机可添加推荐项：
+
+```powershell
+& "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" recommended --json
+```
+
 构建：
 
 ```powershell
@@ -229,7 +248,7 @@ git log --oneline --decorate -5
 ## 推荐下个会话开场白
 
 ```text
-请先读取 AGENTS.md 和 docs/session-handoff.md，然后检查当前项目状态。这个项目是 Link Shelf，用于把分散的本地文件或目录移动到同步缓存根目录，并通过符号链接恢复原路径。项目已经发布到 GitHub，最新公开版本是 v1.1.5。请先不要重构，先确认当前仓库路径、运行缓存根目录、Git 状态、Release 状态、Markdown 中英文配对、自动化巡检和配置健康状态，再继续后续开发或迁移。
+请先读取 AGENTS.md 和 docs/session-handoff.md，然后检查当前项目状态。这个项目是 Link Shelf，用于把分散的本地文件或目录移动到同步缓存根目录，并通过符号链接恢复原路径。最新公开版本是 v1.1.5，main 正在准备 v1.1.6；2.0/macOS 探索在 codex/link-shelf-2.0-macos-groundwork 分支。请先不要重构，先确认当前仓库路径、运行缓存根目录、Git 状态、Release 状态、Markdown 中英文配对、自动化巡检和配置健康状态，再继续后续开发或迁移。
 ```
 
 ## 维护规则

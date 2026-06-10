@@ -29,7 +29,7 @@ It is useful for organizing developer environments, AI coding tool settings, ter
 - Restore, check, and undo managed items.
 - Detect broken links, missing cache items, wrong link targets, and target-path conflicts.
 - Recommend common developer tool, editor, terminal, package-manager, and AI coding tool config paths.
-- CLI `check --json` output for automation and AI assistants.
+- CLI `check --json` and `recommended --json` output for automation and AI assistants.
 - `Project app` can hard-link the same exe into another cache-root entry point.
 
 ## Good Fit

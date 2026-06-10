@@ -155,6 +155,8 @@ The same executable supports automation-friendly commands:
 .\LinkShelf.exe check --json
 .\LinkShelf.exe check --verbose
 .\LinkShelf.exe status
+.\LinkShelf.exe recommended
+.\LinkShelf.exe recommended --json
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe version
 .\LinkShelf.exe help
@@ -175,6 +177,14 @@ Recommended automation command:
 
 Only notify the user when `problemCount` is greater than `0`.
 
+To let a script or AI assistant inspect currently available recommended paths on this machine, run:
+
+```powershell
+.\LinkShelf.exe recommended --json
+```
+
+This command is also read-only; it does not move, delete, restore, or create links.
+
 ## AI and Automation
 
 Link Shelf is useful when AI coding tools store important local state outside your projects. It can place Codex, Claude, Gemini, Cursor, Cline, Roo Code, Continue, aider, Windsurf, GitHub Copilot, and editor settings into one cache root, then restore the original paths with symbolic links on another Windows machine.
@@ -184,6 +194,7 @@ For a user's AI assistant, the safest way to inspect Link Shelf is the CLI:
 ```powershell
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe check --json
+.\LinkShelf.exe recommended --json
 .\LinkShelf.exe help
 ```
 
@@ -194,6 +205,7 @@ I use Link Shelf on Windows to move scattered app state, dotfiles, AI coding too
 
 First run `LinkShelf.exe cache-root` to locate the cache root.
 Then run `LinkShelf.exe check --json` and explain only unhealthy items.
+If I ask for path recommendations, first run `LinkShelf.exe recommended --json` to inspect recommended paths that exist locally and are not already managed.
 Do not move, delete, overwrite, restore, or relink anything unless I explicitly ask.
 If I ask you to recommend paths, prefer developer tools, AI coding tools, editors, terminals, package managers, and small app-state folders. Warn me before syncing secrets, tokens, local history, or account-specific files.
 ```
@@ -204,6 +216,7 @@ Codex automation is also a good fit for day-to-day link health monitoring. A sch
 
 ```powershell
 .\LinkShelf.exe check --json
+.\LinkShelf.exe recommended --json
 ```
 
 Recommended behavior:
@@ -212,6 +225,7 @@ Recommended behavior:
 - Parse the JSON output.
 - Stay quiet when `problemCount` is `0`.
 - Notify the user when `problemCount` is greater than `0`, because that usually means a link is missing, points to the wrong place, or the cache item is gone.
+- When recommendations are needed, parse `recommended --json`; it only lists recommended paths that exist locally and are not covered by enabled config records.
 
 ## Configuration
 

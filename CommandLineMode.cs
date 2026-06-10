@@ -7,7 +7,7 @@ namespace LinkShelf;
 
 internal static class CommandLineMode
 {
-    private const string Version = "1.1.5";
+    private const string Version = "1.1.6";
 
     public static bool IsCommand(string[] args)
     {
@@ -17,7 +17,7 @@ internal static class CommandLineMode
         }
 
         var command = args[0].Trim().ToLowerInvariant();
-        return command is "check" or "status" or "cache-root" or "version" or "help" or "--help" or "-h" or "-help";
+        return command is "check" or "status" or "recommended" or "cache-root" or "version" or "help" or "--help" or "-h" or "-help";
     }
 
     public static int Run(string[] args)
@@ -32,6 +32,7 @@ internal static class CommandLineMode
             {
                 "check" => RunCheck(paths, options),
                 "status" => RunCheck(paths, options),
+                "recommended" => RunRecommended(paths, options),
                 "cache-root" => WriteLine(paths.CacheRoot),
                 "version" => WriteLine(Version),
                 "help" => WriteHelp(),
@@ -89,6 +90,76 @@ internal static class CommandLineMode
             items = items.Select(ToOutputItem).ToList()
         };
 
+        WriteJsonPayload(payload);
+    }
+
+    private static int RunRecommended(AppPaths paths, HashSet<string> options)
+    {
+        var store = new ConfigStore(paths);
+        var config = store.Load();
+        var items = RecommendedSyncItems.GetAvailable(paths, config);
+        var text = new LocalizationService();
+        var json = options.Contains("--json");
+
+        if (json)
+        {
+            var payload = new
+            {
+                ok = true,
+                cacheRoot = paths.CacheRoot,
+                configPath = paths.ConfigPath,
+                checkedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                total = items.Count,
+                items = items.Select(item => ToRecommendedOutputItem(item, text)).ToList()
+            };
+
+            WriteJsonPayload(payload);
+            return 0;
+        }
+
+        Console.WriteLine("Link Shelf Recommended Items");
+        Console.WriteLine("Cache root: " + paths.CacheRoot);
+        Console.WriteLine("Config: " + paths.ConfigPath);
+        Console.WriteLine("Checked at: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+        Console.WriteLine("Available: " + items.Count);
+        Console.WriteLine();
+
+        if (items.Count == 0)
+        {
+            Console.WriteLine("No recommended item is currently available.");
+            return 0;
+        }
+
+        foreach (var item in items)
+        {
+            Console.WriteLine("- " + text.T(item.NameKey));
+            Console.WriteLine("  id:     " + item.Id);
+            Console.WriteLine("  type:   " + PathTools.KindText(item.Kind));
+            Console.WriteLine("  path:   " + item.PortablePath);
+            Console.WriteLine("  local:  " + item.ExpandedPath);
+            Console.WriteLine("  reason: " + text.T(item.ReasonKey));
+        }
+
+        return 0;
+    }
+
+    private static object ToRecommendedOutputItem(RecommendedSyncItem item, LocalizationService text)
+    {
+        return new
+        {
+            id = item.Id,
+            name = text.T(item.NameKey),
+            nameKey = item.NameKey,
+            portablePath = item.PortablePath,
+            expandedPath = item.ExpandedPath,
+            type = PathTools.KindText(item.Kind),
+            reason = text.T(item.ReasonKey),
+            reasonKey = item.ReasonKey
+        };
+    }
+
+    private static void WriteJsonPayload(object payload)
+    {
         var options = new JsonSerializerOptions
         {
             WriteIndented = true,
@@ -150,6 +221,8 @@ internal static class CommandLineMode
         Console.WriteLine("  check --json       Print machine-readable JSON");
         Console.WriteLine("  check --verbose    Print every configured item");
         Console.WriteLine("  status             Alias of check");
+        Console.WriteLine("  recommended        List available recommended paths");
+        Console.WriteLine("  recommended --json Print recommended paths as JSON");
         Console.WriteLine("  cache-root         Print current cache root");
         Console.WriteLine("  version            Print version");
         Console.WriteLine("  help, -h, -help, --help");
@@ -159,6 +232,7 @@ internal static class CommandLineMode
         Console.WriteLine("  - The executable directory is the cache root.");
         Console.WriteLine("  - Use 'cache-root' before inspecting files.");
         Console.WriteLine("  - Use 'check --json' for health monitoring.");
+        Console.WriteLine("  - Use 'recommended --json' to inspect available recommended paths.");
         Console.WriteLine("  - Notify the user only when problemCount is greater than 0.");
         Console.WriteLine("  - CLI commands are read-only; GUI actions perform moves, links, restores, and undo.");
         return 0;

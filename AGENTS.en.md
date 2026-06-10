@@ -159,6 +159,8 @@ CLI mode:
 .\LinkShelf.exe check --json
 .\LinkShelf.exe check --verbose
 .\LinkShelf.exe status
+.\LinkShelf.exe recommended
+.\LinkShelf.exe recommended --json
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe version
 .\LinkShelf.exe help

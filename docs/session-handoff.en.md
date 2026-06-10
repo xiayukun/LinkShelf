@@ -10,12 +10,12 @@ This document preserves high-value project context for future Codex sessions. A 
 - Remote repository: `git@github.com:xiayukun/LinkShelf.git`
 - GitHub page: `https://github.com/xiayukun/LinkShelf`
 - Latest GitHub Release: `v1.1.5`
-- Current source and local runtime version: `1.1.5`
+- Current source and local runtime version: `1.1.6`
 - Release page: `https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.5`
 - Download URL: `https://github.com/xiayukun/LinkShelf/releases/download/v1.1.5/LinkShelf.exe`
 - Main branch: `main`
-- Current Git HEAD: `Prepare Link Shelf 1.1.5` unless newer documentation-only commits have been added.
-- Current worktree note: `v1.1.5` is already released; documentation is being converted to Chinese-default `.md` files with `.en.md` English companions.
+- Current Git HEAD: check `git log -1 --oneline`.
+- Current worktree note: `main` is preparing the `v1.1.6` patch version. The latest public Release is still `v1.1.5` unless a later tag and release workflow run have been completed.
 
 ## Local Layout
 
@@ -69,7 +69,8 @@ GitHub automation exists:
 - Build workflow: `.github/workflows/build.yml`
 - Release workflow: `.github/workflows/release.yml`
 - First release notes: `docs/release-notes-v1.0.0.md`
-- Latest release notes: `docs/release-notes-v1.1.5.md`
+- Latest public release notes: `docs/release-notes-v1.1.5.md`
+- Current prepared release notes: `docs/release-notes-v1.1.6.md`
 
 The `release` workflow creates or updates a GitHub Release and uploads `LinkShelf.exe`.
 
@@ -106,6 +107,17 @@ The project moved toward Chinese-first public presentation with English companio
 - GitHub topics: `windows`, `symlink`, `symbolic-link`, `hardlink`, `backup`, `app-state`, `config-backup`, `config-migration`, `dotfiles`, `dotfiles-manager`, `wpf`, `dotnet`, `ai-tools`, `developer-tools`, `config-management`.
 - `CommandLineMode` supports `-help` and has CLI help written for AI assistants and automation.
 - `v1.1.5` release notes live in `docs/release-notes-v1.1.5.md` and `docs/release-notes-v1.1.5.en.md`.
+
+## v1.1.6 Automation Backport
+
+`v1.1.6` backports a low-risk part of the 2.0 exploration into the current Windows build:
+
+- Added the read-only `LinkShelf.exe recommended` command.
+- Added the read-only `LinkShelf.exe recommended --json` command for scripts and AI assistants to inspect locally available recommended paths.
+- The command reuses the existing `RecommendedSyncItems.GetAvailable(...)` filtering logic and only reads config/local paths. It does not move, delete, restore, or create links.
+- The README stays as a short homepage, with full documentation in `docs/user-guide.md` / `docs/user-guide.en.md`.
+- The 2.0 cross-platform core split, `LinkShelf.Core`, `LinkShelf.Cli`, tests, and macOS progress docs are on branch `codex/link-shelf-2.0-macos-groundwork`; do not continue that structural work directly on `main`.
+- macOS follow-up notes live on that branch in `docs/macos-port-plan.md` and `docs/macos-port-plan.en.md`.
 
 ## Current Automation Check
 
@@ -157,6 +169,12 @@ Health check:
 & "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" check --json
 ```
 
+Recommended path inspection:
+
+```powershell
+& "C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe" recommended --json
+```
+
 Build:
 
 ```powershell
@@ -179,7 +197,7 @@ git log --oneline --decorate -5
 ## Recommended Next-Session Prompt
 
 ```text
-请先读取 AGENTS.md 和 docs/session-handoff.md，然后检查当前项目状态。这个项目是 Link Shelf，用于把分散的本地文件或目录移动到同步缓存根目录，并通过符号链接恢复原路径。项目已经发布到 GitHub，最新公开版本是 v1.1.5。请先不要重构，先确认当前仓库路径、运行缓存根目录、Git 状态、Release 状态、Markdown 中英文配对、自动化巡检和配置健康状态，再继续后续开发或迁移。
+请先读取 AGENTS.md 和 docs/session-handoff.md，然后检查当前项目状态。这个项目是 Link Shelf，用于把分散的本地文件或目录移动到同步缓存根目录，并通过符号链接恢复原路径。最新公开版本是 v1.1.5，main 正在准备 v1.1.6；2.0/macOS 探索在 codex/link-shelf-2.0-macos-groundwork 分支。请先不要重构，先确认当前仓库路径、运行缓存根目录、Git 状态、Release 状态、Markdown 中英文配对、自动化巡检和配置健康状态，再继续后续开发或迁移。
 ```
 
 ## Maintenance Rules

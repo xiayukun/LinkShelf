@@ -8,10 +8,19 @@ Chinese changelog: [CHANGELOG.md](CHANGELOG.md)
 
 ## Unreleased
 
+## 1.1.6 - 2026-06-10
+
+Chinese: [Changelog](CHANGELOG.md#116---2026-06-10) | [Release notes](docs/release-notes-v1.1.6.md)
+
+### Added
+
+- Added read-only `recommended` and `recommended --json` commands so automation and AI assistants can inspect currently available recommended paths on the local machine.
+
 ### Changed
 
 - Turned the README into a true short homepage and moved the full documentation to `docs/user-guide.md` / `docs/user-guide.en.md`.
 - Removed the specific sync-tool framing from the homepage selling point and GitHub topics, replacing it with general backup/sync risk guidance.
+- Backported the safest automation-friendly part of the 2.0 exploration to the current Windows build; the cross-platform core split and macOS work remain on a separate branch.
 
 ## 1.1.5 - 2026-06-09
 
