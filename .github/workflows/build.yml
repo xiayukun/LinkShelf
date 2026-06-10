@@ -23,10 +23,13 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore
-        run: dotnet restore .\LinkShelf.csproj
+        run: dotnet restore .\LinkShelf.slnx
 
       - name: Build
-        run: dotnet build .\LinkShelf.csproj -c Release --no-restore
+        run: dotnet build .\LinkShelf.slnx -c Release --no-restore
+
+      - name: Run Core tests
+        run: dotnet run --project .\LinkShelf.Core.Tests\LinkShelf.Core.Tests.csproj -c Release --no-build
 
       - name: Publish single file
         run: >
@@ -47,3 +50,39 @@ jobs:
         with:
           name: LinkShelf-win-x64
           path: .\dist\LinkShelf.exe
+
+  cli:
+    name: cli (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore CLI
+        run: dotnet restore ./LinkShelf.Cli/LinkShelf.Cli.csproj
+
+      - name: Build CLI
+        run: dotnet build ./LinkShelf.Cli/LinkShelf.Cli.csproj -c Release --no-restore
+
+      - name: Restore Core tests
+        run: dotnet restore ./LinkShelf.Core.Tests/LinkShelf.Core.Tests.csproj
+
+      - name: Build Core tests
+        run: dotnet build ./LinkShelf.Core.Tests/LinkShelf.Core.Tests.csproj -c Release --no-restore
+
+      - name: Run Core tests
+        run: dotnet run --project ./LinkShelf.Core.Tests/LinkShelf.Core.Tests.csproj -c Release --no-build

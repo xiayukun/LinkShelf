@@ -88,8 +88,9 @@ Project app:
 
 Recommended add item:
 
-- `RecommendedSyncItems` defines built-in presets with English keys, portable paths, expected item kind, and reason keys.
+- `RecommendedSyncItems` defines built-in presets with English keys, portable paths, expected item kind, reason keys, and supported platform.
 - Presets should favor broadly useful developer, AI coding, editor, terminal, package-manager, and small app-state paths. Avoid adding purely personal application choices unless they are also broadly common.
+- Windows presets must not be shown on macOS or Linux; macOS presets must use Unix-style portable paths such as `~/.gitconfig` or `~/Library/Application Support/...`.
 - When preset coverage changes, update README, changelog, release notes, and English companions to describe the source and scope of the recommendation list.
 - Recommended UI text and reasons must stay in `LocalizationService`.
 - The recommendation window must only show paths that exist on the current machine and are not already present in enabled config records.
@@ -159,7 +160,11 @@ CLI mode:
 .\LinkShelf.exe check --json
 .\LinkShelf.exe check --verbose
 .\LinkShelf.exe status
+.\LinkShelf.exe recommended
+.\LinkShelf.exe recommended --json
+.\LinkShelf.exe recommended --platform macos --json
 .\LinkShelf.exe cache-root
+.\LinkShelf.exe platform
 .\LinkShelf.exe version
 .\LinkShelf.exe help
 .\LinkShelf.exe -help
@@ -206,8 +211,21 @@ Rules:
 - For GitHub issue and pull request templates, provide `.en.md` English companions when practical.
 - Before committing Markdown changes, list all `.md` files and check that paired English/Chinese documents still correspond.
 
+## Architecture Boundary
+
+Starting in 2.0, the project has a cross-platform core library and a Windows WPF shell:
+
+- `LinkShelf.Core` targets `net8.0` and owns config models, path tools, config I/O, status checks, recommended-item filtering, and file/symbolic-link operations. The core layer must not reference WPF, Windows Forms, Win32 P/Invoke, or localized UI copy.
+- `Directory.Build.props` is the shared source for version and assembly metadata; change it first when bumping versions.
+- `LinkShelf.slnx` is the local multi-project entry point and includes the Windows WPF app, Core, CLI, and Core tests.
+- The root `LinkShelf.csproj` remains the current Windows WPF app and owns windows, the Windows entry point, language switching, Windows hard-link projection, and locked-process recovery.
+- `LinkShelf.Cli` is the cross-platform read-only CLI entry point and reuses `CommandLineRunner` from `LinkShelf.Core`.
+- A future macOS build should add a separate platform shell that reuses `LinkShelf.Core`; do not place macOS UI or permission guidance inside the Windows WPF project. See `docs/macos-port-plan.en.md` for design boundaries.
+
 ## Important Files
 
+- `Directory.Build.props`: shared version and assembly metadata.
+- `LinkShelf.slnx`: multi-project entry point containing the Windows WPF app, Core, and CLI.
 - `MainWindow.xaml`: main GUI layout.
 - `MainWindow.xaml.cs`: GUI behavior, language switching, multi-select operations, add-item retry after locked-path handling.
 - `ConflictChoiceWindow.xaml`: conflict dialog layout.
@@ -216,17 +234,20 @@ Rules:
 - `LockingProcessesWindow.xaml.cs`: locked-path scan, process list, process termination, and continue/cancel decision mapping.
 - `RecommendedItemsWindow.xaml`: recommended item picker layout.
 - `RecommendedItemsWindow.xaml.cs`: recommended item selection and add/cancel decision mapping.
-- `Models/SyncModels.cs`: config models, constants, row view model, enums.
-- `Models/RecommendedSyncItem.cs`: recommended item models and grid row model.
-- `Services/AppPaths.cs`: cache root, config path, log path, backup path.
-- `Services/ConfigStore.cs`: config load, normalization, save.
-- `Services/FileOperations.cs`: moving, copying, linking, backups, restore, conflict application.
-- `Services/RecommendedSyncItems.cs`: built-in recommended paths and local/config filtering.
-- `Services/StatusCheckService.cs`: read-only health checks.
-- `Services/PathTools.cs`: path normalization, `~` expansion, unique cache names.
-- `Services/ProjectionService.cs`: hard-link projection of the current executable into another cache root.
+- `LinkShelf.Core/Models/SyncModels.cs`: config models, constants, row view model, enums.
+- `LinkShelf.Core/Models/RecommendedSyncItem.cs`: recommended item models and grid row model.
+- `LinkShelf.Core/Services/AppPaths.cs`: cache root, config path, log path, backup path.
+- `LinkShelf.Core/Services/ConfigStore.cs`: config load, normalization, save.
+- `LinkShelf.Core/Services/FileOperations.cs`: moving, copying, linking, backups, restore, conflict application.
+- `LinkShelf.Core/Services/RecommendedSyncItems.cs`: built-in recommended paths and local/config filtering.
+- `LinkShelf.Core/Services/StatusCheckService.cs`: read-only health checks.
+- `LinkShelf.Core/Services/PathTools.cs`: path normalization, `~` expansion, unique cache names.
+- `LinkShelf.Core/Services/LogService.cs`: operation logs and diagnostic logs for add-item troubleshooting.
+- `LinkShelf.Core/CommandLineRunner.cs`: shared read-only CLI logic used by the GUI app and cross-platform CLI.
+- `LinkShelf.Cli/Program.cs`: cross-platform CLI entry point.
+- `LinkShelf.Core.Tests/Program.cs`: dependency-free Core behavior test entry point for cross-platform CI validation.
+- `Services/ProjectionService.cs`: Windows hard-link projection.
 - `Services/LocalizationService.cs`: English and Chinese UI strings.
-- `Services/LogService.cs`: operation logs and diagnostic logs for add-item troubleshooting.
 - `CommandLineMode.cs`: CLI entry points and machine-readable status output.
 - `ThirdParty/ShowWhatProcessLocksFile`: adapted lock inspection and process termination code.
 - `THIRD-PARTY-NOTICES.md`: third-party notices for copied or adapted code and workflow references.
@@ -236,7 +257,8 @@ Rules:
 Build:
 
 ```powershell
-dotnet build .\LinkShelf.csproj -c Release
+dotnet build .\LinkShelf.slnx -c Release
+dotnet run --project .\LinkShelf.Core.Tests\LinkShelf.Core.Tests.csproj -c Release --no-build
 ```
 
 After changing code, do not stop at `dotnet build`. Re-publish `dist\LinkShelf.exe`, inspect the projected hard links, and recreate any projected `LinkShelf.exe` hard links that should point at the new `dist` artifact.

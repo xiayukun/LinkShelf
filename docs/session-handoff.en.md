@@ -10,12 +10,12 @@ This document preserves high-value project context for future Codex sessions. A 
 - Remote repository: `git@github.com:xiayukun/LinkShelf.git`
 - GitHub page: `https://github.com/xiayukun/LinkShelf`
 - Latest GitHub Release: `v1.1.5`
-- Current source and local runtime version: `1.1.5`
-- Release page: `https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.5`
-- Download URL: `https://github.com/xiayukun/LinkShelf/releases/download/v1.1.5/LinkShelf.exe`
+- Current source and local runtime version: `2.0.0`
+- Latest public release page: `https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.5`
+- Latest public download URL: `https://github.com/xiayukun/LinkShelf/releases/download/v1.1.5/LinkShelf.exe`
 - Main branch: `main`
-- Current Git HEAD: `Prepare Link Shelf 1.1.5` unless newer documentation-only commits have been added.
-- Current worktree note: `v1.1.5` is already released; documentation is being converted to Chinese-default `.md` files with `.en.md` English companions.
+- Current Git HEAD: `9415f19 Make README a short homepage`; if the 2.0 changes have been committed, confirm with `git log -1 --oneline`.
+- Current worktree note: local development has moved to `2.0.0`, `LinkShelf.Core` has been split out, and `dist\LinkShelf.exe` plus the sync/cold-cache hard-link entries have been rebuilt and print `2.0.0`. The latest public GitHub version is still `v1.1.5`; publishing 2.0 requires commit, tag, and release workflow.
 
 ## Local Layout
 
@@ -49,6 +49,8 @@ Backup and sync tools are optional companions; Link Shelf itself only handles lo
 
 - The executable directory is the cache root.
 - The same `LinkShelf.exe` supports GUI and CLI mode.
+- Starting in 2.0, `LinkShelf.Core` targets `net8.0` and owns config, paths, status checks, platform-aware recommended-item filtering, file/symbolic-link operations, and the shared command runner; the Windows WPF project owns windows, hard-link projection, and locked-process recovery; `LinkShelf.Cli` provides a cross-platform read-only CLI entry point.
+- A future macOS build should add a separate platform shell that reuses Core, and still needs macOS permission, symlink/Finder behavior, and real-device validation; see `docs/macos-port-plan.en.md`.
 - Config keys, runtime directory names, executable names, and operation codes stay English.
 - The GUI supports Chinese and English.
 - The language dropdown must always show `English` and the Chinese-language option.
@@ -69,7 +71,8 @@ GitHub automation exists:
 - Build workflow: `.github/workflows/build.yml`
 - Release workflow: `.github/workflows/release.yml`
 - First release notes: `docs/release-notes-v1.0.0.md`
-- Latest release notes: `docs/release-notes-v1.1.5.md`
+- Latest public release notes: `docs/release-notes-v1.1.5.md`
+- Local 2.0 release-note draft: `docs/release-notes-v2.0.0.md`
 
 The `release` workflow creates or updates a GitHub Release and uploads `LinkShelf.exe`.
 
@@ -187,3 +190,17 @@ git log --oneline --decorate -5
 - Update this file when release state, automation behavior, cache-root paths, or major design decisions change.
 - Do not write secrets, tokens, sensitive config, or private file contents into this file.
 - This handoff file does not replace `README.md`, `AGENTS.md`, or release documentation.
+
+## v2.0.0 Local Work
+
+Local 2.0 work so far:
+
+- Added `LinkShelf.Core/LinkShelf.Core.csproj`, `LinkShelf.Cli/LinkShelf.Cli.csproj`, `LinkShelf.Core.Tests/LinkShelf.Core.Tests.csproj`, `Directory.Build.props`, and `LinkShelf.slnx`.
+- Moved `Models/SyncModels.cs`, `Models/RecommendedSyncItem.cs`, `Services/AppPaths.cs`, `Services/ConfigStore.cs`, `Services/FileOperations.cs`, `Services/LogService.cs`, `Services/PathTools.cs`, `Services/RecommendedSyncItems.cs`, and `Services/StatusCheckService.cs` into Core.
+- The root `LinkShelf.csproj` remains the Windows WPF app and references `LinkShelf.Core`.
+- `CommandLineMode` now reads the assembly version instead of using a hard-coded CLI version; command-line behavior has moved to Core's `CommandLineRunner`.
+- Verified `LinkShelf.Cli\bin\Release\net8.0\LinkShelf.Cli.exe version` prints `2.0.0`, and `check --json` returns `ok: true` in its own cache root.
+- `RecommendedSyncItems` now has platform boundaries and initial macOS presets; Core tests cover macOS/Windows recommendation isolation; the CLI adds read-only `platform` and `recommended --json`, with `--platform windows|macos|linux` override support for recommendations.
+- `.github/workflows/build.yml` now has a CLI/Core test matrix that builds `LinkShelf.Cli` and runs `LinkShelf.Core.Tests` on `windows-latest`, `ubuntu-latest`, and `macos-latest`; the Windows job builds `LinkShelf.slnx`, runs Core tests, then publishes the WPF app.
+- The publish command has been run and these hard-link entries have been rebuilt: `dist\LinkShelf.exe`, `C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe`, and `C:\Users\11467\AppData\Local\冷备缓存\LinkShelf.exe`.
+- The sync-cache entry has been verified: `version` prints `2.0.0`; `check --json` returns `ok: true`, `problemCount: 0`, and `total: 8`.

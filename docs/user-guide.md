@@ -13,7 +13,7 @@ Windows 配置迁移与符号链接工具：把分散的应用设置、dotfiles 
 
 关键词：Windows 符号链接、软链接、硬链接、dotfiles、配置迁移、配置备份、AI 编程工具配置、开发环境恢复。
 
-![Link Shelf preview](Assets/app-preview-cn.png)
+![Link Shelf preview](../Assets/app-preview-cn.png)
 
 ## 快速开始
 
@@ -30,6 +30,7 @@ Windows 配置迁移与符号链接工具：把分散的应用设置、dotfiles 
 
 - [存在意义](#存在意义)
 - [主要功能](#主要功能)
+- [平台和 2.0 架构](#平台和-20-架构)
 - [安装](#安装)
 - [图形界面用法](#图形界面用法)
 - [命令行用法](#命令行用法)
@@ -78,6 +79,12 @@ Link Shelf 可以把这些路径放到一个“架子”上，让它们作为一
 - 配置、日志、程序名和运行目录使用英文。
 - 界面支持中英文切换，并可按当前 Windows 界面语言自动选择。
 
+## 平台和 2.0 架构
+
+当前发布包仍是 Windows WPF 应用。文件占用检测、程序投射、Windows 快捷方式拒绝逻辑和窗口交互都按 Windows 行为设计。
+
+2.0 起项目拆出 `LinkShelf.Core`，承载配置读写、路径规范化、状态检查、按平台筛选推荐项和文件/符号链接操作。同时新增 `LinkShelf.Cli` 作为跨平台只读命令行入口，用于验证 Core 在非 WPF 环境中的使用方式。未来 macOS 版应复用 Core，再单独实现 macOS UI、权限引导、Finder/Terminal 使用体验和平台验证。
+
 ## 安装
 
 从发布页下载最新的 [`LinkShelf.exe`](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe)，然后把它放到你想作为缓存根目录的文件夹里。
@@ -109,7 +116,7 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 
 部分推荐路径可能包含账号名、令牌、本地历史或其他私有状态。用云盘、同步工具或备份工具处理前，请先检查对应文件夹内容。
 
-![推荐项目窗口](Assets/recommended-items-window-cn.png)
+![推荐项目窗口](../Assets/recommended-items-window-cn.png)
 
 在第二台电脑上：
 
@@ -130,7 +137,7 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 
 在另一台电脑上点击 `恢复链接`，或使用 `搬回原位/撤销` 时，如果目标路径同样因为拒绝访问而失败，也会打开同一个文件占用处理窗口，处理后再重试原操作。
 
-![文件占用处理窗口](Assets/lock-resolution-window-cn.png)
+![文件占用处理窗口](../Assets/lock-resolution-window-cn.png)
 
 ### 投射程序
 
@@ -155,7 +162,11 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 .\LinkShelf.exe check --json
 .\LinkShelf.exe check --verbose
 .\LinkShelf.exe status
+.\LinkShelf.exe recommended
+.\LinkShelf.exe recommended --json
+.\LinkShelf.exe recommended --platform macos --json
 .\LinkShelf.exe cache-root
+.\LinkShelf.exe platform
 .\LinkShelf.exe version
 .\LinkShelf.exe help
 .\LinkShelf.exe -help
@@ -171,9 +182,10 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 
 ```powershell
 .\LinkShelf.exe check --json
+.\LinkShelf.exe recommended --json
 ```
 
-只有 `problemCount` 大于 `0` 时才需要提醒用户。
+`check --json` 只有 `problemCount` 大于 `0` 时才需要提醒用户。`platform` 输出当前平台判定。`recommended --json` 只读输出当前平台可添加的推荐路径；维护者可用 `--platform windows|macos|linux` 覆盖平台筛选。
 
 ## AI 和自动化
 
@@ -184,6 +196,8 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 ```powershell
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe check --json
+.\LinkShelf.exe platform
+.\LinkShelf.exe recommended --json
 .\LinkShelf.exe help
 ```
 
@@ -194,6 +208,8 @@ C:\Users\you\AppData\Local\LinkShelf\LinkShelf.exe
 
 请先运行 `LinkShelf.exe cache-root` 找到缓存根目录。
 再运行 `LinkShelf.exe check --json`，只解释不健康的项目。
+运行 `LinkShelf.exe platform` 确认当前平台判定。
+如果我要你推荐可收纳路径，运行 `LinkShelf.exe recommended --json`，只解释其中的候选项。
 除非我明确要求，不要移动、删除、覆盖、恢复或重新创建链接。
 如果我要你推荐可收纳路径，优先考虑开发工具、AI 编程工具、编辑器、终端、包管理器和小型应用状态目录。同步前提醒我检查密钥、令牌、本地历史记录和账号相关文件。
 ```
@@ -317,23 +333,24 @@ Link Shelf 只负责本机路径搬迁和符号链接恢复。缓存根目录如
 - 签名发布
 - 更安全的首次运行引导
 - 恢复链接的可选试运行模式
+- macOS 前端和平台行为验证，规划见 [macOS 移植计划](macos-port-plan.md)
 - 可导出的诊断报告
 
 ## 参与贡献
 
-欢迎贡献。请从 [CONTRIBUTING.md](CONTRIBUTING.md) 开始，并保持文件移动行为保守：Link Shelf 不应该静默删除、覆盖或合并用户内容。
+欢迎贡献。请从 [CONTRIBUTING.md](../CONTRIBUTING.md) 开始，并保持文件移动行为保守：Link Shelf 不应该静默删除、覆盖或合并用户内容。
 
-发布规划和 GitHub 上线说明见 [docs/github-launch-checklist.md](docs/github-launch-checklist.md)。
+发布规划和 GitHub 上线说明见 [docs/github-launch-checklist.md](github-launch-checklist.md)。
 
 ## 维护者文档
 
-仅维护者需要的上线、发布、截图、签名和交接说明放在 [docs](docs)。普通用户可以忽略它们。签名说明见 [Windows 程序签名](docs/windows-code-signing.md)。
+仅维护者需要的上线、发布、截图、签名和交接说明放在 [docs](.)。普通用户可以忽略它们。签名说明见 [Windows 程序签名](windows-code-signing.md)，跨平台规划见 [macOS 移植计划](macos-port-plan.md)。
 
 ## 鸣谢
 
 文件占用检测代码改写自 PolarGoose 的 [ShowWhatProcessLocksFile](https://github.com/PolarGoose/ShowWhatProcessLocksFile)。
 
-文件占用处理流程也参考了微软开源项目 PowerToys 的 [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith)。详细来源见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
+文件占用处理流程也参考了微软开源项目 PowerToys 的 [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith)。详细来源见 [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md)。
 
 
 ## 许可证

@@ -8,10 +8,27 @@ Chinese changelog: [CHANGELOG.md](CHANGELOG.md)
 
 ## Unreleased
 
+Nothing yet.
+
+## 2.0.0 - 2026-06-10
+
+Chinese: [Changelog](CHANGELOG.md#200---2026-06-10) | [Release notes](docs/release-notes-v2.0.0.md)
+
 ### Changed
 
 - Turned the README into a true short homepage and moved the full documentation to `docs/user-guide.md` / `docs/user-guide.en.md`.
 - Removed the specific sync-tool framing from the homepage selling point and GitHub topics, replacing it with general backup/sync risk guidance.
+- Moved config, path, status-check, recommended-item, and file/symbolic-link operations into `LinkShelf.Core` as groundwork for a future macOS frontend.
+- Added `LinkShelf.Cli` as a cross-platform read-only command-line entry point that reuses Core.
+- Added `Directory.Build.props` and `LinkShelf.slnx` to centralize version metadata and provide a multi-project build entry point.
+- Added `LinkShelf.Core.Tests`, a dependency-free console test entry point covering portable paths, platform path comparison, config normalization, platform-aware recommendation filtering, and shared CLI version output.
+- Recommended items now carry platform boundaries, with an initial macOS preset catalog so a future macOS shell does not show Windows `AppData` paths.
+- Added the read-only CLI command `platform` to confirm detected platform behavior.
+- Added the read-only CLI command `recommended` / `recommended --json` to inspect available recommended paths for the current platform, with `--platform windows|macos|linux` override support.
+- The GitHub build workflow now compiles the CLI on Windows, Linux, and macOS runners so the shared layer does not silently pick up Windows-only dependencies.
+- Core path comparison is centralized through `PathTools.PathStringComparison` / `PathStringComparer` to keep room for macOS and other filesystem differences.
+- Added paired macOS port-plan docs covering GUI, cache-root, permission, and validation requirements.
+- The downloadable app remains the Windows WPF build; macOS support still needs a separate frontend, permission design, and real-device validation.
 
 ## 1.1.5 - 2026-06-09
 

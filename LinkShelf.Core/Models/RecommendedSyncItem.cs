@@ -8,6 +8,14 @@ public sealed class RecommendedSyncItem
     public required string ExpandedPath { get; init; }
     public required SyncItemKind Kind { get; init; }
     public required string ReasonKey { get; init; }
+    public required RecommendedPlatform Platform { get; init; }
+}
+
+public enum RecommendedPlatform
+{
+    Windows,
+    MacOS,
+    Linux
 }
 
 public sealed class RecommendedSyncItemRow

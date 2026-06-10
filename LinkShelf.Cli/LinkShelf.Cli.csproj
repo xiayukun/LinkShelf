@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>LinkShelf.Cli</AssemblyName>
+    <RootNamespace>LinkShelf.Cli</RootNamespace>
+    <Product>Link Shelf CLI</Product>
+    <Description>Cross-platform read-only CLI entry point for Link Shelf cache-root health checks.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LinkShelf.Core\LinkShelf.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -4,6 +4,16 @@ namespace LinkShelf.Services;
 
 public static class PathTools
 {
+    public static StringComparison PathStringComparison =>
+        OperatingSystem.IsWindows() || OperatingSystem.IsMacOS()
+            ? StringComparison.OrdinalIgnoreCase
+            : StringComparison.Ordinal;
+
+    public static StringComparer PathStringComparer =>
+        OperatingSystem.IsWindows() || OperatingSystem.IsMacOS()
+            ? StringComparer.OrdinalIgnoreCase
+            : StringComparer.Ordinal;
+
     public static string Normalize(string path)
     {
         return Path.GetFullPath(Environment.ExpandEnvironmentVariables(path))
@@ -52,12 +62,12 @@ public static class PathTools
     {
         var fullPath = Normalize(path) + Path.DirectorySeparatorChar;
         var fullParent = Normalize(parent) + Path.DirectorySeparatorChar;
-        return fullPath.StartsWith(fullParent, StringComparison.OrdinalIgnoreCase);
+        return fullPath.StartsWith(fullParent, PathStringComparison);
     }
 
     public static bool IsSamePath(string left, string right)
     {
-        return string.Equals(Normalize(left), Normalize(right), StringComparison.OrdinalIgnoreCase);
+        return string.Equals(Normalize(left), Normalize(right), PathStringComparison);
     }
 
     public static string KindText(SyncItemKind kind)

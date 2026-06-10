@@ -13,7 +13,7 @@ It is useful for organizing developer environments, AI coding tool settings, ter
 
 Keywords: Windows symbolic links, symlinks, hard links, dotfiles, config migration, config backup, AI coding tool config, developer environment restore.
 
-![Link Shelf preview](Assets/app-preview.png)
+![Link Shelf preview](../Assets/app-preview.png)
 
 ## Quick Start
 
@@ -30,6 +30,7 @@ If you have backed up, copied, or synced the cache root to another machine, put 
 
 - [Why It Exists](#why-it-exists)
 - [Features](#features)
+- [Platform and 2.0 Architecture](#platform-and-20-architecture)
 - [Install](#install)
 - [GUI Usage](#gui-usage)
 - [CLI Usage](#cli-usage)
@@ -78,6 +79,12 @@ It is not sync software, and it does not decide which caches are safe to share a
 - Use English config, logs, executable names, and folders.
 - Switch the UI between English and Chinese with automatic language selection from the current Windows UI culture.
 
+## Platform and 2.0 Architecture
+
+The current release package is still a Windows WPF app. Locked-path detection, app projection, Windows shortcut rejection, and window interactions are designed around Windows behavior.
+
+Starting in 2.0, the project includes `LinkShelf.Core` for config I/O, path normalization, status checks, platform-aware recommended-item filtering, and file/symbolic-link operations. It also adds `LinkShelf.Cli` as a cross-platform read-only command-line entry point, so Core can be exercised outside WPF. A future macOS build should reuse Core, then implement a separate macOS UI, permission guidance, Finder/Terminal workflow, and platform validation.
+
 ## Install
 
 Download the latest [`LinkShelf.exe`](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) from the release page and place it inside the folder you want to manage as your cache root.
@@ -109,7 +116,7 @@ Recommended items only show paths that exist on the current machine and are not 
 
 Some recommended paths can contain account names, tokens, local history, or other private state. Review the folder before using a cloud drive, sync tool, or backup tool on it.
 
-![Recommended items window](Assets/recommended-items-window-cn.png)
+![Recommended items window](../Assets/recommended-items-window-cn.png)
 
 On a second machine:
 
@@ -130,7 +137,7 @@ From that window, you can review the processes, terminate selected processes fro
 
 The same recovery window is also used when `Restore links` or `Move back / Undo` fails with `Access denied`, so locked target paths can be handled before retrying the operation.
 
-![Locked path recovery window](Assets/lock-resolution-window-cn.png)
+![Locked path recovery window](../Assets/lock-resolution-window-cn.png)
 
 ### Project App
 
@@ -155,7 +162,11 @@ The same executable supports automation-friendly commands:
 .\LinkShelf.exe check --json
 .\LinkShelf.exe check --verbose
 .\LinkShelf.exe status
+.\LinkShelf.exe recommended
+.\LinkShelf.exe recommended --json
+.\LinkShelf.exe recommended --platform macos --json
 .\LinkShelf.exe cache-root
+.\LinkShelf.exe platform
 .\LinkShelf.exe version
 .\LinkShelf.exe help
 .\LinkShelf.exe -help
@@ -167,13 +178,14 @@ Exit codes:
 - `1`: one or more problems were found
 - `2`: command error or application error
 
-Recommended automation command:
+Recommended automation commands:
 
 ```powershell
 .\LinkShelf.exe check --json
+.\LinkShelf.exe recommended --json
 ```
 
-Only notify the user when `problemCount` is greater than `0`.
+For `check --json`, only notify the user when `problemCount` is greater than `0`. `platform` prints the detected platform. `recommended --json` is read-only and prints recommended paths available for the current platform; maintainers can override platform filtering with `--platform windows|macos|linux`.
 
 ## AI and Automation
 
@@ -184,6 +196,8 @@ For a user's AI assistant, the safest way to inspect Link Shelf is the CLI:
 ```powershell
 .\LinkShelf.exe cache-root
 .\LinkShelf.exe check --json
+.\LinkShelf.exe platform
+.\LinkShelf.exe recommended --json
 .\LinkShelf.exe help
 ```
 
@@ -194,6 +208,8 @@ I use Link Shelf on Windows to move scattered app state, dotfiles, AI coding too
 
 First run `LinkShelf.exe cache-root` to locate the cache root.
 Then run `LinkShelf.exe check --json` and explain only unhealthy items.
+Run `LinkShelf.exe platform` to confirm the detected platform.
+If I ask for recommended paths, run `LinkShelf.exe recommended --json` and explain only those candidates.
 Do not move, delete, overwrite, restore, or relink anything unless I explicitly ask.
 If I ask you to recommend paths, prefer developer tools, AI coding tools, editors, terminals, package managers, and small app-state folders. Warn me before syncing secrets, tokens, local history, or account-specific files.
 ```
@@ -317,23 +333,24 @@ If you use a sync tool, close the related applications first, keep a backup, and
 - Signed releases
 - Safer first-run guide
 - Optional dry-run mode for restore
+- macOS frontend and platform behavior validation; see the [macOS port plan](macos-port-plan.en.md)
 - Exportable diagnostic report
 
 ## Contributing
 
-Contributions are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md), and keep file-moving behavior conservative: Link Shelf should never silently delete, overwrite, or merge user content.
+Contributions are welcome. Start with [CONTRIBUTING.md](../CONTRIBUTING.md), and keep file-moving behavior conservative: Link Shelf should never silently delete, overwrite, or merge user content.
 
-For release planning and GitHub launch notes, see [docs/github-launch-checklist.md](docs/github-launch-checklist.md).
+For release planning and GitHub launch notes, see [docs/github-launch-checklist.md](github-launch-checklist.md).
 
 ## Maintainer Docs
 
-Maintainer-only launch, release, screenshot, signing, and handoff notes live in [docs](docs). Most users can ignore them. For signing options, see [Windows code signing](docs/windows-code-signing.md).
+Maintainer-only launch, release, screenshot, signing, and handoff notes live in [docs](.). Most users can ignore them. For signing options, see [Windows code signing](windows-code-signing.md); for cross-platform planning, see the [macOS port plan](macos-port-plan.en.md).
 
 ## Acknowledgements
 
 The locked-path detection code is adapted from [ShowWhatProcessLocksFile](https://github.com/PolarGoose/ShowWhatProcessLocksFile) by PolarGoose.
 
-The user workflow is also inspired by Microsoft PowerToys [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith), an open-source PowerToys utility. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for details.
+The user workflow is also inspired by Microsoft PowerToys [File Locksmith](https://learn.microsoft.com/en-us/windows/powertoys/file-locksmith), an open-source PowerToys utility. See [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md) for details.
 
 
 ## License

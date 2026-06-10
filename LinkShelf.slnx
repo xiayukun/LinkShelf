@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="LinkShelf.Cli/LinkShelf.Cli.csproj" />
+  <Project Path="LinkShelf.Core.Tests/LinkShelf.Core.Tests.csproj" />
+  <Project Path="LinkShelf.Core/LinkShelf.Core.csproj" />
+  <Project Path="LinkShelf.csproj" />
+</Solution>

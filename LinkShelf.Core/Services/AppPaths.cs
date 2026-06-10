@@ -6,10 +6,10 @@ public sealed class AppPaths
     public const string LogDirectoryName = ".link-shelf-logs";
     public const string BackupDirectoryName = ".link-shelf-backups";
 
-    public AppPaths(string baseDirectory)
+    public AppPaths(string baseDirectory, string? userHome = null)
     {
         CacheRoot = Path.GetFullPath(baseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-        UserHome = InferUserHome(CacheRoot);
+        UserHome = userHome is null ? InferUserHome(CacheRoot) : Path.GetFullPath(userHome);
         ConfigPath = Path.Combine(CacheRoot, ConfigFileName);
         LogDirectory = Path.Combine(CacheRoot, LogDirectoryName);
         BackupDirectory = Path.Combine(CacheRoot, BackupDirectoryName);

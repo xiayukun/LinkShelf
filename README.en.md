@@ -29,7 +29,7 @@ It is useful for organizing developer environments, AI coding tool settings, ter
 - Restore, check, and undo managed items.
 - Detect broken links, missing cache items, wrong link targets, and target-path conflicts.
 - Recommend common developer tool, editor, terminal, package-manager, and AI coding tool config paths.
-- CLI `check --json` output for automation and AI assistants.
+- CLI `check --json`, `platform`, and `recommended --json` output for automation and AI assistants.
 - `Project app` can hard-link the same exe into another cache-root entry point.
 
 ## Good Fit
@@ -41,5 +41,7 @@ It is useful for organizing developer environments, AI coding tool settings, ter
 ## Caution
 
 Link Shelf is not sync software, and it does not decide which caches are safe to share across machines. Do not blindly sync large caches, databases, browser profiles, folders used by running apps, or paths containing tokens and local history.
+
+The downloadable app is still the Windows build. Starting in 2.0, the source tree includes `LinkShelf.Core` as groundwork for a future macOS frontend, but macOS support still needs separate development and real-device validation.
 
 See the [full user guide](docs/user-guide.en.md) for GUI usage, CLI commands, config structure, privacy notes, and maintainer details.

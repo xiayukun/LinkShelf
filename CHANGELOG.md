@@ -8,10 +8,27 @@ English changelog: [CHANGELOG.en.md](CHANGELOG.en.md)
 
 ## 未发布
 
-### 调整
+暂无。
+
+## 2.0.0 - 2026-06-10
+
+English: [Changelog](CHANGELOG.en.md#200---2026-06-10) | [Release notes](docs/release-notes-v2.0.0.en.md)
+
+### 变更
 
 - 将 README 改成真正的短主页，并把完整说明移到 `docs/user-guide.md` / `docs/user-guide.en.md`。
 - 将特定同步工具从主页主卖点和 GitHub topics 中移除，改为通用备份/同步风险提示。
+- 将配置、路径、状态检查、推荐项筛选和文件/符号链接操作拆入 `LinkShelf.Core`，为未来 macOS 前端打基础。
+- 新增 `LinkShelf.Cli`，作为复用 Core 的跨平台只读命令行入口。
+- 新增 `Directory.Build.props` 和 `LinkShelf.slnx`，统一版本元数据和多项目构建入口。
+- 新增 `LinkShelf.Core.Tests`，用无第三方依赖的控制台测试覆盖路径便携化、平台路径比较、配置规范化、平台推荐项过滤和共享命令行版本输出。
+- 推荐项现在带有平台边界，并新增一组 macOS 起步预设，避免未来 macOS 外壳展示 Windows `AppData` 路径。
+- 新增只读 CLI 命令 `platform`，用于确认当前平台判定。
+- 新增只读 CLI 命令 `recommended` / `recommended --json`，可查看当前平台可添加的推荐路径，并支持 `--platform windows|macos|linux` 覆盖筛选。
+- GitHub build workflow 现在会在 Windows、Linux 和 macOS runner 上编译 CLI，防止共享层误引入 Windows-only 依赖。
+- Core 路径比较集中到 `PathTools.PathStringComparison` / `PathStringComparer`，为 macOS 和其他平台的文件系统差异预留边界。
+- 新增成对的 macOS 移植计划文档，说明 GUI、缓存根、权限和验证要求。
+- 当前可下载程序仍是 Windows WPF 应用；macOS 支持需要单独前端、权限设计和真机验证。
 
 ## 1.1.5 - 2026-06-09
 

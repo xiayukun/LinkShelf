@@ -88,8 +88,9 @@ Link Shelf 是一个 Windows 工具，可以把用户选择的文件或目录移
 
 推荐添加项目：
 
-- `RecommendedSyncItems` 定义内置预设，包含英文键、便携路径、预期项目类型和推荐理由键。
+- `RecommendedSyncItems` 定义内置预设，包含英文键、便携路径、预期项目类型、推荐理由键和适用平台。
 - 预设应优先覆盖广泛有用的开发工具、AI 编程工具、编辑器、终端、包管理器和小型应用状态路径。不要加入纯个人化应用选择，除非它们同时也是广泛常见用途。
+- Windows 预设不能在 macOS 或 Linux 上展示；macOS 预设必须使用 Unix 风格便携路径，例如 `~/.gitconfig` 或 `~/Library/Application Support/...`。
 - 推荐预设覆盖范围变化时，要同步更新 README、更新日志、发布说明和英文配套文档，说明推荐清单的来源和范围。
 - 推荐项目界面文字和推荐理由必须放在 `LocalizationService`。
 - 推荐窗口只显示本机存在，并且尚未出现在已启用配置记录中的路径。
@@ -159,7 +160,11 @@ Link Shelf 是一个 Windows 工具，可以把用户选择的文件或目录移
 .\LinkShelf.exe check --json
 .\LinkShelf.exe check --verbose
 .\LinkShelf.exe status
+.\LinkShelf.exe recommended
+.\LinkShelf.exe recommended --json
+.\LinkShelf.exe recommended --platform macos --json
 .\LinkShelf.exe cache-root
+.\LinkShelf.exe platform
 .\LinkShelf.exe version
 .\LinkShelf.exe help
 .\LinkShelf.exe -help
@@ -205,8 +210,21 @@ Link Shelf 是一个 Windows 工具，可以把用户选择的文件或目录移
 - 对于 GitHub issue 和 pull request 模板，实际可行时也提供 `.en.md` 英文配套。
 - 提交 Markdown 修改前，列出所有 `.md` 文件，检查英文和中文配套文档是否仍然对应。
 
+## 架构边界
+
+2.0 起项目包含一个跨平台核心类库和一个 Windows WPF 外壳：
+
+- `LinkShelf.Core` 面向 `net8.0`，承载配置模型、路径工具、配置读写、状态检查、推荐项筛选和文件/符号链接操作。核心层不要引用 WPF、Windows Forms、Win32 P/Invoke 或本地化 UI 文案。
+- `Directory.Build.props` 是共享版本和程序集元数据来源，升级版本号时优先改这里。
+- `LinkShelf.slnx` 是本地多项目入口，包含 Windows WPF、Core、CLI 和 Core 测试。
+- 根目录下的 `LinkShelf.csproj` 仍是当前 Windows WPF 应用，负责窗口、Windows 入口、语言切换、Windows 硬链接投射和占用进程处理。
+- `LinkShelf.Cli` 是跨平台只读命令行入口，复用 `LinkShelf.Core` 的 `CommandLineRunner`。
+- 未来 macOS 版应新增单独平台外壳复用 `LinkShelf.Core`，不要把 macOS UI 或权限引导写进 Windows WPF 项目。设计边界见 `docs/macos-port-plan.md`。
+
 ## 重要文件
 
+- `Directory.Build.props`：共享版本号和程序集元数据。
+- `LinkShelf.slnx`：包含 Windows WPF、Core 和 CLI 的多项目入口。
 - `MainWindow.xaml`：主图形界面布局。
 - `MainWindow.xaml.cs`：图形界面行为、语言切换、多选操作、占用路径处理后的添加项目重试。
 - `ConflictChoiceWindow.xaml`：冲突对话框布局。
@@ -215,17 +233,20 @@ Link Shelf 是一个 Windows 工具，可以把用户选择的文件或目录移
 - `LockingProcessesWindow.xaml.cs`：占用路径扫描、进程列表、结束进程和继续/取消决策映射。
 - `RecommendedItemsWindow.xaml`：推荐项目选择器布局。
 - `RecommendedItemsWindow.xaml.cs`：推荐项目选择和添加/取消决策映射。
-- `Models/SyncModels.cs`：配置模型、常量、表格行视图模型和枚举。
-- `Models/RecommendedSyncItem.cs`：推荐项目模型和表格行模型。
-- `Services/AppPaths.cs`：缓存根目录、配置路径、日志路径和备份路径。
-- `Services/ConfigStore.cs`：配置加载、规范化和保存。
-- `Services/FileOperations.cs`：移动、复制、链接、备份、恢复和冲突应用。
-- `Services/RecommendedSyncItems.cs`：内置推荐路径和本机/配置过滤。
-- `Services/StatusCheckService.cs`：只读健康检查。
-- `Services/PathTools.cs`：路径规范化、`~` 展开和唯一缓存名。
-- `Services/ProjectionService.cs`：把当前可执行程序以硬链接方式投射到另一个缓存根目录。
+- `LinkShelf.Core/Models/SyncModels.cs`：配置模型、常量、表格行视图模型和枚举。
+- `LinkShelf.Core/Models/RecommendedSyncItem.cs`：推荐项目模型和表格行模型。
+- `LinkShelf.Core/Services/AppPaths.cs`：缓存根目录、配置路径、日志路径和备份路径。
+- `LinkShelf.Core/Services/ConfigStore.cs`：配置加载、规范化和保存。
+- `LinkShelf.Core/Services/FileOperations.cs`：移动、复制、链接、备份、恢复和冲突应用。
+- `LinkShelf.Core/Services/RecommendedSyncItems.cs`：内置推荐路径和本机/配置过滤。
+- `LinkShelf.Core/Services/StatusCheckService.cs`：只读健康检查。
+- `LinkShelf.Core/Services/PathTools.cs`：路径规范化、`~` 展开和唯一缓存名。
+- `LinkShelf.Core/Services/LogService.cs`：操作日志，以及添加项目问题排查用的诊断日志。
+- `LinkShelf.Core/CommandLineRunner.cs`：图形应用和跨平台 CLI 共用的只读命令行逻辑。
+- `LinkShelf.Cli/Program.cs`：跨平台 CLI 入口。
+- `LinkShelf.Core.Tests/Program.cs`：无第三方依赖的 Core 行为测试入口，用于 CI 跨平台验证。
+- `Services/ProjectionService.cs`：Windows 硬链接投射。
 - `Services/LocalizationService.cs`：英文和中文界面字符串。
-- `Services/LogService.cs`：操作日志，以及添加项目问题排查用的诊断日志。
 - `CommandLineMode.cs`：命令行入口和机器可读状态输出。
 - `ThirdParty/ShowWhatProcessLocksFile`：改造后的占用检查和结束进程代码。
 - `THIRD-PARTY-NOTICES.md`：复制或改造代码、工作流参考的第三方声明。
@@ -235,7 +256,8 @@ Link Shelf 是一个 Windows 工具，可以把用户选择的文件或目录移
 构建：
 
 ```powershell
-dotnet build .\LinkShelf.csproj -c Release
+dotnet build .\LinkShelf.slnx -c Release
+dotnet run --project .\LinkShelf.Core.Tests\LinkShelf.Core.Tests.csproj -c Release --no-build
 ```
 
 修改代码后不要只停在 `dotnet build`。必须重新发布 `dist\LinkShelf.exe`，查询投射硬链接，并把需要指向新 `dist` 产物的 `LinkShelf.exe` 硬链接重建好。

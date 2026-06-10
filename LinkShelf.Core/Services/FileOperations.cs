@@ -56,7 +56,7 @@ public sealed class FileOperations
         }
 
         var sameRecord = config.Items.FirstOrDefault(x =>
-            string.Equals(x.OriginalPath, portable, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(x.OriginalPath, portable, PathTools.PathStringComparison) &&
             x.Status == SyncConstants.StatusEnabled);
 
         var cacheName = sameRecord?.CacheName ?? ChooseCacheName(desiredName, portable);
@@ -226,8 +226,8 @@ public sealed class FileOperations
         var cacheName = Path.GetFileName(linkTarget);
         var portable = PathTools.ToPortablePath(source, paths.UserHome);
         var item = config.Items.FirstOrDefault(x =>
-            string.Equals(x.CacheName, cacheName, StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(x.OriginalPath, portable, StringComparison.OrdinalIgnoreCase));
+            string.Equals(x.CacheName, cacheName, PathTools.PathStringComparison) ||
+            string.Equals(x.OriginalPath, portable, PathTools.PathStringComparison));
 
         if (item is not null)
         {
@@ -264,7 +264,7 @@ public sealed class FileOperations
     private string ChooseCacheName(string desiredName, string portable)
     {
         var sameRecord = config.Items.FirstOrDefault(x =>
-            string.Equals(x.OriginalPath, portable, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(x.OriginalPath, portable, PathTools.PathStringComparison) &&
             x.Status == SyncConstants.StatusEnabled);
         if (sameRecord is not null)
         {
@@ -275,8 +275,8 @@ public sealed class FileOperations
         {
             var full = Path.Combine(paths.CacheRoot, name);
             var usedByOtherRecord = config.Items.Any(x =>
-                string.Equals(x.CacheName, name, StringComparison.OrdinalIgnoreCase) &&
-                !string.Equals(x.OriginalPath, portable, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(x.CacheName, name, PathTools.PathStringComparison) &&
+                !string.Equals(x.OriginalPath, portable, PathTools.PathStringComparison) &&
                 x.Status == SyncConstants.StatusEnabled);
             return PathExists(full) || usedByOtherRecord;
         });

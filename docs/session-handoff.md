@@ -10,12 +10,12 @@ English: [session-handoff.en.md](session-handoff.en.md)
 - 远程仓库：`git@github.com:xiayukun/LinkShelf.git`
 - GitHub 页面：`https://github.com/xiayukun/LinkShelf`
 - 最新 GitHub Release：`v1.1.5`
-- 当前源码和本地运行程序版本：`1.1.5`
-- 发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.5`
-- 下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.5/LinkShelf.exe`
+- 当前源码和本地运行程序版本：`2.0.0`
+- 最新公开发布页面：`https://github.com/xiayukun/LinkShelf/releases/tag/v1.1.5`
+- 最新公开下载地址：`https://github.com/xiayukun/LinkShelf/releases/download/v1.1.5/LinkShelf.exe`
 - 主分支：`main`
-- 当前 Git HEAD：`Prepare Link Shelf 1.1.5`（具体 hash 以 `git log -1 --oneline` 为准）
-- 当前工作区状态：`main` 已包含 `v1.1.5` 发布提交；发布前应确认 tag 已推送、GitHub Release 已生成。
+- 当前 Git HEAD：`9415f19 Make README a short homepage`，后续 2.0 改动尚待提交时以 `git log -1 --oneline` 为准。
+- 当前工作区状态：本地已进入 `2.0.0` 开发，拆出 `LinkShelf.Core`，`dist\LinkShelf.exe` 与同步/冷备缓存入口已重建为硬链接并输出 `2.0.0`。GitHub 最新公开版本仍是 `v1.1.5`，发布 2.0 前需要提交、打 tag 并运行 release。
 
 ## 本地结构
 
@@ -49,6 +49,8 @@ English: [session-handoff.en.md](session-handoff.en.md)
 
 - 程序所在目录就是缓存根目录。
 - 同一个 `LinkShelf.exe` 同时支持图形界面和命令行。
+- 2.0 起 `LinkShelf.Core` 面向 `net8.0`，承载配置、路径、状态检查、按平台筛选推荐项、文件/符号链接操作和共用命令行运行器；Windows WPF 项目负责窗口、投射硬链接和占用进程恢复；`LinkShelf.Cli` 提供跨平台只读命令行入口。
+- 未来 macOS 版应新增独立平台外壳复用 Core，仍需 macOS 权限、符号链接/Finder 行为和真机验证；详细计划见 `docs/macos-port-plan.md`。
 - 配置键、运行目录名、程序名、操作码都使用英文。
 - 界面支持中文和英文。
 - 语言下拉框里永远显示 `English` 和 `中文`，不要随当前语言翻译这两个选项。
@@ -69,7 +71,8 @@ GitHub 上已经有自动构建和自动发布能力：
 - 构建工作流：`.github/workflows/build.yml`
 - 发布工作流：`.github/workflows/release.yml`
 - 首版发布说明：`docs/release-notes-v1.0.0.md`
-- 最新发布说明：`docs/release-notes-v1.1.5.md`
+- 最新公开发布说明：`docs/release-notes-v1.1.5.md`
+- 本地 2.0 发布说明草稿：`docs/release-notes-v2.0.0.md`
 
 `release` 工作流可以创建或更新 GitHub Release，并上传 `LinkShelf.exe`。
 
@@ -237,3 +240,17 @@ git log --oneline --decorate -5
 - 如果发布状态、自动化行为、缓存根路径或重大设计决策发生变化，应更新本文件。
 - 不要把敏感配置、密钥、令牌或私人文件内容写进本文件。
 - 本文件用于交接上下文，不替代 `README.md`、`AGENTS.md` 或正式发布文档。
+
+## v2.0.0 本地改造
+
+本地 2.0 改造重点：
+
+- 新增 `LinkShelf.Core/LinkShelf.Core.csproj`、`LinkShelf.Cli/LinkShelf.Cli.csproj`、`LinkShelf.Core.Tests/LinkShelf.Core.Tests.csproj`、`Directory.Build.props` 和 `LinkShelf.slnx`。
+- 从根项目移动到 Core 的文件包括 `Models/SyncModels.cs`、`Models/RecommendedSyncItem.cs`、`Services/AppPaths.cs`、`Services/ConfigStore.cs`、`Services/FileOperations.cs`、`Services/LogService.cs`、`Services/PathTools.cs`、`Services/RecommendedSyncItems.cs` 和 `Services/StatusCheckService.cs`。
+- 根项目 `LinkShelf.csproj` 仍是 Windows WPF 应用，并引用 `LinkShelf.Core`。
+- `CommandLineMode` 的版本输出改为读取程序集版本，避免以后硬编码遗漏；命令行逻辑已抽到 Core 的 `CommandLineRunner`。
+- 已验证 `LinkShelf.Cli\bin\Release\net8.0\LinkShelf.Cli.exe version` 输出 `2.0.0`，`check --json` 在自身缓存根目录返回 `ok: true`。
+- `RecommendedSyncItems` 已增加平台边界和 macOS 起步预设，Core 测试覆盖 macOS/Windows 推荐项隔离；CLI 新增只读 `platform` 和 `recommended --json`，后者支持 `--platform windows|macos|linux`。
+- `.github/workflows/build.yml` 已增加 CLI/Core 测试矩阵，在 `windows-latest`、`ubuntu-latest` 和 `macos-latest` 上编译 `LinkShelf.Cli` 并运行 `LinkShelf.Core.Tests`；Windows job 会构建 `LinkShelf.slnx`、运行 Core 测试后再发布 WPF 应用。
+- 已执行发布命令并重建以下硬链接入口：`dist\LinkShelf.exe`、`C:\Users\11467\AppData\Local\同步缓存\LinkShelf.exe`、`C:\Users\11467\AppData\Local\冷备缓存\LinkShelf.exe`。
+- 已验证同步缓存入口 `version` 输出 `2.0.0`，`check --json` 返回 `ok: true`、`problemCount: 0`、`total: 8`。
