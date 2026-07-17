@@ -25,6 +25,8 @@ Chinese: [Changelog](CHANGELOG.md#200---2026-07-17) | [Release notes](docs/relea
 - All dialog and message-box calls migrated from `System.Windows.MessageBox` to the custom `LinkShelfMessageBox`.
 - GitHub README now references `Assets/screenshots/main-hero.jpg` for the main preview image.
 
+## 1.1.6 - 2026-06-10
+
 Chinese: [Changelog](CHANGELOG.md#116---2026-06-10) | [Release notes](docs/release-notes-v1.1.6.md)
 
 ### Added

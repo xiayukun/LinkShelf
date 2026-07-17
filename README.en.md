@@ -2,6 +2,8 @@
 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4)
+![Version](https://img.shields.io/badge/version-2.0.0-43b883)
+[![Build](https://github.com/xiayukun/LinkShelf/actions/workflows/build.yml/badge.svg)](https://github.com/xiayukun/LinkShelf/actions/workflows/build.yml)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 [中文主页](README.md)
@@ -11,6 +13,8 @@ Windows config mover and symlink tool: collect scattered app settings, dotfiles,
 It is useful for organizing developer environments, AI coding tool settings, terminal/editor configuration, and small app state. Backup and sync are handled by tools you choose; Link Shelf handles local path relocation, link restoration, and health checks.
 
 **Download:** [LinkShelf.exe](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) | [Full user guide](docs/user-guide.en.md) | [Latest release](https://github.com/xiayukun/LinkShelf/releases/latest)
+
+> **v2.0.0 highlights**: All windows upgraded to WPF-UI FluentWindow with unified dark theme and custom message boxes. See [release notes](docs/release-notes-v2.0.0.en.md).
 
 ![Link Shelf preview](Assets/screenshots/main-hero.jpg)
 
@@ -34,9 +38,10 @@ It is useful for organizing developer environments, AI coding tool settings, ter
 
 ## Good Fit
 
-- Organizing scattered Windows configuration.
-- Backing up or migrating dotfiles, editor settings, and AI coding tool state.
-- Keeping original app paths while managing the real content in one folder.
+- **Developers**: Organise dotfiles, editor, terminal, and package-manager config (VS Code, Cursor, JetBrains, Neovim, PowerShell, Windows Terminal, etc.).
+- **AI tool users**: Manage settings and state directories for Cursor, Codex, Claude Desktop, Gemini, Continue, aider, Cline, and other AI coding tools.
+- **System migration or reinstall**: Gather scattered application settings into one cache root, place the app on a new machine, and restore all links in one click.
+- **Keep original paths, centralise content**: Your installation and config paths stay unchanged; your trusted sync or backup tool handles the actual files.
 
 ## Caution
 

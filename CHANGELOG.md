@@ -25,6 +25,8 @@ English: [Changelog](CHANGELOG.en.md#200---2026-07-17) | [Release notes](docs/re
 - 所有对话框和消息框从原生 `System.Windows.MessageBox` 迁移为自定义 `LinkShelfMessageBox`。
 - GitHub README 主图引用更新为 `Assets/screenshots/main-hero.jpg`。
 
+## 1.1.6 - 2026-06-10
+
 English: [Changelog](CHANGELOG.en.md#116---2026-06-10) | [Release notes](docs/release-notes-v1.1.6.en.md)
 
 ### 新增
