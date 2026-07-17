@@ -1,20 +1,27 @@
-<Window x:Class="LinkShelf.MainWindow"
+<ui:FluentWindow x:Class="LinkShelf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Height="760"
-        Width="1160"
-        MinHeight="620"
-        MinWidth="980"
-        WindowStartupLocation="CenterScreen">
-    <Grid Background="#F5F6F8">
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        Height="760" Width="1160"
+        MinHeight="620" MinWidth="980"
+        WindowStartupLocation="CenterScreen"
+        Title="Link Shelf">
+    <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="190" />
         </Grid.RowDefinitions>
 
-        <Border Background="#FFFFFF"
-                BorderBrush="#D9DEE7"
+        <!-- WPF-UI TitleBar: provides min/max/close + drag -->
+        <ui:TitleBar Grid.Row="0"
+                     Title="Link Shelf"
+                     Icon="pack://application:,,,/Assets/app.ico"
+                     ShowMaximize="True"
+                     ShowMinimize="True" />
+
+        <Border Grid.Row="1"
                 BorderThickness="0,0,0,1"
                 Padding="18">
             <Grid>
@@ -29,11 +36,11 @@
                                FontWeight="SemiBold" />
                     <TextBlock x:Name="CacheRootText"
                                Margin="0,8,0,0"
-                               Foreground="#60656F"
+                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
                                TextWrapping="Wrap" />
                     <TextBlock x:Name="ConfigText"
                                Margin="0,4,0,0"
-                               Foreground="#60656F"
+                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
                                TextWrapping="Wrap" />
                 </StackPanel>
 
@@ -114,7 +121,7 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="1"
+        <Grid Grid.Row="2"
               Margin="18">
             <DataGrid x:Name="ItemsGrid"
                       AutoGenerateColumns="False"
@@ -125,8 +132,6 @@
                       SelectionUnit="FullRow"
                       GridLinesVisibility="Horizontal"
                       HeadersVisibility="Column"
-                      Background="#FFFFFF"
-                      BorderBrush="#D9DEE7"
                       BorderThickness="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="CacheNameColumn"
@@ -163,9 +168,7 @@
             </DataGrid>
         </Grid>
 
-        <Border Grid.Row="2"
-                Background="#FFFFFF"
-                BorderBrush="#D9DEE7"
+        <Border Grid.Row="3"
                 BorderThickness="0,1,0,0"
                 Padding="18">
             <Grid>
@@ -182,10 +185,8 @@
                          IsReadOnly="True"
                          TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
-                         HorizontalScrollBarVisibility="Auto"
-                         Background="#FAFAFA"
-                         BorderBrush="#D9DEE7" />
+                         HorizontalScrollBarVisibility="Auto" />
             </Grid>
         </Border>
     </Grid>
-</Window>
+</ui:FluentWindow>

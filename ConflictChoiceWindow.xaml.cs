@@ -1,13 +1,15 @@
 using System.Windows;
 using LinkShelf.Models;
 using LinkShelf.Services;
+using Wpf.Ui.Controls;
 
 namespace LinkShelf;
 
-public partial class ConflictChoiceWindow : Window
+public partial class ConflictChoiceWindow : Wpf.Ui.Controls.FluentWindow
 {
     public ConflictChoiceWindow(LocalizationService text, string reason, string targetPath, string cachePath)
     {
+        ExtendsContentIntoTitleBar = true;
         InitializeComponent();
         Title = text.T("conflict.title");
         HeadingText.Text = text.T("conflict.heading");

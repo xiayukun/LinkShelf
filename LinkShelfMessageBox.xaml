@@ -1,0 +1,68 @@
+<ui:FluentWindow x:Class="LinkShelf.LinkShelfMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        Title="Link Shelf" Height="260" Width="560"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ExtendsContentIntoTitleBar="True">
+    <ui:FluentWindow.Resources>
+        <ControlTemplate x:Key="AccentButtonTemplate" TargetType="Button">
+            <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="4"
+                    Height="{TemplateBinding Height}"
+                    Width="{TemplateBinding Width}"
+                    SnapsToDevicePixels="True">
+                <TextBlock Text="{TemplateBinding Content}"
+                           FontWeight="{TemplateBinding FontWeight}"
+                           Foreground="Black"
+                           FontSize="13"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="border" Property="Opacity" Value="0.4" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </ui:FluentWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0"
+                     Title="Link Shelf"
+                     ShowMaximize="False" ShowMinimize="False"
+                     Icon="pack://application:,,,/Assets/app.ico" />
+
+        <StackPanel Grid.Row="1"
+                    Margin="24,12,24,0"
+                    VerticalAlignment="Center">
+            <TextBlock x:Name="TitleBlock"
+                       FontSize="15" FontWeight="SemiBold"
+                       Margin="0,0,0,6"
+                       Foreground="#FFD4D4D4"/>
+            <TextBlock x:Name="MessageBlock"
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       Foreground="#FF999999"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0,12,24,16">
+            <ui:Button x:Name="CancelBtn" Content="取消"
+                       Width="80" Height="32"
+                       Margin="0,0,8,0"
+                       Click="CancelBtn_Click"/>
+            <Button x:Name="OkBtn" Content="确定"
+                    Width="80" Height="32"
+                    FontWeight="Bold"
+                    Template="{StaticResource AccentButtonTemplate}"
+                    Click="OkBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</ui:FluentWindow>

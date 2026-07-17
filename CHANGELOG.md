@@ -8,7 +8,22 @@ English changelog: [CHANGELOG.en.md](CHANGELOG.en.md)
 
 ## 未发布
 
-## 1.1.6 - 2026-06-10
+## 2.0.0 - 2026-07-17
+
+English: [Changelog](CHANGELOG.en.md#200---2026-07-17) | [Release notes](docs/release-notes-v2.0.0.md)
+
+### 新增
+
+- 所有管理窗口（冲突选择、文件占用处理、推荐项目、主窗口）全面迁移为 WPF-UI `FluentWindow`，支持 `ExtendsContentIntoTitleBar` 现代标题栏和系统主题色。
+- 新增 `LinkShelfMessageBox` 自定义消息框，统一深色主题样式替代原生 MessageBox。
+- 集成 WPF-UI Dark 深色主题，所有窗口统一深色前景色。
+- 新增 `WPF-UI` 包依赖（v4.3.0），为后续 UI 现代化提供基础。
+- 主页主截图更新为新的功能汇总 Hero 图。
+
+### 变更
+
+- 所有对话框和消息框从原生 `System.Windows.MessageBox` 迁移为自定义 `LinkShelfMessageBox`。
+- GitHub README 主图引用更新为 `Assets/screenshots/main-hero.jpg`。
 
 English: [Changelog](CHANGELOG.en.md#116---2026-06-10) | [Release notes](docs/release-notes-v1.1.6.en.md)
 

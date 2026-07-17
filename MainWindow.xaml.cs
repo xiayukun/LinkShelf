@@ -7,7 +7,7 @@ using LinkShelf.Services;
 
 namespace LinkShelf;
 
-public partial class MainWindow : Window
+public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 {
     private readonly AppPaths paths;
     private readonly ConfigStore store;
@@ -18,6 +18,7 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
+        ExtendsContentIntoTitleBar = true;
         InitializeComponent();
 
         paths = new AppPaths(AppContext.BaseDirectory);
@@ -146,7 +147,7 @@ public partial class MainWindow : Window
         var candidates = RecommendedSyncItems.GetAvailable(paths, config);
         if (candidates.Count == 0)
         {
-            System.Windows.MessageBox.Show(this, text.T("recommended.noItems"), text.T("recommended.title"), MessageBoxButton.OK, MessageBoxImage.Information);
+            LinkShelfMessageBox.Show(this, text.T("recommended.noItems"), text.T("recommended.title"), MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
 
@@ -199,7 +200,7 @@ public partial class MainWindow : Window
         {
             var message = text.F("dialog.shortcutUnsupported", Environment.NewLine, string.Join(Environment.NewLine, shortcutFiles));
             AppendLog(text.F("log.skippedShortcuts", shortcutFiles.Count));
-            System.Windows.MessageBox.Show(this, message, text.T("main.addFile"), MessageBoxButton.OK, MessageBoxImage.Warning);
+            LinkShelfMessageBox.Show(this, message, text.T("main.addFile"), MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         foreach (var fileName in dialog.FileNames)
@@ -245,18 +246,18 @@ public partial class MainWindow : Window
 
             var projectionPath = ProjectionService.ProjectExecutableToDirectory(executablePath, dialog.FolderName);
             AppendLog(text.F("log.projected", projectionPath));
-            System.Windows.MessageBox.Show(this, text.F("projection.created", projectionPath), text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Information);
+            LinkShelfMessageBox.Show(this, text.F("projection.created", projectionPath), text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (ProjectionException ex)
         {
             var message = ex.Detail is null ? text.T(ex.TextKey) : text.F(ex.TextKey, ex.Detail);
             AppendLog(text.F("log.failed", text.T("main.project"), message));
-            System.Windows.MessageBox.Show(this, message, text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Error);
+            LinkShelfMessageBox.Show(this, message, text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (Exception ex)
         {
             AppendLog(text.F("log.failed", text.T("main.project"), ex.Message));
-            System.Windows.MessageBox.Show(this, ex.Message, text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Error);
+            LinkShelfMessageBox.Show(this, ex.Message, text.T("main.project"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -269,7 +270,7 @@ public partial class MainWindow : Window
 
         if (itemsToRestore.Count == 0)
         {
-            System.Windows.MessageBox.Show(this, text.T("dialog.noItems"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Information);
+            LinkShelfMessageBox.Show(this, text.T("dialog.noItems"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
 
@@ -282,8 +283,7 @@ public partial class MainWindow : Window
             : selectedItems.Count > 0
                 ? text.F("dialog.restoreSelected", selectedItems.Count)
                 : text.T("dialog.restoreAll");
-        var result = System.Windows.MessageBox.Show(
-            this,
+        var result = LinkShelfMessageBox.Show(this,
             scopeText + Environment.NewLine + text.T(hasUntrackedItems ? "dialog.restoreUntrackedConfirmSuffix" : "dialog.restoreConfirmSuffix"),
             text.T("main.restore"),
             MessageBoxButton.OKCancel,
@@ -315,7 +315,7 @@ public partial class MainWindow : Window
             log.WriteDiagnostic($"revert-click stage=selected count={selectedItems.Count} names={string.Join("|", selectedItems.Select(x => x.CacheName))}");
             if (selectedItems.Count == 0)
             {
-                System.Windows.MessageBox.Show(this, text.T("dialog.noSelection"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Information);
+                LinkShelfMessageBox.Show(this, text.T("dialog.noSelection"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -332,8 +332,7 @@ public partial class MainWindow : Window
                     ? text.F("dialog.revertMixedUntrackedConfirm", selectedItems.Count, selectedItems.Count(IsUntrackedCacheItem))
                     : text.F("dialog.revertConfirm", selectedItems.Count);
                 log.WriteDiagnostic($"revert-click stage=generic-confirm-show hasUntracked={hasUntrackedItems}");
-                result = System.Windows.MessageBox.Show(
-                    this,
+                result = LinkShelfMessageBox.Show(this,
                     message,
                     text.T("main.revert"),
                     MessageBoxButton.OKCancel,
@@ -355,7 +354,7 @@ public partial class MainWindow : Window
         {
             log.WriteDiagnostic($"revert-click stage=exception type={ex.GetType().FullName} message={ex.Message} stack={ex}");
             AppendLog(text.F("log.failed", text.T("main.revert"), ex.Message));
-            System.Windows.MessageBox.Show(this, ex.Message, text.T("main.revert"), MessageBoxButton.OK, MessageBoxImage.Error);
+            LinkShelfMessageBox.Show(this, ex.Message, text.T("main.revert"), MessageBoxButton.OK, MessageBoxImage.Error);
             config = store.Load();
             ReloadGrid();
         }
@@ -432,7 +431,7 @@ public partial class MainWindow : Window
                 }
 
                 AppendLog(text.F("log.failed", name, ex.Message));
-                System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+                LinkShelfMessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                 config = store.Load();
                 ReloadGrid();
                 return false;
@@ -498,7 +497,7 @@ public partial class MainWindow : Window
                     }
 
                     AppendLog(text.F("log.failed", name, ex.Message));
-                    System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    LinkShelfMessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                     config = store.Load();
                     ReloadGrid();
                     return;
@@ -525,8 +524,7 @@ public partial class MainWindow : Window
             if (IsUntrackedCacheItem(item))
             {
                 var cachePathForUntracked = Path.Combine(paths.CacheRoot, item.CacheName);
-                var confirmResult = System.Windows.MessageBox.Show(
-                    this,
+                var confirmResult = LinkShelfMessageBox.Show(this,
                     text.F("dialog.untrackedCacheDeleteConfirm", Environment.NewLine, cachePathForUntracked),
                     text.T("main.revert"),
                     MessageBoxButton.OKCancel,
@@ -570,7 +568,7 @@ public partial class MainWindow : Window
                         }
 
                         AppendLog(text.F("log.failed", name, ex.Message));
-                        System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        LinkShelfMessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                         config = store.Load();
                         ReloadGrid();
                         return;
@@ -586,8 +584,7 @@ public partial class MainWindow : Window
 
             if (!PathExistsForLockScan(cachePath))
             {
-                var result = System.Windows.MessageBox.Show(
-                    this,
+                var result = LinkShelfMessageBox.Show(this,
                     text.F("dialog.revertMissingCacheConfirm", Environment.NewLine, cachePath, item.OriginalPath),
                     text.T("main.revert"),
                     MessageBoxButton.OKCancel,
@@ -642,7 +639,7 @@ public partial class MainWindow : Window
                     }
 
                     AppendLog(text.F("log.failed", name, ex.Message));
-                    System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    LinkShelfMessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                     config = store.Load();
                     ReloadGrid();
                     return;
@@ -705,7 +702,7 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             AppendLog(text.F("log.failed", name, ex.Message));
-            System.Windows.MessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
+            LinkShelfMessageBox.Show(this, ex.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
             config = store.Load();
             ReloadGrid();
         }
@@ -790,7 +787,7 @@ public partial class MainWindow : Window
 
         if (!CanUseOriginalPath(targetPath))
         {
-            System.Windows.MessageBox.Show(this, text.T("dialog.invalidOriginalPath"), text.T("main.restore"), MessageBoxButton.OK, MessageBoxImage.Error);
+            LinkShelfMessageBox.Show(this, text.T("dialog.invalidOriginalPath"), text.T("main.restore"), MessageBoxButton.OK, MessageBoxImage.Error);
             return null;
         }
 

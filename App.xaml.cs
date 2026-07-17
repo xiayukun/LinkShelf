@@ -38,7 +38,7 @@ public partial class App : System.Windows.Application
         catch (Exception ex)
         {
             WriteStartupError(ex);
-            System.Windows.MessageBox.Show(text.T("app.startupFailed"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Error);
+            LinkShelfMessageBox.Show(null, text.T("app.startupFailed"), text.T("app.title"), System.Windows.MessageBoxButton.OK, MessageBoxImage.Error);
             Shutdown();
         }
     }
@@ -50,7 +50,7 @@ public partial class App : System.Windows.Application
             WriteUnhandledError("dispatcher-unhandled", e.Exception);
             try
             {
-                System.Windows.MessageBox.Show(e.Exception.Message, text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(e.Exception.Message, text.T("app.title"), System.Windows.MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch
             {
@@ -90,7 +90,7 @@ public partial class App : System.Windows.Application
         var executable = Environment.ProcessPath;
         if (string.IsNullOrWhiteSpace(executable))
         {
-            System.Windows.MessageBox.Show(text.T("app.cannotLocateSelf"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Error);
+            LinkShelfMessageBox.Show(null, text.T("app.cannotLocateSelf"), text.T("app.title"), System.Windows.MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
@@ -107,7 +107,7 @@ public partial class App : System.Windows.Application
         }
         catch
         {
-            System.Windows.MessageBox.Show(text.T("app.adminRequired"), text.T("app.title"), MessageBoxButton.OK, MessageBoxImage.Warning);
+            LinkShelfMessageBox.Show(null, text.T("app.adminRequired"), text.T("app.title"), System.Windows.MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 

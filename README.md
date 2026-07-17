@@ -12,7 +12,7 @@ Windows 配置迁移与符号链接工具：把分散的应用设置、dotfiles 
 
 **下载：** [LinkShelf.exe](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) | [完整用户指南](docs/user-guide.md) | [最新发布页](https://github.com/xiayukun/LinkShelf/releases/latest)
 
-![Link Shelf preview](Assets/app-preview-cn.png)
+![Link Shelf preview](Assets/screenshots/main-hero.jpg)
 
 ## 快速开始
 

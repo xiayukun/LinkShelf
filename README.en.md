@@ -12,7 +12,7 @@ It is useful for organizing developer environments, AI coding tool settings, ter
 
 **Download:** [LinkShelf.exe](https://github.com/xiayukun/LinkShelf/releases/latest/download/LinkShelf.exe) | [Full user guide](docs/user-guide.en.md) | [Latest release](https://github.com/xiayukun/LinkShelf/releases/latest)
 
-![Link Shelf preview](Assets/app-preview.png)
+![Link Shelf preview](Assets/screenshots/main-hero.jpg)
 
 ## Quick Start
 

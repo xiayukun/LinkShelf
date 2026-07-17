@@ -29,7 +29,7 @@ public sealed class LockingProcessRow
     public string LockedFilesText => string.Join(Environment.NewLine, Process.LockedFileFullNames);
 }
 
-public partial class LockingProcessesWindow : Window
+public partial class LockingProcessesWindow : Wpf.Ui.Controls.FluentWindow
 {
     private readonly LocalizationService text;
     private readonly string sourcePath;
@@ -43,6 +43,7 @@ public partial class LockingProcessesWindow : Window
         this.errorMessage = errorMessage;
 
         InitializeComponent();
+        ExtendsContentIntoTitleBar = true;
         ApplyLanguage();
         Loaded += async (_, _) => await RefreshProcessesAsync();
     }
@@ -140,7 +141,7 @@ public partial class LockingProcessesWindow : Window
             return;
         }
 
-        var result = System.Windows.MessageBox.Show(
+        var result = LinkShelfMessageBox.Show(
             this,
             text.F("lockWindow.terminateConfirm", processes.Count),
             text.T("lockWindow.terminateConfirmTitle"),
@@ -168,7 +169,7 @@ public partial class LockingProcessesWindow : Window
         }
         catch (Exception ex)
         {
-            System.Windows.MessageBox.Show(this, text.F("lockWindow.terminateFailed", ex.Message), text.T("lockWindow.title"), MessageBoxButton.OK, MessageBoxImage.Error);
+            LinkShelfMessageBox.Show(this, text.F("lockWindow.terminateFailed", ex.Message), text.T("lockWindow.title"), MessageBoxButton.OK, MessageBoxImage.Error);
             await RefreshProcessesAsync();
         }
         finally

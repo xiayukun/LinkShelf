@@ -3,10 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using LinkShelf.Models;
 using LinkShelf.Services;
-
+using Wpf.Ui.Controls;
 namespace LinkShelf;
 
-public partial class RecommendedItemsWindow : Window
+public partial class RecommendedItemsWindow : Wpf.Ui.Controls.FluentWindow
 {
     private readonly LocalizationService text;
     private readonly ObservableCollection<RecommendedSyncItemRow> rows;
@@ -24,6 +24,7 @@ public partial class RecommendedItemsWindow : Window
                 Reason = text.T(item.ReasonKey)
             }));
 
+        ExtendsContentIntoTitleBar = true;
         InitializeComponent();
         ApplyLanguage();
         RecommendedGrid.ItemsSource = rows;
@@ -52,7 +53,7 @@ public partial class RecommendedItemsWindow : Window
         SelectedItems = rows.Where(row => row.IsSelected).Select(row => row.Item).ToList();
         if (SelectedItems.Count == 0)
         {
-            System.Windows.MessageBox.Show(this, text.T("recommended.noSelection"), text.T("recommended.title"), MessageBoxButton.OK, MessageBoxImage.Information);
+            LinkShelfMessageBox.Show(this, text.T("recommended.noSelection"), text.T("recommended.title"), System.Windows.MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
 

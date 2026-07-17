@@ -8,7 +8,22 @@ Chinese changelog: [CHANGELOG.md](CHANGELOG.md)
 
 ## Unreleased
 
-## 1.1.6 - 2026-06-10
+## 2.0.0 - 2026-07-17
+
+Chinese: [Changelog](CHANGELOG.md#200---2026-07-17) | [Release notes](docs/release-notes-v2.0.0.md)
+
+### Added
+
+- Migrated all manager windows (Conflict choice, Locking processes, Recommended items, Main window) to WPF-UI `FluentWindow` with `ExtendsContentIntoTitleBar` modern title bar and system accent colour support.
+- Added custom `LinkShelfMessageBox` that matches the dark-theme style, replacing the native `System.Windows.MessageBox` everywhere.
+- Integrated WPF-UI Dark theme with unified dark foreground colours across all windows.
+- Added `WPF-UI` package dependency (v4.3.0) as the foundation for ongoing UI modernisation.
+- Updated the main hero screenshot on the GitHub landing page.
+
+### Changed
+
+- All dialog and message-box calls migrated from `System.Windows.MessageBox` to the custom `LinkShelfMessageBox`.
+- GitHub README now references `Assets/screenshots/main-hero.jpg` for the main preview image.
 
 Chinese: [Changelog](CHANGELOG.md#116---2026-06-10) | [Release notes](docs/release-notes-v1.1.6.md)
 
