@@ -4,11 +4,12 @@ Chinese: [session-handoff.md](session-handoff.md)
 
 This document preserves high-value project context for future Codex sessions. A new session should read `AGENTS.md` first, then this file.
 
-## 2.0.1 maintenance release preparation (2026-09-16)
+## 2.0.1 maintenance release completed (2026-09-16)
 
 - Reviewed and merged Dependabot PRs #4/#5 from remote main in an isolated worktree, preserving existing documentation changes in the original checkout.
 - Updated build/release workflows to checkout v7 and setup-dotnet v6 without changing .NET 8 or migration/link behavior. Bumped 2.0.0 to 2.0.1 and replaced the hard-coded CLI 1.1.6 version with assembly metadata.
-- The combined upgrade passed Release build and single-file publishing; isolated `check --json` found no issues. Confirm final publication and projected local executables against the tag, workflows, and version read-back.
+- Release build and single-file publishing passed. Tag v2.0.1 targets release commit 533add4, and main/tag builds plus the release workflow all passed. The GitHub release contains only LinkShelf.exe; the downloaded asset was checked for SHA-256 `07e96d0413d70687a84446a7a3a38e18cf84bb595977dcd91fc7b0643ef84ac8`, CLI 2.0.1, file version 2.0.1.0, and isolated `check --json`.
+- The user explicitly authorized updating three installed copies. All now use 2.0.1 built locally from the same release commit. Two projected copies remain hard-linked to dist/LinkShelf.exe in the primary checkout; the third remains an independent copy. Both existing configuration hashes are unchanged, and temporary rollback copies of the old executables were retained. The local artifact SHA-256 is `f4bcf1558e2027c14feb8a9c8a99e36c485a32dfdeed4be1689ee009a134d3b4`, different from the independent GitHub runner build; no byte-for-byte equivalence is claimed.
 - The v1.1.x versions and local paths in the early handoff below are historical records, not the current release state.
 
 ## Current Project
