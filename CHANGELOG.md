@@ -8,6 +8,14 @@ English changelog: [CHANGELOG.en.md](CHANGELOG.en.md)
 
 ## 未发布
 
+## 2.0.1 - 2026-09-16
+
+English: [Changelog](CHANGELOG.en.md#201---2026-09-16) | [Release notes](docs/release-notes-v2.0.1.en.md)
+
+- 构建和发布工作流更新为 checkout v7、setup-dotnet v6，保持 .NET 8 与 Windows x64 单文件发布方式。
+- 修复 CLI `version` 仍显示写死的 1.1.6：现在从程序集读取实际发布版本，避免以后升级时漏改。
+- 不改变文件迁移、链接操作或配置格式。
+
 ## 2.0.0 - 2026-07-17
 
 English: [Changelog](CHANGELOG.en.md#200---2026-07-17) | [Release notes](docs/release-notes-v2.0.0.md)

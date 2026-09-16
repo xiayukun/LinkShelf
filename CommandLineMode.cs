@@ -1,5 +1,6 @@
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Reflection;
 using LinkShelf.Models;
 using LinkShelf.Services;
 
@@ -7,7 +8,10 @@ namespace LinkShelf;
 
 internal static class CommandLineMode
 {
-    private const string Version = "1.1.6";
+    private static string Version => typeof(CommandLineMode).Assembly
+        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0]
+        ?? typeof(CommandLineMode).Assembly.GetName().Version?.ToString(3)
+        ?? "unknown";
 
     public static bool IsCommand(string[] args)
     {

@@ -2,7 +2,7 @@
 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4)
-![Version](https://img.shields.io/badge/version-2.0.0-43b883)
+![Version](https://img.shields.io/badge/version-2.0.1-43b883)
 [![Build](https://github.com/xiayukun/LinkShelf/actions/workflows/build.yml/badge.svg)](https://github.com/xiayukun/LinkShelf/actions/workflows/build.yml)
 ![License](https://img.shields.io/badge/license-MIT-green)
 

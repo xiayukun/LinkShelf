@@ -8,6 +8,14 @@ Chinese changelog: [CHANGELOG.md](CHANGELOG.md)
 
 ## Unreleased
 
+## 2.0.1 - 2026-09-16
+
+Chinese: [Changelog](CHANGELOG.md#201---2026-09-16) | [Release notes](docs/release-notes-v2.0.1.md)
+
+- Updated build and release workflows to checkout v7 and setup-dotnet v6, retaining .NET 8 and Windows x64 single-file publishing.
+- Fixed the CLI `version` command still returning a hard-coded 1.1.6. It now reads the release version from the assembly so future updates cannot leave it behind.
+- No changes to file migration, link operations, or configuration format.
+
 ## 2.0.0 - 2026-07-17
 
 Chinese: [Changelog](CHANGELOG.md#200---2026-07-17) | [Release notes](docs/release-notes-v2.0.0.md)

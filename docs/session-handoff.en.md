@@ -4,6 +4,13 @@ Chinese: [session-handoff.md](session-handoff.md)
 
 This document preserves high-value project context for future Codex sessions. A new session should read `AGENTS.md` first, then this file.
 
+## 2.0.1 maintenance release preparation (2026-09-16)
+
+- Reviewed and merged Dependabot PRs #4/#5 from remote main in an isolated worktree, preserving existing documentation changes in the original checkout.
+- Updated build/release workflows to checkout v7 and setup-dotnet v6 without changing .NET 8 or migration/link behavior. Bumped 2.0.0 to 2.0.1 and replaced the hard-coded CLI 1.1.6 version with assembly metadata.
+- The combined upgrade passed Release build and single-file publishing; isolated `check --json` found no issues. Confirm final publication and projected local executables against the tag, workflows, and version read-back.
+- The v1.1.x versions and local paths in the early handoff below are historical records, not the current release state.
+
 ## Current Project
 
 - Project name: `Link Shelf`
